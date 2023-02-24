@@ -5,7 +5,7 @@ export default class HomePage extends React.Component {
     return (
       <div>
         <p className=" h1 text-center text-secondary font-weight-bold font-italic mt-5">
-          Employee Portal
+          Login/Signup Portal
         </p>
         <Link
           to="/home/login"
