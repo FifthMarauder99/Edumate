@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 export default class HomePage extends React.Component {
-  render() {
+  render () {
     return (
       <div>
         <p className=" h1 text-center text-secondary font-weight-bold font-italic mt-5">
@@ -20,6 +20,6 @@ export default class HomePage extends React.Component {
           Sign Up
         </Link>
       </div>
-    );
+    )
   }
 }

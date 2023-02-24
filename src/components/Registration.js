@@ -1,33 +1,35 @@
-import React from "react";
-import { AvForm, AvField } from "availity-reactstrap-validation";
-import { Button, Container, Row, Col } from "reactstrap";
+import React from 'react'
+import { AvForm, AvField } from 'availity-reactstrap-validation'
+import { Button, Container, Row, Col } from 'reactstrap'
 
 export default class Registration extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
-      userName: "",
-      lastName: "",
-      mobile: "",
-      emailId: "",
-      password: "",
-      confirmPassword: "",
+      userName: '',
+      lastName: '',
+      mobile: '',
+      emailId: '',
+      password: '',
+      confirmPassword: '',
       formValues: [],
       showDetails: false
-    };
+    }
   }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
-    });
-    console.log(this.state);
-  };
+    })
+    console.log(this.state)
+  }
+
   formSubmit = () => {
     if (this.state.password !== this.state.confirmPassword) {
-      alert("passwords did not matched");
-      return false;
+      alert('passwords did not matched')
+      return false
     } else {
-      alert("Form Submitted Successfully");
+      alert('Form Submitted Successfully')
       this.setState({
         formValues: [
           this.state.userName,
@@ -35,17 +37,18 @@ export default class Registration extends React.Component {
           this.state.emailId
         ],
         showDetails: true
-      });
-      console.log(this.state.formValues);
+      })
+      console.log(this.state.formValues)
       this.props.history.push({
-        pathname: "/home/employeelist",
+        pathname: '/home/employeelist',
         data: this.state.formValues
-      });
-      return true;
+      })
+      return true
     }
-  };
-  render() {
-    const { userName, emailId, mobile, password, confirmPassword } = this.state;
+  }
+
+  render () {
+    const { userName, emailId, mobile, password, confirmPassword } = this.state
     return (
       <div>
         <div>
@@ -66,20 +69,20 @@ export default class Registration extends React.Component {
                   validate={{
                     required: {
                       value: { userName },
-                      errorMessage: "Please enter your user name"
+                      errorMessage: 'Please enter your user name'
                     },
                     pattern: {
-                      value: "^[A-Za-z0-9]+$",
+                      value: '^[A-Za-z0-9]+$',
                       errorMessage:
-                        "First Name must be composed only with letter and numbers"
+                        'First Name must be composed only with letter and numbers'
                     },
                     minLength: {
                       value: 4,
-                      errorMessage: "User name must be b/w 4 to 16 characters"
+                      errorMessage: 'User name must be b/w 4 to 16 characters'
                     },
                     maxLength: {
                       value: 16,
-                      errorMessage: "User name must be b/w 6 to 16 characters"
+                      errorMessage: 'User name must be b/w 6 to 16 characters'
                     }
                   }}
                 />
@@ -95,17 +98,17 @@ export default class Registration extends React.Component {
                   validate={{
                     required: {
                       value: { mobile },
-                      errorMessage: "Please enter your mobile number"
+                      errorMessage: 'Please enter your mobile number'
                     },
                     pattern: {
-                      value: "^[0-9]+$",
+                      value: '^[0-9]+$',
                       errorMessage:
-                        "Mobile Number must be composed only with numbers"
+                        'Mobile Number must be composed only with numbers'
                     },
                     minLength: {
                       value: 10,
                       errorMessage:
-                        "Your mobile number must be composed of 10 digits"
+                        'Your mobile number must be composed of 10 digits'
                     },
                     maxLength: { value: 10 }
                   }}
@@ -123,7 +126,7 @@ export default class Registration extends React.Component {
                   validate={{
                     required: {
                       value: { emailId },
-                      errorMessage: "Please enter your email address"
+                      errorMessage: 'Please enter your email address'
                     }
                   }}
                 />
@@ -139,22 +142,22 @@ export default class Registration extends React.Component {
                   validate={{
                     required: {
                       value: { password },
-                      errorMessage: "Please enter your password"
+                      errorMessage: 'Please enter your password'
                     },
                     pattern: {
-                      value: "^[A-Za-z0-9]+$",
+                      value: '^[A-Za-z0-9]+$',
                       errorMessage:
-                        "Password must be composed only with letter and numbers"
+                        'Password must be composed only with letter and numbers'
                     },
                     minLength: {
                       value: 5,
                       errorMessage:
-                        "Password name must be b/w 5 to 16 characters"
+                        'Password name must be b/w 5 to 16 characters'
                     },
                     maxLength: {
                       value: 16,
                       errorMessage:
-                        "Password name must be b/w 5 to 16 characters"
+                        'Password name must be b/w 5 to 16 characters'
                     }
                   }}
                 />
@@ -170,22 +173,22 @@ export default class Registration extends React.Component {
                   validate={{
                     required: {
                       value: { confirmPassword },
-                      errorMessage: "Please enter your confirm password"
+                      errorMessage: 'Please enter your confirm password'
                     },
                     pattern: {
-                      value: "^[A-Za-z0-9]+$",
+                      value: '^[A-Za-z0-9]+$',
                       errorMessage:
-                        "Confirm Password must be composed only with letter and numbers"
+                        'Confirm Password must be composed only with letter and numbers'
                     },
                     minLength: {
                       value: 5,
                       errorMessage:
-                        "Password name must be b/w 5 to 16 characters"
+                        'Password name must be b/w 5 to 16 characters'
                     },
                     maxLength: {
                       value: 16,
                       errorMessage:
-                        "Password name must be b/w 5 to 16 characters"
+                        'Password name must be b/w 5 to 16 characters'
                     }
                   }}
                 />
@@ -208,40 +211,40 @@ export default class Registration extends React.Component {
                   Submitted form values
                 </p>
               </>
-              <ul style={{ listStyleType: "none" }}>
+              <ul style={{ listStyleType: 'none' }}>
                 <li>
                   <span
                     style={{
-                      fontWeight: "bold",
-                      fontStyle: "italic",
-                      color: "grey"
+                      fontWeight: 'bold',
+                      fontStyle: 'italic',
+                      color: 'grey'
                     }}
                   >
-                    User Name:{" "}
+                    User Name:{' '}
                   </span>
                   {this.state.userName}
                 </li>
                 <li>
                   <span
                     style={{
-                      fontWeight: "bold",
-                      fontStyle: "italic",
-                      color: "grey"
+                      fontWeight: 'bold',
+                      fontStyle: 'italic',
+                      color: 'grey'
                     }}
                   >
-                    Mobile No:{" "}
+                    Mobile No:{' '}
                   </span>
                   {this.state.mobile}
                 </li>
                 <li>
                   <span
                     style={{
-                      fontWeight: "bold",
-                      fontStyle: "italic",
-                      color: "grey"
+                      fontWeight: 'bold',
+                      fontStyle: 'italic',
+                      color: 'grey'
                     }}
                   >
-                    Mail Address:{" "}
+                    Mail Address:{' '}
                   </span>
                   {this.state.emailId}
                 </li>
@@ -250,6 +253,6 @@ export default class Registration extends React.Component {
           )}
         </div>
       </div>
-    );
+    )
   }
 }

@@ -1,35 +1,38 @@
-import React from "react";
-import { AvForm, AvField } from "availity-reactstrap-validation";
-import { Button, Container, Row, Col } from "reactstrap";
+import React from 'react'
+import { AvForm, AvField } from 'availity-reactstrap-validation'
+import { Button, Container, Row, Col } from 'reactstrap'
 export default class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
-      loginUserName: "",
-      loginPassword: ""
-    };
+      loginUserName: '',
+      loginPassword: ''
+    }
   }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
-    });
-    console.log(this.state);
-  };
+    })
+    console.log(this.state)
+  }
+
   formSubmit = () => {
     if (
-      this.state.loginUserName === "admin" &&
-      this.state.loginPassword === "admin"
+      this.state.loginUserName === 'admin' &&
+      this.state.loginPassword === 'admin'
     ) {
-      alert("credentials matched");
-      this.props.history.push("/home/employeelist");
-      return true;
+      alert('credentials matched')
+      this.props.history.push('/home/employeelist')
+      return true
     } else {
-      alert("invalid credentials");
-      return false;
+      alert('invalid credentials')
+      return false
     }
-  };
-  render() {
-    const { loginUserName, loginPassword } = this.state;
+  }
+
+  render () {
+    const { loginUserName, loginPassword } = this.state
     return (
       <div>
         <div>
@@ -49,20 +52,20 @@ export default class Login extends React.Component {
                   validate={{
                     required: {
                       value: { loginUserName },
-                      errorMessage: "Please enter your user name"
+                      errorMessage: 'Please enter your user name'
                     },
                     pattern: {
-                      value: "^[A-Za-z0-9]+$",
+                      value: '^[A-Za-z0-9]+$',
                       errorMessage:
-                        "First Name must be composed only with letter and numbers"
+                        'First Name must be composed only with letter and numbers'
                     },
                     minLength: {
                       value: 4,
-                      errorMessage: "User name must be b/w 4 to 16 characters"
+                      errorMessage: 'User name must be b/w 4 to 16 characters'
                     },
                     maxLength: {
                       value: 16,
-                      errorMessage: "User name must be b/w 6 to 16 characters"
+                      errorMessage: 'User name must be b/w 6 to 16 characters'
                     }
                   }}
                 />
@@ -78,22 +81,22 @@ export default class Login extends React.Component {
                   validate={{
                     required: {
                       value: { loginPassword },
-                      errorMessage: "Please enter your password"
+                      errorMessage: 'Please enter your password'
                     },
                     pattern: {
-                      value: "^[A-Za-z0-9]+$",
+                      value: '^[A-Za-z0-9]+$',
                       errorMessage:
-                        "Password must be composed only with letter and numbers"
+                        'Password must be composed only with letter and numbers'
                     },
                     minLength: {
                       value: 5,
                       errorMessage:
-                        "Password name must be b/w 5 to 16 characters"
+                        'Password name must be b/w 5 to 16 characters'
                     },
                     maxLength: {
                       value: 16,
                       errorMessage:
-                        "Password name must be b/w 6 to 16 characters"
+                        'Password name must be b/w 6 to 16 characters'
                     }
                   }}
                 />
@@ -109,6 +112,6 @@ export default class Login extends React.Component {
           </Container>
         </AvForm>
       </div>
-    );
+    )
   }
 }
