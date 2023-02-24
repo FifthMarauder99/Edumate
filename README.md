@@ -21,12 +21,22 @@ To lint AND fix: `npx eslint --fix <rest>`
 4. npm start
 ```
 
-## Deployment to Heroku
+## Databases
 
 ```
-cd /project
-heroku git:remote -a edumate
-git add .
-git commit -am "msg"
-git push heroku master
+> psql --host=ec2-3-217-251-77.compute-1.amazonaws.com --port=5432 --username=akeiblbxtugmjc --password  --dbname=dev7840n5hhvvt
+> password
+> heroku pg:psql --app edumate < filename.sql
+```
+
+## Deployment to Heroku
+
+### Prod
+
+```
+> cd /project
+> heroku git:remote -a edumate
+> git add .
+> git commit -am "msg"
+> git push heroku master
 ```

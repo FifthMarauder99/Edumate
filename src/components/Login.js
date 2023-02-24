@@ -1,6 +1,7 @@
 import React from 'react'
 import { AvForm, AvField } from 'availity-reactstrap-validation'
 import { Button, Container, Row, Col } from 'reactstrap'
+
 export default class Login extends React.Component {
   constructor (props) {
     super(props)
@@ -10,7 +11,7 @@ export default class Login extends React.Component {
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -23,6 +24,7 @@ export default class Login extends React.Component {
       this.state.loginPassword === 'admin'
     ) {
       alert('credentials matched')
+      // eslint-disable-next-line react/prop-types
       this.props.history.push('/home/employeelist')
       return true
     } else {
@@ -115,3 +117,7 @@ export default class Login extends React.Component {
     )
   }
 }
+
+// Login.propTypes = {
+
+// }
