@@ -12,6 +12,8 @@ export default class Registration extends React.Component {
       emailId: "",
       password: "",
       confirmPassword: "",
+      securityQuestion: "",
+      securityAnswer: "",
       formValues: [],
       showDetails: false
     };
@@ -24,7 +26,7 @@ export default class Registration extends React.Component {
   };
   formSubmit = () => {
     if (this.state.password !== this.state.confirmPassword) {
-      alert("passwords did not matched");
+      alert("passwords did not match");
       return false;
     } else {
       alert("Form Submitted Successfully");
@@ -44,8 +46,10 @@ export default class Registration extends React.Component {
       return true;
     }
   };
+  
   render() {
-    const { userName, emailId, mobile, password, confirmPassword } = this.state;
+    const { userName, emailId, mobile, password, confirmPassword, securityQuestion, securityAnswer } = this.state;
+    const isSecurityAnsEnabled = securityQuestion !== "";
     return (
       <div className="menu p-md-5 p-sm-0 min-vh-100">
         <div className="mx-auto py-5 bg-light loginreg w-25 rounded">
@@ -58,7 +62,7 @@ export default class Registration extends React.Component {
           <AvForm onValidSubmit={this.formSubmit}>
             <Container>
               <Row>
-                <Col sm="12" md={{ size: 6, offset: 3 }}>
+                <Col sm="12" md={{ size: 10, offset: 1 }}>
                   <AvField
                     onChange={this.handleChange}
                     name="userName"
@@ -87,7 +91,7 @@ export default class Registration extends React.Component {
                 </Col>
               </Row>
               <Row>
-                <Col sm="12" md={{ size: 6, offset: 3 }}>
+                <Col sm="12" md={{ size: 10, offset: 1 }}>
                   <AvField
                     onChange={this.handleChange}
                     name="mobile"
@@ -114,7 +118,7 @@ export default class Registration extends React.Component {
                 </Col>
               </Row>
               <Row>
-                <Col sm="12" md={{ size: 6, offset: 3 }}>
+                <Col sm="12" md={{ size: 10, offset: 1 }}>
                   <AvField
                     onChange={this.handleChange}
                     name="emailId"
@@ -131,7 +135,7 @@ export default class Registration extends React.Component {
                 </Col>
               </Row>
               <Row>
-                <Col sm="12" md={{ size: 6, offset: 3 }}>
+                <Col sm="12" md={{ size: 10, offset: 1 }}>
                   <AvField
                     onChange={this.handleChange}
                     name="password"
@@ -162,7 +166,7 @@ export default class Registration extends React.Component {
                 </Col>
               </Row>
               <Row>
-                <Col sm="12" md={{ size: 6, offset: 3 }}>
+                <Col sm="12" md={{ size: 10, offset: 1 }}>
                   <AvField
                     onChange={this.handleChange}
                     name="confirmPassword"
@@ -193,7 +197,45 @@ export default class Registration extends React.Component {
                 </Col>
               </Row>
               <Row>
-                <Col className="text-center" sm="12" md={{ size: 6, offset: 3 }}>
+                <Col sm="12" md={{ size: 10, offset: 1 }}>
+                  <AvField
+                    onChange={this.handleChange}
+                    name="securityQuestion"
+                    label="Security Question"
+                    type="select"
+                    validate={{
+                      required: {
+                        value: { securityQuestion },
+                        errorMessage: "Please pick a security question"
+                      }
+                    }}>
+                    <option></option>
+                    <option>What is the name of your favorite pet?</option>
+                    <option>What is your mother's maiden name?</option>
+                    <option>What was your favorite food as a child?</option>
+                  </AvField>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm="12" md={{ size: 10, offset: 1 }}>
+                  <AvField
+                    onChange={this.handleChange}
+                    name="securityAnswer"
+                    label="Security Answer"
+                    type="text"
+                    validate={{
+                      required: {
+                        value: { securityAnswer },
+                        errorMessage: "Please type an answer"
+                      }
+                    }}
+                    disabled={!isSecurityAnsEnabled}>
+
+                  </AvField>
+                </Col>
+              </Row>
+              <Row>
+                <Col className="text-center" sm="12" md={{ size: 10, offset: 1 }}>
                   <Button type="submit" color="primary">
                     Submit
                   </Button>
