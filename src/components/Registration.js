@@ -88,7 +88,7 @@ export default class Registration extends React.Component {
       }
       console.log(this.state.formValues)
       this.props.history.push({
-        pathname: '/home/employeelist',
+        pathname: '/home/',
         data: this.state.formValues
       })
       return true
