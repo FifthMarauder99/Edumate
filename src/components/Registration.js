@@ -24,15 +24,35 @@ export default class Registration extends React.Component {
   }
 
   callAPI() {
-    // most likely going to change
-    fetch("http://localhost:9000/testAPI")
+    // TODO: change to official API url
+    fetch("http://localhost:9000/testDB")
         .then(res => res.text())
         .then(res => this.setState({ apiResponse: res }));
-}
+  }
 
-componentWillMount() {
-    this.callAPI();
-}
+  // componentWillMount() {
+  //   this.callAPI();
+  // }
+
+  newAccount = async (url = '', data = {}) => {
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.emailId,
+        username: this.state.userName,
+        password: this.state.password,
+        role: 'Student', // TODO: change later when form changes
+        mobile: this.state.mobile,
+      })
+      }
+    );
+    return response.json();
+  }
+
   
   handleChange = (event) => {
     // dotenv.config({ path: ../../.env' });
@@ -43,22 +63,15 @@ componentWillMount() {
     console.log(this.state)
   }
 
-  callApi = async () => {
-    const response = await fetch('/api/hello');
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    return body;
-  }
-
   formSubmit = async () => {
-      const response = await fetch('/api/world', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ post: this.state.post }),
-      });
-      const body = await response.text();
+      // const response = await fetch('/api/world', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ post: this.state.post }),
+      // });
+      // const body = await response.text();
 
     if (this.state.password !== this.state.confirmPassword) {
       alert('passwords do not matched')
@@ -76,24 +89,7 @@ componentWillMount() {
         showDetails: true
       });
       // inserting into the database the info
-      // const database_url = "postgres://akeiblbxtugmjc:499dbdfb81e68eafb1996d0833e3127bd558b166ddb4e247104c8dc26701fdbd@ec2-3-217-251-77.compute-1.amazonaws.com:5432/dev7840n5hhvvt"
-      // const client = new Client({
-      //   connectionString: database_url,
-      //   ssl: true,
-      // });
-      // client.connect();
-      // const query = `INSERT INTO 'users' (email, username, password, user_role, mobile) VALUES (${this.state.emailId}, ${this.state.userName}, ${this.state.password}, ${this.state.role}, ${this.state.mobile})`;
-      // client.query(query, (err, res) => {
-      //   if (err) {
-      //     console.log("didn't register" + err);
-      //     throw err;
-      //   }
-      //   console.log('inserted into users');
-      //   for (let row of res.rows) {
-      //     console.log(JSON.stringify(row));
-      //   }
-      //   client.end();
-      // });
+      this.newAccount('http://localhost:9000/testDB').then((data) => console.log(data));
       console.log(this.state.formValues)
       this.props.history.push({
         pathname: '/home/employeelist',
