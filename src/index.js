@@ -25,6 +25,7 @@ function App() {
           <Route path="/home/login" component={Login} />
           <Route path="/home/register" component={Registration} />
           <Route path="/home/successfulLogin" component={SuccessfulLogin} />
+          <Route path="/home/logout" component={HomePage} />
         </Switch>
       </Router>
     </div>
