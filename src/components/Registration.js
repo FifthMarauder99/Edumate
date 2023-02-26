@@ -23,18 +23,19 @@ export default class Registration extends React.Component {
     }
   }
 
-  callAPI() {
-    // TODO: change to official API url
-    fetch("http://localhost:9000/testDB")
-        .then(res => res.text())
-        .then(res => this.setState({ apiResponse: res }));
-  }
+  // callAPI() {
+  //   // TODO: change to official API url
+  //   fetch("http://localhost:9000/testDB")
+  //       .then(res => res.text())
+  //       .then(res => this.setState({ apiResponse: res }));
+  // }
 
   // componentWillMount() {
   //   this.callAPI();
   // }
 
   newAccount = async (url = '', data = {}) => {
+    console.log(this.state.username);
     const response = await fetch(url, {
       method: 'POST',
       mode: "cors",
@@ -64,15 +65,6 @@ export default class Registration extends React.Component {
   }
 
   formSubmit = async () => {
-      // const response = await fetch('/api/world', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ post: this.state.post }),
-      // });
-      // const body = await response.text();
-
     if (this.state.password !== this.state.confirmPassword) {
       alert('passwords do not matched')
       return false
@@ -89,7 +81,11 @@ export default class Registration extends React.Component {
         showDetails: true
       });
       // inserting into the database the info
-      this.newAccount('http://localhost:9000/testDB').then((data) => console.log(data));
+      try {
+        let response = this.newAccount('http://localhost:9000/testDB');
+      } catch (e) {
+        console.log(e)
+      }
       console.log(this.state.formValues)
       this.props.history.push({
         pathname: '/home/employeelist',

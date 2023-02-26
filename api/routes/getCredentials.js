@@ -11,16 +11,21 @@ router.post('/', async (req, res) => {
             ssl: { rejectUnauthorized: false },
         });
         const client = await pool.connect();
-        const query = `INSERT INTO users (email, username, password, user_role, mobile) VALUES ('${req.body.email}', '${req.body.username}', '${req.body.password}', '${req.body.role}', '${req.body.mobile}')`;
+        const query = `SELECT username, password FROM users WHERE username = '${req.body.username}'`;
+        // const query = `SELECT username, password FROM users WHERE username = 'peppa'`;
         const result = await client.query(query);
         const results = { 'results': (result) ? result.rows : null};
-        res.send(`ayo this shit works ${results.rows}`);
+        console.log("result from query: " + JSON.stringify(results));
+        const results_json_str = JSON.stringify(results);
+        const results_json = JSON.parse(results_json_str);
+        console.log(JSON.parse(results_json_str).results[0]); //  JSON.parse(results_json) == {"results":[{"username":"peppa","password":"asdfghjk"}]}
+        res.send(results_json.results[0]); 
+        // console.log(results.results[0].username);
         client.release();
     } catch (err) {
         console.error(err);
-        res.send("Error " + err);
+        throw err;
     }
 });
-
 
 module.exports = router;

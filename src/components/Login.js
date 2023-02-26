@@ -17,15 +17,41 @@ export default class Login extends React.Component {
     })
     console.log(this.state)
   }
+  
+  attemptLogin = async (url = '') => {
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.loginUserName
+      })
+    }
+    );
+    return response.json();
+  }
 
-  formSubmit = () => {
+  formSubmit = async () => {
+    let response;
+    try {
+      response = await this.attemptLogin('http://localhost:9000/getCredentials');
+      console.log(response);
+    } catch (e) {
+      console.log(e)
+      alert('no account found with that username and/or password');
+      return false
+    }
+    // let response_user = response.results[0].username;
+    let response_password = (response === undefined) ? "" : response.password;
+    console.log("response_password " + response_password);
     if (
-      this.state.loginUserName === 'admin' &&
-      this.state.loginPassword === 'admin'
+      (this.state.loginUserName === 'admin' &&
+        this.state.loginPassword === 'admin') || this.state.loginPassword === response_password
     ) {
       alert('credentials matched')
-      // eslint-disable-next-line react/prop-types
-      this.props.history.push('/home/employeelist')
+      this.props.history.push('/home/successfulLogin')
       return true
     } else {
       alert('invalid credentials')
