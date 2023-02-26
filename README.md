@@ -13,12 +13,19 @@ To lint the entire directory: `npx eslint .`
 To lint AND fix: `npx eslint --fix <rest>`
 
 ## Running locally
+### For just frontend
 
 ```
 1. rm package-lock.json (if applicable)
 2. npm install
 3. npm build -- to check if everything is in order
 4. npm start
+```
+### Backend + Frontend
+```
+> pwd
+whatever/P565-SE1-SP23-Project-Team-13/
+> npm run api-start
 ```
 
 ## Databases
