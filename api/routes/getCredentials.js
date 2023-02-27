@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
         // TODO: this cannot be hardcoded. --> change later
         console.log(process.env.REACT_APP_DATABASE_URL);
         const pool = new Pool({
-            connectionString: process.env.REACT_APP_DATABASE_URL || "postgres://akeiblbxtugmjc:499dbdfb81e68eafb1996d0833e3127bd558b166ddb4e247104c8dc26701fdbd@ec2-3-217-251-77.compute-1.amazonaws.com:5432/dev7840n5hhvvt",
+            connectionString: process.env.REACT_APP_DATABASE_URL || "postgres://tdqufxivqluvdz:f938ed6d54f160dd301a83fa72fc54de1fc65a0459c4d02e0c19798e2263de34@ec2-52-200-5-135.compute-1.amazonaws.com:5432/dd728pf397dual",
             ssl: (process.env.REACT_APP_DATABASE_URL) ? true : {rejectUnauthorized : false},
         });
         const client = await pool.connect();
