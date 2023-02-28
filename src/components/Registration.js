@@ -14,6 +14,7 @@ export default class Registration extends React.Component {
       confirmPassword: "",
       securityQuestion: "",
       securityAnswer: "",
+      role: "",
       formValues: [],
       showDetails: false
     };
@@ -48,7 +49,7 @@ export default class Registration extends React.Component {
   };
   
   render() {
-    const { userName, emailId, mobile, password, confirmPassword, securityQuestion, securityAnswer } = this.state;
+    const { userName, emailId, mobile, password, confirmPassword, securityQuestion, securityAnswer, role } = this.state;
     const isSecurityAnsEnabled = securityQuestion !== "";
     return (
       <div className="menu p-md-5 p-sm-0 min-vh-100">
@@ -122,9 +123,9 @@ export default class Registration extends React.Component {
                   <AvField
                     onChange={this.handleChange}
                     name="emailId"
-                    label="Email id"
+                    label="Email Address"
                     type="email"
-                    errorMessage="Invalid email id"
+                    errorMessage="Invalid email address"
                     validate={{
                       required: {
                         value: { emailId },
@@ -194,6 +195,25 @@ export default class Registration extends React.Component {
                       }
                     }}
                   />
+                </Col>
+              </Row>
+              <Row>
+                <Col sm="12" md={{ size: 10, offset: 1 }}>
+                  <AvField
+                    onChange={this.handleChange}
+                    name="role"
+                    label="Role"
+                    type="select"
+                    validate={{
+                      required: {
+                        value: { role },
+                        errorMessage: "Please select a role"
+                      }
+                    }}>
+                    <option>Student</option>
+                    <option>Educator</option>
+                    <option>Admin</option>
+                  </AvField>
                 </Col>
               </Row>
               <Row>
