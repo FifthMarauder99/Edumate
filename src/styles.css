@@ -3,3 +3,12 @@ label {
   font-weight: bold;
   font-style: italic;
 }
+
+.menu {
+  background-image: url('images/startup-photos.jpg');
+  height: 100vh
+}
+
+.loginreg {
+  box-shadow: 10px 10px 10px;
+}
