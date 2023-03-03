@@ -12,7 +12,7 @@ export default class Registration extends React.Component {
       emailId: '',
       password: '',
       confirmPassword: '',
-      role: '',
+      role: 'Student',
       securityQuestion: '',
       securityAnswer: '',
       formValues: [],
@@ -54,7 +54,6 @@ export default class Registration extends React.Component {
       alert('passwords do not matched')
       return false
     } else {
-      alert('Form Submitted Successfully')
       this.setState({
         formValues: [
           this.state.userName,
@@ -62,12 +61,14 @@ export default class Registration extends React.Component {
           this.state.emailId,
           this.state.password,
           this.state.role,
+          this.state.securityQuestion,
+          this.state.securityAnswer,
         ],
         showDetails: true
       });
       // inserting into the database the info
       try {
-        let response = this.newAccount('http://localhost:9000/testDB');
+        let response = this.newAccount('http://localhost:9000/registerAccount');
       } catch (e) {
         console.log(e)
       }
@@ -76,6 +77,7 @@ export default class Registration extends React.Component {
         pathname: '/home/',
         data: this.state.formValues
       })
+      alert('Form Submitted Successfully')
       return true
     }
   }

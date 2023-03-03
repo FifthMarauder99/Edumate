@@ -11,7 +11,10 @@ router.post('/', async (req, res) => {
             ssl: (process.env.REACT_APP_DATABASE_URL) ? {rejectUnauthorized : false} : true,
         });
         const client = await pool.connect();
-        const query = `INSERT INTO users (email, username, password, user_role, mobile) VALUES ('${req.body.email}', '${req.body.username}', '${req.body.password}', '${req.body.role}', '${req.body.mobile}')`;
+        const query = `INSERT INTO users (email, username, password, user_role, mobile, security_question, security_answer) 
+                    VALUES ('${req.body.email}', '${req.body.username}', crypt('${req.body.password}', gen_salt('bf')), '${req.body.role}', 
+                    '${req.body.mobile}', '${req.body.securityQuestion}', '${req.body.securityAnswer}')`;
+        console.log(query);
         const result = await client.query(query);
         const results = { 'results': (result) ? result.rows : null};
         res.send(`ayo this shit works ${results.rows}`);

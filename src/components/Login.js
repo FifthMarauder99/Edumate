@@ -25,7 +25,8 @@ export default class Login extends React.Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: this.state.loginUserName
+        username: this.state.loginUserName,
+        password: this.state.loginPassword
       })
     }
     );
@@ -43,11 +44,11 @@ export default class Login extends React.Component {
       return false
     }
     // let response_user = response.results[0].username;
-    let response_password = (response === undefined) ? "" : response.password;
-    console.log("response_password " + response_password);
+    let response_user = (response === undefined) ? "" : response.username;
+    console.log("response_user" + response_user);
     if (
       (this.state.loginUserName === 'admin' &&
-        this.state.loginPassword === 'admin') || this.state.loginPassword === response_password
+        this.state.loginPassword === 'admin') || this.state.loginUserName === response_user
     ) {
       alert('credentials matched')
       this.props.history.push('/home/successfulLogin')

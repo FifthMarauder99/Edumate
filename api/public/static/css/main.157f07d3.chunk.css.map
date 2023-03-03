@@ -1,1 +1,0 @@
-{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,MACE,aAAqB,CACrB,eAAiB,CACjB,iBACF","file":"main.157f07d3.chunk.css","sourcesContent":["label {\n  color: cornflowerblue;\n  font-weight: bold;\n  font-style: italic;\n}\n"]}
