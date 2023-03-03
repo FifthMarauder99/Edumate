@@ -10,6 +10,9 @@ var usersRouter = require('./routes/users');
 var testAPIRouter = require("./routes/testAPI");
 var registerAccountRouter = require("./routes/registerAccount");
 var getCredentialsRouter = require("./routes/getCredentials");
+var securityQuestionGetRouter = require("./routes/securityQuestionGet");
+var changePasswordRouter = require("./routes/changePassword");
+var validateSecurityAnswerRouter = require("./routes/validateSecurityAnswer");
 var app = express();
 
 // view engine setup
@@ -29,6 +32,11 @@ app.use('/users', usersRouter);
 app.use('/testAPI', testAPIRouter);
 app.use('/registerAccount', registerAccountRouter);
 app.use('/getCredentials', getCredentialsRouter);
+app.use('/securityQuestionGet', securityQuestionGetRouter);
+app.use('/changePassword', changePasswordRouter);
+app.use('/validateSecurityAnswer', validateSecurityAnswerRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

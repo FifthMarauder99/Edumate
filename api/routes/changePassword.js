@@ -2,34 +2,26 @@ var express = require('express');
 var router = express.Router();
 const { Pool, Query } = require('pg');
 
-// creating a new account
+// changing password upon validation
 router.post('/', async (req, res) => {
     try {
-        // TODO: this cannot be hardcoded. --> change later
-        console.log(process.env.REACT_APP_DATABASE_URL);
         const pool = new Pool({
             connectionString: process.env.REACT_APP_DATABASE_URL || "localhost",
             ssl: (process.env.REACT_APP_DATABASE_URL) ? {rejectUnauthorized : false} : true,
         });
         const client = await pool.connect();
-        console.log(req.body.username);
-        console.log(req.body.password);
-        const query = `SELECT username 
-                    FROM users WHERE username = '${req.body.username}' AND
-                    password = crypt('${req.body.password}', password)` ;
+        const query = `UPDATE users SET password = crypt('${req.body.password}', gen_salt('bf')) WHERE username = '${req.body.username}'`;
         const result = await client.query(query);
         const results = { 'results': (result) ? result.rows : null};
         console.log("result from query: " + JSON.stringify(results));
         const results_json_str = JSON.stringify(results);
         const results_json = JSON.parse(results_json_str);
-        console.log(JSON.parse(results_json_str).results[0]); //  JSON.parse(results_json) == {"results":[{"username":"peppa","password":"asdfghjk"}]}
+        console.log(JSON.parse(results_json_str).results[0]);
         res.send(results_json.results[0]); 
-        // console.log(results.results[0].username);
         client.release();
     } catch (err) {
         console.error(err);
         res.send("Error " + err);
-        // throw err;
     }
 });
 
