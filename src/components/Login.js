@@ -1,6 +1,8 @@
 import React from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Button, Container, Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
+
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -102,13 +104,18 @@ export default class Login extends React.Component {
               </Row>
               <Row>
                 <Col sm="12" md={{ size: 6, offset: 3 }}>
-                  <Button type="submit" color="primary">
+                  <Button type="submit" color="primary" >
                     Login
                   </Button>
                 </Col>
               </Row>
             </Container>
           </AvForm>
+          <Link
+            to="/home/usernamecheck"
+            className="btn btn-link float-center mx-auto text-center w-100 btn-small mt-4">
+            Forgot your password?
+          </Link>
         </div>
       </div>
     );
