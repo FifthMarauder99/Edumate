@@ -19,6 +19,7 @@ To lint AND fix: `npx eslint --fix <rest>`
 0. make sure you have dotenv installed + a .env file :P (may change later)
 1. rm package-lock.json (if applicable)
 2. npm install
+2.5 cd api && npm install && cd .. 
 3. npm build -- to check if everything is in order
 4. npm start
 ```
