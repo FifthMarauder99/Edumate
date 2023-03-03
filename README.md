@@ -2,21 +2,13 @@
 
 This is Team 13's project for CSCI-P565/P-465.
 
-## How to use linter - Eslint
-
-The `.eslintrc.yml` file sets up the rules that Eslint will follow.
-
-To lint one file: `npx eslint project-dir/ file1.js`
-
-To lint the entire directory: `npx eslint .`
-
-To lint AND fix: `npx eslint --fix <rest>`
+## env var :p
+The environment variable is generated with our `npm run get-db-url` and is accessed in the code with dotenv.
 
 ## Running locally
 ### For just frontend -- port 3000
 
 ```
-0. make sure you have dotenv installed + a .env file :P (may change later)
 1. rm package-lock.json (if applicable)
 2. npm install
 2.5 cd api && npm install && cd .. 
@@ -35,6 +27,7 @@ whatever/P565-SE1-SP23-Project-Team-13/
 ```
 > psql --host=ec2-3-217-251-77.compute-1.amazonaws.com --port=5432 --username=akeiblbxtugmjc --password  --dbname=dev7840n5hhvvt
 > password
+# updating the tables
 > heroku pg:psql --app edumate < filename.sql
 ```
 
