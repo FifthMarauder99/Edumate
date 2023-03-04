@@ -19,7 +19,7 @@ export default class Login extends React.Component {
     console.log(this.state)
   }
 
-    attemptLogin = async (url = '') => {
+  attemptLogin = async (url = '') => {
     const response = await fetch(url, {
       method: 'POST',
       mode: "cors",

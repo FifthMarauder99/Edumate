@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react"
+import SecurityCheck from "./SecurityCheck";
 
 export default class UsernameCheck extends React.Component {
+    
     constructor(props) {
         super(props)
         this.state = {
-            loginUserName: '',
+            loginUserName: ''
         }
     }
 
@@ -12,6 +14,7 @@ export default class UsernameCheck extends React.Component {
         this.setState({
             [event.target.name]: event.target.value
         })
+        this.setState({ username: this.context.username });
         console.log(this.state)
     }
 
@@ -44,6 +47,7 @@ export default class UsernameCheck extends React.Component {
                         <br />
                         <input type="submit" value="Submit" className="btn btn-primary" />
                     </form>
+                    <SecurityCheck />
                 </div>
             </div>
         );   
