@@ -9,6 +9,10 @@ import {
 } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
+import PasswordReset from "./components/PasswordReset";
+import MasterForm from "./components/MasterForm";
+import UsernameCheck from "./components/UsernameCheck"
+import SecurityCheck from "./components/SecurityCheck";
 import "./styles.css";
 
 function App() {
@@ -19,6 +23,9 @@ function App() {
           <Route path="/home" exact component={HomePage} />
           <Route path="/home/login" component={Login} />
           <Route path="/home/register" component={Registration} />
+          <Route path="/home/usernamecheck" component={UsernameCheck} />
+          <Route path="/home/securitycheck" component={SecurityCheck} />
+          <Route path="/home/password" component={PasswordReset} />
           <Redirect to="/home" />
         </Switch>
       </Router>
