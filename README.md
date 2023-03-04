@@ -25,8 +25,8 @@ whatever/P565-SE1-SP23-Project-Team-13/
 ## Databases
 
 ```
-> psql --host=ec2-3-217-251-77.compute-1.amazonaws.com --port=5432 --username=akeiblbxtugmjc --password  --dbname=dev7840n5hhvvt
-> password
+# connecting to db from terminal
+> heroku pg:psql
 # updating the tables
 > heroku pg:psql --app edumate < filename.sql
 ```
