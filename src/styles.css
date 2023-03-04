@@ -6,6 +6,7 @@ label {
 
 .menu {
   background-image: url('images/startup-photos.jpg');
+  background-attachment: fixed;
   height: 100vh
 }
 
