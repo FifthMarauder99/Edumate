@@ -17,7 +17,7 @@ CREATE TABLE Admins (
     ID SERIAL PRIMARY KEY,
     admin_id INTEGER UNIQUE NOT NULL,
     admin_name VARCHAR(255) NOT NULL,
-    FOREIGN KEY (Uadmin_id) REFERENCES users (user_id)
+    FOREIGN KEY (admin_id) REFERENCES users (user_id)
 );
 
 CREATE TABLE Courses (
@@ -59,35 +59,6 @@ CREATE TABLE Assignments (
     Deadline TIMESTAMP NOT NULL,
     Course_ID INTEGER NOT NULL,
     FOREIGN KEY (Course_ID) REFERENCES Courses (ID)
-);
-
-CREATE TABLE Progress (
-    ID SERIAL PRIMARY KEY,
-    User_ID INTEGER NOT NULL,
-    Material_ID INTEGER NOT NULL,
-    Completion_Date TIMESTAMP NOT NULL,
-    FOREIGN KEY (User_ID) REFERENCES Students (ID),
-    FOREIGN KEY (Material_ID) REFERENCES Materials (ID)
-);
-
-CREATE TABLE Feedback (
-    ID SERIAL PRIMARY KEY,
-    User_ID INTEGER NOT NULL,
-    Course_ID INTEGER NOT NULL,
-    Rating INTEGER NOT NULL,
-    Comments TEXT,
-    Feedback_Date TIMESTAMP NOT NULL,
-    FOREIGN KEY (User_ID) REFERENCES Students (ID),
-    FOREIGN KEY (Course_ID) REFERENCES Courses (ID)
-);
-
-CREATE TABLE Assignments (
-    ID SERIAL PRIMARY KEY,
-    Title VARCHAR(255) NOT NULL,
-    Description TEXT,
-    Deadline TIMESTAMP NOT NULL,
-    Course_id INTEGER NOT NULL,
-    FOREIGN KEY (Course_id) REFERENCES Courses (ID)
 );
 
 CREATE TABLE Assignment_Grades (
