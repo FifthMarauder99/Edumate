@@ -5,7 +5,6 @@ const { Pool, Query } = require('pg');
 // creating a new account
 router.post('/', async (req, res) => {
     try {
-        // TODO: this cannot be hardcoded. --> change later
         console.log(process.env.REACT_APP_DATABASE_URL);
         const pool = new Pool({
             connectionString: process.env.REACT_APP_DATABASE_URL || "localhost",

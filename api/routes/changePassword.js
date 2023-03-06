@@ -12,17 +12,14 @@ router.post('/', async (req, res) => {
         const client = await pool.connect();
         const query = `UPDATE users SET password = crypt('${req.body.password}', gen_salt('bf')) WHERE username = '${req.body.username}'`;
         const result = await client.query(query);
-        const results = { 'results': (result) ? result.rows : null};
-        console.log("result from query: " + JSON.stringify(results));
-        const results_json_str = JSON.stringify(results);
-        const results_json = JSON.parse(results_json_str);
-        console.log(JSON.parse(results_json_str).results[0]);
-        res.send(results_json.results[0]); 
+        console.log(result);
+        res.sendStatus(200); 
         client.release();
     } catch (err) {
         console.error(err);
         res.send("Error " + err);
     }
 });
+
 
 module.exports = router;
