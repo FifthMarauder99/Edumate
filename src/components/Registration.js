@@ -1,53 +1,110 @@
-import React from "react";
-import { AvForm, AvField } from "availity-reactstrap-validation";
-import { Button, Container, Row, Col } from "reactstrap";
+import React from 'react'
+import { AvForm, AvField } from 'availity-reactstrap-validation'
+import { Button, Container, Row, Col } from 'reactstrap'
 
 export default class Registration extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
-      userName: "",
-      lastName: "",
-      mobile: "",
-      emailId: "",
-      password: "",
-      confirmPassword: "",
-      securityQuestion: "",
-      securityAnswer: "",
-      role: "",
+      userName: '',
+      lastName: '',
+      mobile: '',
+      emailId: '',
+      password: '',
+      confirmPassword: '',
+      role: 'Student',
+      securityQuestion: '',
+      securityAnswer: '',
       formValues: [],
       showDetails: false
-    };
+    }
   }
+
+  newAccount = async (url = '', data = {}) => {
+    console.log(this.state.username);
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.emailId,
+        username: this.state.userName,
+        password: this.state.password,
+        role: this.state.role,
+        mobile: this.state.mobile,
+        securityQuestion: this.state.securityQuestion,
+        securityAnswer: this.state.securityAnswer,
+      })
+      }
+    );
+    return response.json();
+  }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
-    });
-    console.log(this.state);
-  };
-  formSubmit = () => {
+    })
+    console.log(this.state)
+  }
+
+  formSubmit = async () => {
     if (this.state.password !== this.state.confirmPassword) {
-      alert("passwords did not match");
-      return false;
+      alert('passwords do not matched')
+      return false
     } else {
-      alert("Form Submitted Successfully");
       this.setState({
         formValues: [
           this.state.userName,
           this.state.mobile,
-          this.state.emailId
+          this.state.emailId,
+          this.state.password,
+          this.state.role,
+          this.state.securityQuestion,
+          this.state.securityAnswer,
         ],
         showDetails: true
       });
-      console.log(this.state.formValues);
+      // inserting into the database the info
+      try {
+        let response = this.newAccount('http://localhost:9000/registerAccount');
+      } catch (e) {
+        console.log(e)
+      }
+      console.log(this.state.formValues)
       this.props.history.push({
-        pathname: "/home/employeelist",
+        pathname: '/home/',
         data: this.state.formValues
-      });
-      return true;
+      })
+      alert('Form Submitted Successfully')
+      return true
     }
-  };
-  
+  }
+
+  // formSubmit = () => {
+  //   if (this.state.password !== this.state.confirmPassword) {
+  //     alert('passwords did not matched')
+  //     return false
+  //   } else {
+  //     alert('Form Submitted Successfully')
+  //     this.setState({
+  //       formValues: [
+  //         this.state.userName,
+  //         this.state.mobile,
+  //         this.state.emailId
+  //       ],
+  //       showDetails: true
+  //     })
+  //     console.log(this.state.formValues)
+  //     this.props.history.push({
+  //       pathname: '/home/employeelist',
+  //       data: this.state.formValues
+  //     })
+  //     return true
+  //   }
+  // }
+
   render() {
     const { userName, emailId, mobile, password, confirmPassword, securityQuestion, securityAnswer, role } = this.state;
     const isSecurityAnsEnabled = securityQuestion !== "";

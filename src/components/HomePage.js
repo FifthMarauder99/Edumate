@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 export default class HomePage extends React.Component {
-  render() {
+  render () {
     return (
       <div className="menu p-md-5 p-sm-0 min-vh-100">
         <div className="mx-auto py-5 bg-light loginreg w-25 h-50 rounded">
@@ -22,6 +22,6 @@ export default class HomePage extends React.Component {
           </Link>
         </div>
       </div>
-    );
+    )
   }
 }
