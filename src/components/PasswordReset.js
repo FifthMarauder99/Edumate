@@ -13,22 +13,6 @@ export default class PasswordReset extends Component{
     console.log(this.state.loginUserName);
   }
 
-  setText = event => {
-      event.preventDefault();
-      this.setState({
-          text: event.target.value,
-      })
-      console.log(this.state)
-  }
-
-  setConfirmText = event => {
-      event.preventDefault();
-      this.setState({
-          confirmText: event.target.value,
-      })
-      console.log(this.state)
-  }
-
   handleSubmit = (event) => {
     if (this.state.text === this.state.confirmText) {
       this.props.history('/home');
@@ -45,12 +29,52 @@ export default class PasswordReset extends Component{
       })
       console.log(this.state)
   }
+
+  updatePassword = async (url = '') => {
+    console.log(`passwords entered: ${this.state.text} ${this.state.confirmText}`);
+    if (this.state.confirmText !== this.state.text) {
+      alert("bruh not the same can't change it")
+      return false;
+    }
+    const response = await fetch(url, {
+        method: 'POST',
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: this.state.loginUserName,
+            password: this.state.text})
+        });
+    return response;
+    }
+
+    passwordChangeValidation = async () => {
+        let response;
+        try {
+          response = await this.updatePassword('http://localhost:9000/changePassword');
+          console.log(response);
+          alert(`updated password of ${this.state.loginUserName}!!`);
+          this.props.history.push('/home/login');
+          return true;
+        } catch (e) {
+          console.log(e);
+          alert('password failed to change');
+          return false;
+        }
+    }
+
+    // username + security loading
+    changePassFormSubmit = (event) => {
+        event.preventDefault();
+        this.passwordChangeValidation();
+    }
   
   render() {
     return (
     <div className="menu p-md-5 p-sm-0 min-vh-100">
       <div className="mx-auto py-5 bg-light loginreg w-25 rounded">
-        <form onSubmit={this.handleSubmit} className="p-4">
+        <form onSubmit={this.changePassFormSubmit} className="p-4">
           <label>Enter new Password: </label>
           <input
             value={this.state.text}
@@ -59,6 +83,7 @@ export default class PasswordReset extends Component{
             maxLength="16"
             type="password"
             className="ml-3"
+            name="text"  
           />
           <br />
           <br />
@@ -70,6 +95,7 @@ export default class PasswordReset extends Component{
             maxLength="16"
             type="password"
             className="ml-3"
+            name="confirmText"
           />
           <br />
           <br />
