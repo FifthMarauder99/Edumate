@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useMemo } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import Registration from './components/Registration'
 import * as dotenv from 'dotenv' 
@@ -6,7 +6,6 @@ import * as dotenv from 'dotenv'
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
   Switch
 } from 'react-router-dom'
 import HomePage from './components/HomePage'
@@ -15,10 +14,12 @@ import UsernameCheck from './components/UsernameCheck'
 import './styles.css'
 import SuccessfulLogin from './components/SuccessfulLogin'
 import SecurityCheck from './components/SecurityCheck'
+import PasswordReset from './components/PasswordReset'
 
 function App() {
   dotenv.config();
   console.log(process.env.REACT_APP_DATABASE_URL);
+
 
   return (
       <div className="App">
@@ -31,7 +32,7 @@ function App() {
             <Route path="/home/logout" component={HomePage} />
             <Route path="/home/usernameCheck" component={UsernameCheck} />
             <Route path="/home/securityCheck" component={SecurityCheck} />
-            {/* <Route path="/home/password" component={PasswordReset} /> */}
+            <Route path="/home/passwordReset" component={PasswordReset} />
           </Switch>
         </Router>
       </div>

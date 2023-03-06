@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 
 export default class SecurityCheck extends React.Component{
+
     constructor(props) {
         super(props)
         this.state = {

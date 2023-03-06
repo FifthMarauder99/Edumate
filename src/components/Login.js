@@ -1,14 +1,23 @@
-import React from "react";
-import { AvForm, AvField } from "availity-reactstrap-validation";
-import { Button, Container, Row, Col } from "reactstrap";
-import { Link } from "react-router-dom";
+import React from "react"
+import { AvForm, AvField } from "availity-reactstrap-validation"
+import { Button, Container, Row, Col } from "reactstrap"
+import { Link } from "react-router-dom"
+import jwt_decode from 'jwt-decode'
+
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+
+
+// TODO : don't hardcode?
+const clientId = '316944316847-r3pqce4qe70k5iu02u85hrksfmih10pj.apps.googleusercontent.com';
+
 
 export default class Login extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       loginUserName: '',
-      loginPassword: ''
+      loginPassword: '',
+      loginOAuthEmail: '',
     }
   }
 
@@ -33,6 +42,36 @@ export default class Login extends React.Component {
     }
     );
     return response.json();
+  }
+
+  attemptOAuthLogin = async (url = '') => {
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.loginOAuthEmail
+      })
+    }
+    );
+    return response.json();
+  }
+
+  oAuthLoginValidation = async () => {
+    let response;
+    try {
+      response = await this.attemptOAuthLogin('http://localhost:9000/getCredentials/OAuth');
+      console.log(response);
+      alert('credentials matched')
+      this.props.history.push('/home/successfulLogin')
+      return true
+    } catch (e) {
+      console.log(e)
+      alert('no account found with google email');
+      return false
+    }
   }
 
   formSubmit = async () => {
@@ -61,9 +100,12 @@ export default class Login extends React.Component {
     }
   }
 
+
+
   render() {
     const { loginUserName, loginPassword } = this.state;
     return (
+      <GoogleOAuthProvider clientId={clientId}>
       <div className="menu p-md-5 p-sm-0 min-vh-100">
         <div className="mx-auto py-5 bg-light loginreg w-25 rounded">
           <div>
@@ -139,6 +181,22 @@ export default class Login extends React.Component {
                     Login
                   </Button>
                 </Col>
+                <Col sm="12" md={{ size: 6, offset: 3 }}>
+                  <GoogleLogin
+                    size='medium'
+                    onSuccess={credentialResponse => {
+                      console.log(credentialResponse);
+                      let decoded_creds = jwt_decode(credentialResponse.credential);
+                      console.log(decoded_creds.email);
+                      this.setState({
+                        loginOAuthEmail: decoded_creds.email
+                      });
+                      this.oAuthLoginValidation();
+                    }}
+                    onError={() => {
+                      console.log('Login Failed');
+                  }}/>
+                </Col>
               </Row>
             </Container>
           </AvForm>
@@ -148,7 +206,8 @@ export default class Login extends React.Component {
             Forgot your password?
           </Link>
         </div>
-      </div>
+        </div>
+        </GoogleOAuthProvider>
     );
   }
 }
