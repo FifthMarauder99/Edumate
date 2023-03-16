@@ -1,5 +1,4 @@
-import React, { useContext } from "react"
-
+import React from "react"
 export default class SecurityCheck extends React.Component{
 
     constructor(props) {

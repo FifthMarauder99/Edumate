@@ -68,7 +68,7 @@ export default class Registration extends React.Component {
       });
       // inserting into the database the info
       try {
-        let response = this.newAccount('http://localhost:9000/registerAccount');
+        //let response = this.newAccount('http://localhost:9000/registerAccount');
       } catch (e) {
         console.log(e)
       }

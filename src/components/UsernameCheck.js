@@ -76,7 +76,7 @@ export default class UsernameCheck extends React.Component {
         try {
             response = await this.retrieveAnswer('http://localhost:9000/validateSecurityAnswer');
             console.log(response.exists);
-            if (response.exists == false) {
+            if (response.exists === false) {
                 alert('that was an incorrect answer');
                 return false;
             } else {
