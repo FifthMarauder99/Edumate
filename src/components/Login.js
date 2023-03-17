@@ -107,7 +107,7 @@ export default class Login extends React.Component {
     return (
       <GoogleOAuthProvider clientId={clientId}>
       <div className="menu p-md-5 p-sm-0 min-vh-100">
-        <div className="mx-auto py-5 bg-light loginreg w-25 rounded">
+        <div className=" py-5 bg-light loginreg rounded">
           <div>
             <p className=" h4 text-center text-primary font-weight-bold font-italic">
             Login
@@ -177,11 +177,12 @@ export default class Login extends React.Component {
               </Row>
               <Row>
                 <Col sm="12" md={{ size: 6, offset: 3 }}>
-                  <Button type="submit" color="primary" >
+                  <Button type="submit" color="primary">
                     Login
                   </Button>
                 </Col>
                 <Col sm="12" md={{ size: 6, offset: 3 }}>
+                  <div class='w-25 pt-3'>
                   <GoogleLogin
                     size='medium'
                     onSuccess={credentialResponse => {
@@ -196,6 +197,7 @@ export default class Login extends React.Component {
                     onError={() => {
                       console.log('Login Failed');
                   }}/>
+                  </div>
                 </Col>
               </Row>
             </Container>

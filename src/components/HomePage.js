@@ -4,13 +4,13 @@ export default class HomePage extends React.Component {
   render () {
     return (
       <div className="menu p-md-5 p-sm-0 min-vh-100">
-        <div className="mx-auto py-5 bg-light loginreg w-25 h-50 rounded">
+        <div className="mx-auto py-5 bg-light loginreg rounded">
           <p className=" h1 text-center text-secondary font-weight-bold font-italic">
             Login/Signup Portal
           </p>
           <Link
             to="/home/login" 
-            className="btn btn-primary float-left  ml-5 mt-5"
+            className="btn btn-primary ml-5 mt-5"
           >
             Login
           </Link>

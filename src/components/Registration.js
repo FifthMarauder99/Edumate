@@ -110,7 +110,7 @@ export default class Registration extends React.Component {
     const isSecurityAnsEnabled = securityQuestion !== "";
     return (
       <div className="menu p-md-5 p-sm-0 min-vh-100">
-        <div className="mx-auto py-5 bg-light loginreg w-25 rounded">
+        <div className="mx-auto py-5 bg-light loginreg rounded">
           <div className="">
             <p className="h4 text-center text-primary font-weight-bold font-italic">
               Sign-Up

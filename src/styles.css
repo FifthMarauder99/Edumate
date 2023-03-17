@@ -5,11 +5,22 @@ label {
 }
 
 .menu {
-  background-image: url('images/startup-photos.jpg');
-  background-attachment: fixed;
-  height: 100vh
+  background-image: url('images/startup-photos.jpg') ;
+  background-size:cover;
+  min-height: 100vh;
 }
+
+
 
 .loginreg {
   box-shadow: 10px 10px 10px;
+  width:500px;
+  margin:auto;
+}
+
+@media (max-width: 800px) {
+  .loginreg {
+      box-shadow: 10px 10px 10px;
+      width: 100%;
+    }
 }
