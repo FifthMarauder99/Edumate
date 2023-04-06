@@ -5,6 +5,9 @@ This is Team 13's project for CSCI-P565/P-465.
 ## env var :p
 The environment variable is generated with our `npm run get-db-url` and is accessed in the code with dotenv.
 
+## Pre-req
+This project assumes that you have Heroku CLI installed, the Heroku credentials necessary, Node and npm.
+
 ## Running locally
 ### For just frontend -- port 3000
 
@@ -19,6 +22,7 @@ The environment variable is generated with our `npm run get-db-url` and is acces
 ```
 > pwd
 whatever/P565-SE1-SP23-Project-Team-13/
+> npm run install-all-packages
 > npm run api-start
 ```
 
@@ -26,12 +30,13 @@ whatever/P565-SE1-SP23-Project-Team-13/
 
 ```
 # connecting to db from terminal
-> heroku pg:psql
+> heroku pg:psql -a edumate
 # updating the tables
 > heroku pg:psql --app edumate < filename.sql
 ```
 
 ## Deployment to Heroku
+tbd
 
 ### Prod
 
