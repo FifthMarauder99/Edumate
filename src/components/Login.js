@@ -92,7 +92,7 @@ export default class Login extends React.Component {
         this.state.loginPassword === 'admin') || this.state.loginUserName === response_user
     ) {
       alert('credentials matched')
-      this.props.history.push('/home/successfulLogin')
+      this.props.history.push({pathname: '/home/dashboard',state:{detail: this.state.loginUserName}})
       return true
     } else {
       alert('invalid credentials')

@@ -15,6 +15,7 @@ import './styles.css'
 import SuccessfulLogin from './components/SuccessfulLogin'
 import SecurityCheck from './components/SecurityCheck'
 import PasswordReset from './components/PasswordReset'
+import Dashboard from './components/Dashboard'
 
 function App() {
   dotenv.config();
@@ -33,6 +34,7 @@ function App() {
             <Route path="/home/usernameCheck" component={UsernameCheck} />
             <Route path="/home/securityCheck" component={SecurityCheck} />
             <Route path="/home/passwordReset" component={PasswordReset} />
+            <Route path="/home/dashboard" component={Dashboard}/>
           </Switch>
         </Router>
       </div>
