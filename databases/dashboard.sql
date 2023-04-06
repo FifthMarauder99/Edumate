@@ -1,5 +1,5 @@
 
-CREATE TABLE Students (
+/*CREATE TABLE Students (
     ID SERIAL PRIMARY KEY,
     student_id INTEGER UNIQUE NOT NULL,
     student_name VARCHAR(255) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE Admins (
     admin_id INTEGER UNIQUE NOT NULL,
     admin_name VARCHAR(255) NOT NULL,
     FOREIGN KEY (admin_id) REFERENCES users (user_id)
-);
+);*/
 
 CREATE TABLE Courses (
     ID SERIAL PRIMARY KEY,
