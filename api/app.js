@@ -13,6 +13,9 @@ var getCredentialsRouter = require("./routes/getCredentials");
 var securityQuestionGetRouter = require("./routes/securityQuestionGet");
 var changePasswordRouter = require("./routes/changePassword");
 var validateSecurityAnswerRouter = require("./routes/validateSecurityAnswer");
+var getStudentRouter = require("./routes/getStudents");
+var getProfessorRouter = require("./routes/getProfessors");
+const { appendFile } = require('fs');
 var app = express();
 
 // view engine setup
@@ -35,8 +38,8 @@ app.use('/getCredentials', getCredentialsRouter);
 app.use('/securityQuestionGet', securityQuestionGetRouter);
 app.use('/changePassword', changePasswordRouter);
 app.use('/validateSecurityAnswer', validateSecurityAnswerRouter);
-
-
+app.use('/getStudents', getStudentRouter);
+app.use('/getProfessors', getProfessorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
