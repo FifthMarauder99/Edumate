@@ -44,24 +44,33 @@ const getProfessors = async (url='http://localhost:9000/getProfessors') => {
 
 const CourseList = () => {
     const [filteredCourses, setFilteredCourses] = useState(courses);
-    const [studentOptions, setStudents] = useState(getStudents());
+    const [studentOptions, setStudents] = useState([]);
     const [profOptions, setProfs] = useState([]);
 
-    const refStudent = useRef(true);
-    const refProfessor = useRef(true);
-
-    const useFirstRenderStudent = () => {
-        const firstRender = refStudent.current;
-        refStudent.current = false;
-        return firstRender;
-    }
-
-    const useFirstRenderProf = () => {
-        const firstRender = refProfessor.current;
-        refProfessor.current = false;
-        return refProfessor;
-    }
-
+    useEffect(() => {
+        async function fetchStudents() {
+            const response = await getStudents();
+            console.log(response);
+            const resList = [];
+            for (let i = 0; i < response.length; i++) {
+                resList.push(response[i]);
+            }
+            setStudents(resList);
+            return response;
+        }
+        async function fetchProfessors() {
+            const response = await getProfessors();
+            console.log(response);
+            const resList = [];
+            for (let i = 0; i < response.length; i++) {
+                resList.push(response[i]);
+            }
+            setProfs(resList);
+            return response;
+        }
+        fetchStudents();
+        fetchProfessors();
+    }, []);
     
   const handleSearch = (value) => {
     const filtered = courses.filter((course) =>
@@ -154,23 +163,7 @@ const CourseList = () => {
       dataIndex: 'assign',
       key: 'assign',
       render: (_, record) => {
-          const { professors, code } = record;
-//           async function fetchProfs() {
-//               const response = await getProfessors();
-//                 console.log(response);
-//                 const resList = [];
-//                 for (let i = 0; i < response.length; i++) {
-//                   resList.push(response[i]);
-//                 }
-//               if (JSON.stringify(resList) != JSON.stringify(profOptions)) {
-//                   setProfs(resList);
-// ;                  console.log("DIFFERENT");
-//                   console.log("professor options " + profOptions);
-//               }
-//               return response;
-//           }
-//           if (refProfessor) fetchProfs();
-//           refProfessor = false;
+        const { professors, code } = record;
         const handleChangeAdmin = (value) => {
           handleAssignAdmin(code, value);
         };
