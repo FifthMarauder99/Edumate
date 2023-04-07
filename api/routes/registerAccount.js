@@ -27,6 +27,7 @@ router.post('/', async (req, res) => {
         const proper_answer = double_apostrophe(req.body.securityAnswer);
         console.log(proper_question);
         console.log(proper_answer);
+
         const query = `INSERT INTO users (email, username, password, user_role, mobile, security_question, security_answer) 
                     VALUES ('${req.body.email}', '${req.body.username}', crypt('${req.body.password}', gen_salt('bf')), '${req.body.role}', 
                     '${req.body.mobile}', '${proper_question}', '${proper_answer}')`;
