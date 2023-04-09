@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
+import {useLocation} from 'react-router-dom';
 import { Layout, Menu, Card, Row, Col } from 'antd';
 import './styles.css';
 import { Router, Route, Switch } from 'react-router-dom';
 import CalendarImplementation from './MyCalender';
 const { Header, Content, Sider } = Layout;
 
-const CardHome = ({ subjects }) => {
+const MainScreen = ( {subjects} ) => {
   const [searchQuery, setSearchQuery] = useState('');
-
   const filteredSubjects = subjects.filter((subject) =>
-    subject.name.toLowerCase().includes(searchQuery.toLowerCase())
+    subject.course_title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  /*const [searchQuery, setSearchQuery] = useState('');
+const filteredSubjects = searchQuery
+  ? subjects.filter((subject) =>
+      subject.course_title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  : subjects;*/
+
+  console.log(filteredSubjects)
   return (
     <div>
       <h1>Dashboard</h1>
@@ -23,9 +31,10 @@ const CardHome = ({ subjects }) => {
       />
       <Row gutter={[16, 16]}>
         {filteredSubjects.map((subject) => (
-          <Col span={8} key={subject.code}>
-            <Card title={subject.name}>
-              <p>Subject Code: {subject.code}</p>
+          <Col span={8} key={subject.course_id}>
+            <Card title={subject.course_title}>
+              <p>Sub Code: {subject.course_id}</p>
+              <p>Sem code: {subject.semester_id}</p>
             </Card>
           </Col>
         ))}
@@ -63,7 +72,7 @@ const Sidebar = ({ subjects }) => {
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" title="Courses">
           {subjects.map((subject) => (
-            <Menu.Item key={subject.code}>{subject.name}</Menu.Item>
+            <Menu.Item key={subject.course_id}>{subject.course_title}</Menu.Item>
           ))}
         </Menu.SubMenu>
         <Menu.SubMenu key="sub3" title="Assignments">
@@ -99,45 +108,84 @@ const Calendar = () => {
   );
 };
 
-const Dashboard = (props) => {
-    const myname = props.location.state.detail || {};
-    console.log(myname,typeof(myname))
-    var subjects=[];
-    if(myname == "adesh22"){
-  subjects = [
-    { name: 'English', code: 'ENG101' },
-    { name: 'Mathematics', code: 'MATH101' },
-    { name: 'History', code: 'HIST101' },
-    { name: 'Science', code: 'SCI101' },
-  ];
-}
-else{
-    subjects = [
-        { name: 'OOSD', code: 'CSCI-P 532' },
-        { name: 'AML', code: 'CSCI-P 556' },
-      ];
-}
 
-  return (
-    <Layout>
-      <Header className="header">
-        <div className="logo-container">
-          <img
-            src="https://dummyimage.com/50x50/f0f0f0/000000.png&text=LMS+Logo"
-            alt="LMS Logo"
-            className="logo"
-          />
-          <span className="title">Edumate Dashboard</span>
-        </div>
-      </Header>
+
+
+export default class Dashboard extends React.Component {
+  attemptFetchCourses = async (url = '',uid) => {
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: uid,
+      })
+    }
+    );
+    return response.json();
+  }
+  
+   getSubjects = async(id)=>{
+    try {
+    return await this.attemptFetchCourses('http://localhost:9000/getCourses',id)
+     .then((data) => {
+      console.log(data)
+     return data
+  });
+    } catch (e) {
+      console.log(e)
+      alert('not found');
+      return false
+    }
+  }
+
+
+render (){
+  var courseData = []
+    var id = this.props.location.state.detail;
+
+  var x;
+    try{
+    this.getSubjects(id[1]).then(data=> {
+      x = data;
+      x.forEach(element => courseData.push(element))
+    })
+    
+    }
+    catch(e){
+      console.log(e)
+    }
+  
+    const subjects = [
+      { course_title: 'English', course_id: 'ENG101',semester_id:"FA22" },
+      { course_title: 'Mathematics', course_id: 'MATH101',semester_id:"FA22" },
+      { course_title: 'History', course_id: 'HIST101',semester_id:"SP23" },
+      { course_title: 'Science', course_id: 'SCI101',semester_id:"SP23" },
+    ];
+
+    return(
       <Layout>
-        <Sidebar subjects={subjects} />
-        <Content className="site-layout-background">
-          <CardHome subjects={subjects}/>
-        </Content>
+        <Header className="header">
+          <div className="logo-container">
+            <img
+              src="https://dummyimage.com/50x50/f0f0f0/000000.png&text=LMS+Logo"
+              alt="LMS Logo"
+              className="logo"
+            />
+            <span className="title">Edumate Dashboard</span>
+          </div>
+        </Header>
+        <Layout>
+          <Sidebar subjects={courseData} />
+          <Content className="site-layout-background">
+            <MainScreen subjects={courseData}/>
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
-  );
+      )
+    
+  };
 };
 
-export default Dashboard;

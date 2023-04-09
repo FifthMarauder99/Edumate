@@ -13,6 +13,7 @@ var getCredentialsRouter = require("./routes/getCredentials");
 var securityQuestionGetRouter = require("./routes/securityQuestionGet");
 var changePasswordRouter = require("./routes/changePassword");
 var validateSecurityAnswerRouter = require("./routes/validateSecurityAnswer");
+var getCoursesRouter = require("./routes/getCourses")
 var app = express();
 
 // view engine setup
@@ -35,6 +36,7 @@ app.use('/getCredentials', getCredentialsRouter);
 app.use('/securityQuestionGet', securityQuestionGetRouter);
 app.use('/changePassword', changePasswordRouter);
 app.use('/validateSecurityAnswer', validateSecurityAnswerRouter);
+app.use('/getCourses',getCoursesRouter)
 
 
 
