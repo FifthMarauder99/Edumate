@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
         const client = await pool.connect();
         console.log(req.body.username);
         console.log(req.body.password);
-        const query = `SELECT username 
+        const query = `SELECT username, user_role
                     FROM users WHERE username = '${req.body.username}' AND
                     password = crypt('${req.body.password}', password)` ;
         const result = await client.query(query);
@@ -42,7 +42,7 @@ router.post('/OAuth', async (req, res) => {
         });
         const client = await pool.connect();
         console.log(req.body.email);
-        const query = `SELECT email 
+        const query = `SELECT email, user_role
                     FROM users WHERE email = '${req.body.email}'` ;
         const result = await client.query(query);
         const results = { 'results': (result) ? result.rows : null};

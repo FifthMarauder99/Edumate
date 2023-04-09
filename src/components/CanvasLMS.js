@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Layout, Menu, Card, Row, Col } from 'antd';
 import './styles.css';
 import { Router, Route, Switch } from 'react-router-dom';
-import CalendarImplementation from './MyCalender';
+import CalendarImplementation from './MyCalendar';
 const { Header, Content, Sider } = Layout;
 
 const Dashboard = ({ subjects }) => {
