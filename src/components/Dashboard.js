@@ -7,10 +7,17 @@ import CalendarImplementation from './MyCalender';
 const { Header, Content, Sider } = Layout;
 
 const MainScreen = ( {subjects} ) => {
+  console.log("subjects",subjects," type:",typeof(subjects))
+  const courseData = subjects;
   const [searchQuery, setSearchQuery] = useState('');
-  const filteredSubjects = subjects.filter((subject) =>
+  var filteredSubjects = courseData.filter((subject) =>
     subject.course_title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  if (filteredSubjects.length == 0){
+    console.log(filteredSubjects.length)
+    filteredSubjects = subjects;
+    console.log(filteredSubjects)
+  }
 
   /*const [searchQuery, setSearchQuery] = useState('');
 const filteredSubjects = searchQuery
@@ -44,6 +51,8 @@ const filteredSubjects = searchQuery
 };
 
 const Sidebar = ({ subjects }) => {
+  const courseData = subjects;
+  console.log("In side bar:",courseData)
   const assignments = [
     { subject: 'English', title: 'Essay', deadline: 'March 15, 2023' },
     { subject: 'Mathematics', title: 'Problem Set 5', deadline: 'March 17, 2023' },
@@ -71,7 +80,7 @@ const Sidebar = ({ subjects }) => {
           <Menu.Item key="1">Overview</Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" title="Courses">
-          {subjects.map((subject) => (
+          {courseData.map((subject) => (
             <Menu.Item key={subject.course_id}>{subject.course_title}</Menu.Item>
           ))}
         </Menu.SubMenu>
@@ -110,7 +119,6 @@ const Calendar = () => {
 
 
 
-
 export default class Dashboard extends React.Component {
   attemptFetchCourses = async (url = '',uid) => {
     const response = await fetch(url, {
@@ -141,9 +149,8 @@ export default class Dashboard extends React.Component {
     }
   }
 
-
 render (){
-  var courseData = []
+  const courseData = []
     var id = this.props.location.state.detail;
 
   var x;
