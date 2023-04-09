@@ -6,14 +6,6 @@ const { Header, Content, Sider } = Layout;
 const { Option } = Select;
 const { Search } = Input;
 
-
-const courses = [
-  { name: 'English', code: 'ENG101', students: [], professors: [] },
-  { name: 'Mathematics', code: 'MATH101', students: [], professors: [] },
-  { name: 'History', code: 'HIST101', students: [], professors: []  },
-  { name: 'Science', code: 'SCI101', students: [], professors: []  },
-  // ... add more courses here
-];
 const getStudents = async (url='http://localhost:9000/getStudents') => {
 // const getStudents = async ({ url}) => {
     const response = await fetch(url, {
@@ -29,7 +21,20 @@ const getStudents = async (url='http://localhost:9000/getStudents') => {
 }
 
 const getProfessors = async (url='http://localhost:9000/getProfessors') => {
-// const getStudents = async ({ url}) => {
+    const response = await fetch(url, {
+        method: 'get',
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    );
+    if (!response.ok) throw new Error(response.statusText)
+    return response.json();
+}
+
+
+const getCourses = async (url='http://localhost:9000/getCourses') => {
     const response = await fetch(url, {
         method: 'get',
         mode: "cors",
@@ -43,7 +48,8 @@ const getProfessors = async (url='http://localhost:9000/getProfessors') => {
 }
 
 const CourseList = () => {
-    const [filteredCourses, setFilteredCourses] = useState(courses);
+    const [coursesUpdated, setCourses] = useState([]);
+    const [filteredCourses, setFilteredCourses] = useState(coursesUpdated);
     const [studentOptions, setStudents] = useState([]);
     const [profOptions, setProfs] = useState([]);
 
@@ -68,43 +74,60 @@ const CourseList = () => {
             setProfs(resList);
             return response;
         }
+        async function fetchCourses() {
+            const response = await getCourses();
+            console.log(response);
+            const resList = [];
+            for (let i = 0; i < response.length; i++){
+                resList.push({
+                    course_id: response[i].course_id,
+                    course_title: response[i].course_title,
+                    students: [],
+                    professors: [],
+                });
+            }
+            setCourses(resList);
+            setFilteredCourses(resList);
+            return response;
+        }
         fetchStudents();
         fetchProfessors();
+        fetchCourses();
     }, []);
     
   const handleSearch = (value) => {
-    const filtered = courses.filter((course) =>
-      course.name.toLowerCase().includes(value.toLowerCase())
+    const filtered = coursesUpdated.filter((course) =>
+      course.course_title.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredCourses(filtered);
   };
 
-  const handleAssign = (code, students) => {
-    const courseIndex = courses.findIndex((course) => course.code === code);
-    courses[courseIndex].students = students;
-    setFilteredCourses([...courses]);
+    const handleAssign = (code, students) => {
+      const courseIndex = coursesUpdated.findIndex((course) => course.course_id === code);
+    coursesUpdated[courseIndex].students = students;
+    setFilteredCourses([...coursesUpdated]);
   };
 
     const handleAssignAdmin = (code, professors) => {
-    const courseIndex = courses.findIndex((course) => course.code === code);
-    courses[courseIndex].professors = professors;
-    setFilteredCourses([...courses]);
+    const courseIndex = coursesUpdated.findIndex((course) => course.course_id === code);
+    coursesUpdated[courseIndex].professors = professors;
+    setFilteredCourses([...coursesUpdated]);
   };
 
   const handleSave = () => {
     // Do something with the updated courses, e.g. send to server
-    console.log('Updated courses:', courses);
+    console.log('Updated courses:', coursesUpdated);
   };
   const columns = [
     {
       title: 'Course Name',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'course_title',
+      key: 'course_title',
     },
     {
       title: 'Course Code',
-      dataIndex: 'code',
-      key: 'code',
+      dataIndex: 'course_id',
+      key: 'course_id',
     },
     {
       title: 'Number of Students',
@@ -117,25 +140,9 @@ const CourseList = () => {
       dataIndex: 'assign',
       key: 'assign',
       render: (_, record) => {
-          const { students, code } = record;
-//           async function fetchStudents() {
-//               const response = await getStudents();
-//                 console.log(response);
-//                 const resList = [];
-//                 for (let i = 0; i < response.length; i++) {
-//                   resList.push(response[i]);
-//                 }
-//               if (JSON.stringify(resList) != JSON.stringify(studentOptions)) {
-//                   setStudents(resList);
-// ;                  console.log("DIFFERENT");
-//                   console.log("student options " + studentOptions);
-//               }
-//               return response;
-//           }
-        //   if(refStudent) fetchStudents();
-        //   refStudent = false;
+          const { students, course_id } = record;
         const handleChange = (value) => {
-          handleAssign(code, value);
+          handleAssign(course_id, value);
         };
         return (
           <Select
@@ -163,9 +170,9 @@ const CourseList = () => {
       dataIndex: 'assign',
       key: 'assign',
       render: (_, record) => {
-        const { professors, code } = record;
+        const { professors, course_id } = record;
         const handleChangeAdmin = (value) => {
-          handleAssignAdmin(code, value);
+          handleAssignAdmin(course_id, value);
         };
         return (
           <Select
@@ -187,55 +194,24 @@ const CourseList = () => {
           </Select>
         );
       },},
-    // {
-    //   title: 'Assign Professor',
-    //   dataIndex: 'assign',
-    //   key: 'assign',
-    //   render: async (_, record) => {
-    //       const { professors, code } = record;
-    //     //   const response = await getStudents();
-    //     //   console.log(response);
-    //     const handleChangeAdmin = (value) => {
-    //       handleAssignAdmin(code, value);
-    //     };
-    //     return (
-    //       <Select
-    //         mode="multiple"
-    //         placeholder="Select professor"
-    //         style={{ minWidth: 200 }}
-    //         onChange={handleChangeAdmin}
-    //         value={professors}
-    //         filterOption={(inputValue, option) =>
-    //           option.children.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0
-    //         }
-    //         optionFilterProp="children"
-    //         showSearch
-    //         >
-    //         <Option value="all">Select All Professors</Option>
-    //         <Option disabled>Professors</Option>
-    //         <Option value="professor1">Professor 1</Option>
-    //         <Option value="professor2">Professor 2</Option>
-    //         <Option value="professor3">Professor 3</Option>
-    //         {/* ... add more students here */}
-    //       </Select>
-    //     );
-    //   },
-    // },
   ];
 
-  return (
+return (
     <div className="course-list-container">
       <h1>All Courses</h1>
       <Search placeholder="Search courses" onSearch={handleSearch} style={{ width: 200 }} />
       <Table className="course-list-table" columns={columns} dataSource={filteredCourses} />
 
       {filteredCourses.map((course) => (
-        <div key={course.code}>
-          <h2>{course.name} ({course.code})</h2>
+        <div key={course.course_id}>
+              <h2>{course.course_title} ({course.course_id})</h2>
+              <h3> Students </h3>
           <ul>
             {course.students.map((student) => (
               <li key={student}>{student}</li>
-            ))}
+            ))} </ul>
+            <h3> Professors </h3>
+            <ul>
             {course.professors.map((professor) => (
               <li key={professor}>{professor}</li>
             ))}
