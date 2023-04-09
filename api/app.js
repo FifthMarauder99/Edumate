@@ -16,6 +16,7 @@ var validateSecurityAnswerRouter = require("./routes/validateSecurityAnswer");
 var getStudentRouter = require("./routes/getStudents");
 var getProfessorRouter = require("./routes/getProfessors");
 var getCoursesRouter = require("./routes/getCourses");
+var updateEnrollmentRouter = require("./routes/updateEnrollment");
 
 const { appendFile } = require('fs');
 var app = express();
@@ -43,6 +44,7 @@ app.use('/validateSecurityAnswer', validateSecurityAnswerRouter);
 app.use('/getStudents', getStudentRouter);
 app.use('/getProfessors', getProfessorRouter);
 app.use('/getCourses', getCoursesRouter);
+app.use('/updateEnrollment', updateEnrollmentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

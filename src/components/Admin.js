@@ -47,6 +47,28 @@ const getCourses = async (url='http://localhost:9000/getCourses') => {
     return response.json();
 }
 
+const newEnrollment = async (data = {}) => {
+    const url = 'http://localhost:9000/updateEnrollment';
+    console.log(data);
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+        body: JSON.stringify({
+            course_id: data.course_id,
+            semester_id: data.semester_id,
+            user_id: data.user_id,
+            enrollment_date: data.enrollment_date,
+            course_title: data.course_title
+        })
+      }
+    );
+    if (!response.ok) throw new Error(response.statusText)
+    return response;
+  }
+
 const CourseList = () => {
     const [coursesUpdated, setCourses] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState(coursesUpdated);
@@ -114,9 +136,38 @@ const CourseList = () => {
     setFilteredCourses([...coursesUpdated]);
   };
 
-  const handleSave = () => {
-    // Do something with the updated courses, e.g. send to server
-    console.log('Updated courses:', coursesUpdated);
+    const handleSave = async () => {
+        for (let i = 0; i < filteredCourses.length; i++){
+            for (let s = 0; s < filteredCourses[i].students.length; s++){
+                var matches = filteredCourses[i].course_title.match(/\b(\w)/g); // ['J','S','O','N']
+                var acronym = matches.join('');
+                const request = {
+                    course_id: filteredCourses[i].course_id,
+                    user_id: filteredCourses[i].students[s],
+                    enrollment_date: new Date().toISOString(),
+                    semester_id: "SP23",
+                    course_title: acronym,
+                };
+                const resp = await newEnrollment(request);
+                if (!resp.ok) throw new Error("issue in new enrollment");
+            }
+            for (let p = 0; p < filteredCourses[i].professors.length; p++){
+                const request = {
+                    course_id: filteredCourses[i].course_id,
+                    user_id: filteredCourses[i].professors[p],
+                    enrollment_date: new Date().toISOString(),
+                    semester_id: "SP23",
+                    course_title: acronym,
+
+                };
+                const resp = await newEnrollment(request);
+                if (!resp.ok) throw new Error("issue in new enrollment");
+            }
+            if (filteredCourses[i].students.length > 0 || filteredCourses[i].professors.length > 0 )
+                console.log("updated the course " + filteredCourses[i].course_title);
+        }
+        alert('Updated courses succesfully!');
+        window.location.reload(true);
   };
   const columns = [
     {
@@ -140,7 +191,7 @@ const CourseList = () => {
       dataIndex: 'assign',
       key: 'assign',
       render: (_, record) => {
-          const { students, course_id } = record;
+        const { students, course_id } = record;
         const handleChange = (value) => {
           handleAssign(course_id, value);
         };
