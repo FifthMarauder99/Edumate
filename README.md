@@ -22,6 +22,7 @@ This project assumes that you have Heroku CLI installed, the Heroku credentials 
 ```
 > pwd
 whatever/P565-SE1-SP23-Project-Team-13/
+# may have to run the legacy package flag for v
 > npm run install-all-packages
 > npm run api-start
 ```
