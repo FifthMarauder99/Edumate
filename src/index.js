@@ -15,6 +15,8 @@ import './styles.css'
 import SuccessfulLogin from './components/SuccessfulLogin'
 import SecurityCheck from './components/SecurityCheck'
 import PasswordReset from './components/PasswordReset'
+import AdminView from './components/Admin'
+import CanvasLMS from './components/CanvasLMS'
 
 function App() {
   dotenv.config();
@@ -32,7 +34,9 @@ function App() {
             <Route path="/home/logout" component={HomePage} />
             <Route path="/home/usernameCheck" component={UsernameCheck} />
             <Route path="/home/securityCheck" component={SecurityCheck} />
-            <Route path="/home/passwordReset" component={PasswordReset} />
+          <Route path="/home/passwordReset" component={PasswordReset} />
+          <Route path="/home/Dashboard" component={CanvasLMS} />
+          <Route path="/home/AdminAdd" component={AdminView} />
           </Switch>
         </Router>
       </div>

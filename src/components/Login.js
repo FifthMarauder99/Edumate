@@ -65,7 +65,9 @@ export default class Login extends React.Component {
       response = await this.attemptOAuthLogin('http://localhost:9000/getCredentials/OAuth');
       console.log(response);
       alert('credentials matched')
-      this.props.history.push('/home/successfulLogin')
+      let response_role = (response === undefined) ? "" : response.user_role;
+      if (response_role === 'Student' || response_role === 'Educator') this.props.history.push('/home/Dashboard');
+      if (response_role === 'Admin') this.props.history.push('/home/AdminAdd');
       return true
     } catch (e) {
       console.log(e)
@@ -86,13 +88,15 @@ export default class Login extends React.Component {
     }
     // let response_user = response.results[0].username;
     let response_user = (response === undefined) ? "" : response.username;
+    let response_role = (response === undefined) ? "" : response.user_role;
     console.log("response_user" + response_user);
     if (
       (this.state.loginUserName === 'admin' &&
         this.state.loginPassword === 'admin') || this.state.loginUserName === response_user
     ) {
       alert('credentials matched')
-      this.props.history.push('/home/successfulLogin')
+      if (response_role === 'Student' || response_role === 'Educator') this.props.history.push('/home/Dashboard');
+      if (response_role === 'Admin') this.props.history.push('/home/AdminAdd');
       return true
     } else {
       alert('invalid credentials')
