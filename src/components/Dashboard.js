@@ -1,32 +1,65 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useLocation} from 'react-router-dom';
-import { Layout, Menu, Card, Row, Col } from 'antd';
+import { Layout, Menu, Card, Row, Col, Input } from 'antd';
 import './styles.css';
 import { Router, Route, Switch } from 'react-router-dom';
 import CalendarImplementation from './MyCalender';
+import Search from 'antd/es/transfer/search';
 const { Header, Content, Sider } = Layout;
+
+
+
+const attemptFetchCourses = async (url = '',uid) => {
+  const response = await fetch(url, {
+    method: 'POST',
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: uid,
+    })
+  }
+  );
+  return response.json();
+}
 
 const MainScreen = ( {subjects} ) => {
   console.log("subjects",subjects," type:",typeof(subjects))
-  const courseData = subjects;
+  const [courses,setCourses] = useState([]);
+  useEffect(()=>{
+    async function fetchCourses(){
+      const response = await attemptFetchCourses('http://localhost:9000/getCourses',subjects);
+      console.log(response)
+      const resList = [];
+            for (let i = 0; i < response.results.length; i++){
+                resList.push({
+                    course_id: response.results[i].course_id,
+                    course_title: response.results[i].course_title,
+                    course_code: response.results[i].course_code
+                });
+            }
+            setCourses(resList);
+    }
+    fetchCourses();
+  },[]);
+
+  if(courses.length >0){
+  console.log(courses)
+  }
+  
+  var courseData = [
+    { course_title: 'English', course_id: 'ENG101',semester_id:"FA22" },
+    { course_title: 'Mathematics', course_id: 'MATH101',semester_id:"FA22" },
+    { course_title: 'History', course_id: 'HIST101',semester_id:"SP23" },
+    { course_title: 'Science', course_id: 'SCI101',semester_id:"SP23" },
+  ];
+  console.log(courseData)
+  
   const [searchQuery, setSearchQuery] = useState('');
-  var filteredSubjects = courseData.filter((subject) =>
+  var filteredSubjects = courses.filter((subject) =>
     subject.course_title.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  if (filteredSubjects.length == 0){
-    console.log(filteredSubjects.length)
-    filteredSubjects = subjects;
-    console.log(filteredSubjects)
-  }
-
-  /*const [searchQuery, setSearchQuery] = useState('');
-const filteredSubjects = searchQuery
-  ? subjects.filter((subject) =>
-      subject.course_title.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  : subjects;*/
-
-  console.log(filteredSubjects)
   return (
     <div>
       <h1>Dashboard</h1>
@@ -50,9 +83,33 @@ const filteredSubjects = searchQuery
   );
 };
 
-const Sidebar = ({ subjects }) => {
-  const courseData = subjects;
-  console.log("In side bar:",courseData)
+  
+  
+
+
+const Sidebar = ({subjects} )=> {
+  console.log("subjects",subjects," type:",typeof(subjects))
+  const [courses,setCourses] = useState([]);
+  useEffect(()=>{
+    async function fetchCourses(){
+      const response = await attemptFetchCourses('http://localhost:9000/getCourses',subjects);
+      console.log(response)
+      const resList = [];
+            for (let i = 0; i < response.results.length; i++){
+                resList.push({
+                    course_id: response.results[i].course_id,
+                    course_title: response.results[i].course_title,
+                    course_code: response.results[i].course_code
+                });
+            }
+            setCourses(resList);
+    }
+    fetchCourses();
+  },[]);
+
+  if(courses.length >0){
+  console.log(courses)
+  }
   const assignments = [
     { subject: 'English', title: 'Essay', deadline: 'March 15, 2023' },
     { subject: 'Mathematics', title: 'Problem Set 5', deadline: 'March 17, 2023' },
@@ -80,7 +137,7 @@ const Sidebar = ({ subjects }) => {
           <Menu.Item key="1">Overview</Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" title="Courses">
-          {courseData.map((subject) => (
+          {courses.map((subject) => (
             <Menu.Item key={subject.course_id}>{subject.course_title}</Menu.Item>
           ))}
         </Menu.SubMenu>
@@ -119,58 +176,21 @@ const Calendar = () => {
 
 
 
-export default class Dashboard extends React.Component {
-  attemptFetchCourses = async (url = '',uid) => {
-    const response = await fetch(url, {
-      method: 'POST',
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user_id: uid,
-      })
-    }
-    );
-    return response.json();
-  }
-  
-   getSubjects = async(id)=>{
-    try {
-    return await this.attemptFetchCourses('http://localhost:9000/getCourses',id)
-     .then((data) => {
-      console.log(data)
-     return data
-  });
-    } catch (e) {
-      console.log(e)
-      alert('not found');
-      return false
-    }
-  }
+const Dashboard = () => {
 
-render (){
-  const courseData = []
-    var id = this.props.location.state.detail;
-
-  var x;
-    try{
-    this.getSubjects(id[1]).then(data=> {
-      x = data;
-      x.forEach(element => courseData.push(element))
-    })
-    
-    }
-    catch(e){
-      console.log(e)
-    }
+  const location = useLocation();
+  const id = location.state.detail;
+  console.log(id)
+ 
   
-    const subjects = [
+
+    var subjects = [
       { course_title: 'English', course_id: 'ENG101',semester_id:"FA22" },
       { course_title: 'Mathematics', course_id: 'MATH101',semester_id:"FA22" },
       { course_title: 'History', course_id: 'HIST101',semester_id:"SP23" },
       { course_title: 'Science', course_id: 'SCI101',semester_id:"SP23" },
     ];
+   
 
     return(
       <Layout>
@@ -185,14 +205,14 @@ render (){
           </div>
         </Header>
         <Layout>
-          <Sidebar subjects={courseData} />
+          <Sidebar subjects={id} />
           <Content className="site-layout-background">
-            <MainScreen subjects={courseData}/>
+            <MainScreen subjects = {id}/>
           </Content>
         </Layout>
       </Layout>
       )
     
   };
-};
+export default Dashboard;
 

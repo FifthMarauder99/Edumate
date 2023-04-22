@@ -93,9 +93,7 @@ export default class Login extends React.Component {
         this.state.loginPassword === 'admin') || this.state.loginUserName === response_user
     ) {
       alert('credentials matched')
-      const sendData = [];
-      sendData.push(this.state.loginUserName)
-      sendData.push(response.user_id)
+      const sendData = response.user_id;
       this.props.history.push({pathname: '/home/dashboard',state:{detail: sendData}})
       return true
     } else {
