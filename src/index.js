@@ -19,12 +19,6 @@ import Dashboard from './components/Dashboard'
 import CourseDetails from './components/CourseDetails'
 
 
-import Chats from "./pages/Chats";
-import AssignmentList from "./pages/Assignments";
-import A1 from "./pages/overview/A1";
-import A2 from "./pages/overview/A2";
-import M1 from "./pages/Products/M1";
-import Ass1 from './pages/Assignments/Ass1'
 
 function App() {
   dotenv.config();
@@ -45,16 +39,6 @@ function App() {
             <Route path="/home/passwordReset" component={PasswordReset} />
             <Route path="/home/dashboard" component={Dashboard}/>
             <Route path="/home/courseDetails" component={CourseDetails}/>
-
-
-
-
-            <Route path="/home/courseDetails/Chats" exact component={Chats} />
-            <Route path="/home/courseDetails/Assignments" exact component={AssignmentList} />
-            <Route path="/home/courseDetails/overview/A1" exact component={A1} />
-            <Route path="/home/courseDetails/overview/A2" exact component={A2} />
-            <Route path="/home/courseDetails/Products/M1" exact component={M1} />
-            <Route path="/home/courseDetails/Assignments/Ass1" exact component={Ass1} />
           </Switch>
         </Router>
       </div>
