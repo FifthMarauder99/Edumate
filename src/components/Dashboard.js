@@ -36,7 +36,7 @@ const MainScreen = ( {subjects} ) => {
                 resList.push({
                     course_id: response.results[i].course_id,
                     course_title: response.results[i].course_title,
-                    course_code: response.results[i].course_code
+                    semester_id: response.results[i].semester_id
                 });
             }
             setCourses(resList);
@@ -97,9 +97,9 @@ const Sidebar = ({subjects} )=> {
       const resList = [];
             for (let i = 0; i < response.results.length; i++){
                 resList.push({
-                    course_id: response.results[i].course_id,
-                    course_title: response.results[i].course_title,
-                    course_code: response.results[i].course_code
+                  course_title: response.results[i].course_title,
+                  course_id: response.results[i].course_id,
+                  semester_id: response.results[i].semester_id
                 });
             }
             setCourses(resList);
