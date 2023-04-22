@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import { Layout, Menu, Card, Row, Col, Input } from 'antd';
-import './styles.css';
+
 import { Router, Route, Switch } from 'react-router-dom';
 import CalendarImplementation from './MyCalender';
 import Search from 'antd/es/transfer/search';
 const { Header, Content, Sider } = Layout;
+
 
 
 
@@ -25,6 +27,7 @@ const attemptFetchCourses = async (url = '',uid) => {
 }
 
 const MainScreen = ( {subjects} ) => {
+  const history = useHistory();
   console.log("subjects",subjects," type:",typeof(subjects))
   const [courses,setCourses] = useState([]);
   useEffect(()=>{
@@ -47,7 +50,9 @@ const MainScreen = ( {subjects} ) => {
   if(courses.length >0){
   console.log(courses)
   }
-  
+  function handleCardClick(){
+    history.push('/home/courseDetails');
+  }
   var courseData = [
     { course_title: 'English', course_id: 'ENG101',semester_id:"FA22" },
     { course_title: 'Mathematics', course_id: 'MATH101',semester_id:"FA22" },
@@ -72,7 +77,8 @@ const MainScreen = ( {subjects} ) => {
       <Row gutter={[16, 16]}>
         {filteredSubjects.map((subject) => (
           <Col span={8} key={subject.course_id}>
-            <Card title={subject.course_title}>
+            <Card title={subject.course_title}
+            onClick = {handleCardClick}>
               <p>Sub Code: {subject.course_id}</p>
               <p>Sem code: {subject.semester_id}</p>
             </Card>

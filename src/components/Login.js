@@ -86,16 +86,24 @@ export default class Login extends React.Component {
     }
     // let response_user = response.results[0].username;
     let response_user = (response === undefined) ? "" : response.username;
+    let response_role = (response === undefined) ? "" : response.user_role;
     console.log("response_user" + response_user);
     console.log(response.user_id);
+    console.log(response_role)
     if (
       (this.state.loginUserName === 'admin' &&
         this.state.loginPassword === 'admin') || this.state.loginUserName === response_user
     ) {
+
       alert('credentials matched')
+      if (response_role === 'Student' || response_role === 'Educator') {const sendData = response.user_id;
+      this.props.history.push({pathname: '/home/dashboard',state:{detail: sendData}})}
+      //if (response_role === 'Admin') this.props.history.push('/home/AdminAdd');
+      return true
+      /*alert('credentials matched')
       const sendData = response.user_id;
       this.props.history.push({pathname: '/home/dashboard',state:{detail: sendData}})
-      return true
+      return true*/
     } else {
       alert('invalid credentials')
       return false

@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
         const client = await pool.connect();
         console.log(req.body.username);
         console.log(req.body.password);
-        const query = `SELECT user_id, username 
+        const query = `SELECT user_id, username,user_role 
                     FROM users WHERE username = '${req.body.username}' AND
                     password = crypt('${req.body.password}', password)` ;
         const result = await client.query(query);
