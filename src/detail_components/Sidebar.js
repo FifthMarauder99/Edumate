@@ -24,6 +24,7 @@ const NavIcon = styled(Link)`
   align-items: center;
 `;
 
+
 const SidebarNav = styled.nav`
   background: #15171c;
   width: 250px;
@@ -32,8 +33,8 @@ const SidebarNav = styled.nav`
   justify-content: center;
   position: fixed;
   top: 0;
-  left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
-  transition: 350ms;
+  left: ${({ sidebar }) => (sidebar ? '200' : '-100%')};
+  transition: left 1.5s ease-in-out;
   z-index: 10;
 `;
 

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import { Layout, Menu, Card, Row, Col, Input } from 'antd';
-
+import CourseDetails from './CourseDetails';
 import { Router, Route, Switch } from 'react-router-dom';
-import CalendarImplementation from './MyCalender';
+import MyCalendar from './MyCalender';
 import Search from 'antd/es/transfer/search';
 const { Header, Content, Sider } = Layout;
+
 
 
 
@@ -26,10 +27,11 @@ const attemptFetchCourses = async (url = '',uid) => {
   return response.json();
 }
 
-const MainScreen = ( {subjects} ) => {
+const MainScreen = ( {subjects,onSelectCourse} ) => {
   const history = useHistory();
   console.log("subjects",subjects," type:",typeof(subjects))
   const [courses,setCourses] = useState([]);
+
   useEffect(()=>{
     async function fetchCourses(){
       const response = await attemptFetchCourses('http://localhost:9000/getCourses',subjects);
@@ -50,9 +52,11 @@ const MainScreen = ( {subjects} ) => {
   if(courses.length >0){
   console.log(courses)
   }
-  function handleCardClick(){
-    history.push('/home/courseDetails');
+  function handleCardClick(subject){
+    onSelectCourse(subject.course_title);
+    console.log("Clicked in main screen",subject)
   }
+
   var courseData = [
     { course_title: 'English', course_id: 'ENG101',semester_id:"FA22" },
     { course_title: 'Mathematics', course_id: 'MATH101',semester_id:"FA22" },
@@ -78,7 +82,7 @@ const MainScreen = ( {subjects} ) => {
         {filteredSubjects.map((subject) => (
           <Col span={8} key={subject.course_id}>
             <Card title={subject.course_title}
-            onClick = {handleCardClick}>
+            onClick = {() => handleCardClick(subject)}>
               <p>Sub Code: {subject.course_id}</p>
               <p>Sem code: {subject.semester_id}</p>
             </Card>
@@ -93,7 +97,7 @@ const MainScreen = ( {subjects} ) => {
   
 
 
-const Sidebar = ({subjects} )=> {
+const Sidebar = ({subjects,onMenuClick} )=> {
   console.log("subjects",subjects," type:",typeof(subjects))
   const [courses,setCourses] = useState([]);
   useEffect(()=>{
@@ -112,6 +116,10 @@ const Sidebar = ({subjects} )=> {
     }
     fetchCourses();
   },[]);
+
+  const handleItemClick = (item) => {
+    onMenuClick(item);
+  }
 
   if(courses.length >0){
   console.log(courses)
@@ -135,16 +143,20 @@ const Sidebar = ({subjects} )=> {
     <Sider width={200} className="site-layout-background">
       <Menu
         mode="inline"
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={['0']}
         defaultOpenKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
       >
+        
         <Menu.SubMenu key="sub1" title="Dashboard">
-          <Menu.Item key="1">Overview</Menu.Item>
+        <Menu.Item key="0" onClick={() => handleItemClick('Home')}>
+        Home
+      </Menu.Item>
+          <Menu.Item key="1" onClick={() => handleItemClick('Overview')} >Overview</Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" title="Courses">
           {courses.map((subject) => (
-            <Menu.Item key={subject.course_id}>{subject.course_title}</Menu.Item>
+            <Menu.Item key={subject.course_id} onClick={() => handleItemClick(subject.course_title)}>{subject.course_title}</Menu.Item>
           ))}
         </Menu.SubMenu>
         <Menu.SubMenu key="sub3" title="Assignments">
@@ -155,15 +167,15 @@ const Sidebar = ({subjects} )=> {
             </Menu.Item>
           ))}
           </Menu.SubMenu>
-          <Menu.Item key="4">Grades</Menu.Item>
+          <Menu.Item key="4" onClick={() => handleItemClick('Grades')}>Grades</Menu.Item>
         </Menu.SubMenu>
-        <Menu.SubMenu key="sub4" title="Calender">
-          <Menu.Item key="5">
+        <Menu.SubMenu key="sub4" title="Calender" >
+          <Menu.Item key="5" onClick={() => handleItemClick('Calender')}>Calendar
             {/* <Router>
                 <Route path='/calendar' Component={CalendarImplementation}>
                 </Route>
             </Router> */}
-              <CalendarImplementation />
+              {/*<CalendarImplementation />*/}
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>
@@ -171,14 +183,36 @@ const Sidebar = ({subjects} )=> {
   );
 };
 
-const Calendar = () => {
+const CoursesScreen = () => {
   return (
     <div>
-      <h1>Calendar</h1>
-      <p>View your upcoming events and due dates.</p>
+      <h1>Course Details</h1>
+      <p>View your course details.</p>
     </div>
   );
 };
+
+const GradesScreen = () => {
+  return (
+    <div>
+      <h1>Grades</h1>
+      <p>View your grades.</p>
+    </div>
+  );
+};
+
+const Home = ({Profile}) => {
+  console.log("In home",Profile)
+  return (
+    <div>
+      <h1>Home</h1>
+      <p>Homepage.</p>
+      <p> Welcome {Profile} !</p>
+    </div>
+  );
+};
+
+
 
 
 
@@ -186,10 +220,38 @@ const Dashboard = () => {
 
   const location = useLocation();
   const id = location.state.detail;
-  console.log(id)
- 
+  console.log(id[1])
+
+
+  const [selectedItem, setSelectedItem] = useState('Home');
   
 
+  
+
+  const [selectedCourse, setSelectedCourse] = useState('');
+
+  const handleMenuClick = (item) => {
+    setSelectedItem(item);
+  }
+  
+  const handleCardClick = (course) => {
+    setSelectedCourse(course);
+    window.history.pushState({selectedCourse: course}, null, null);
+  }
+
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      const { selectedCourse} = event.state || {};
+      setSelectedCourse(selectedCourse);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  
+    console.log("Sidebar Item clicked : ",selectedItem)
+    console.log("Selected course in dashboard",selectedCourse)
     var subjects = [
       { course_title: 'English', course_id: 'ENG101',semester_id:"FA22" },
       { course_title: 'Mathematics', course_id: 'MATH101',semester_id:"FA22" },
@@ -211,13 +273,29 @@ const Dashboard = () => {
           </div>
         </Header>
         <Layout>
-          <Sidebar subjects={id} />
+          <Sidebar subjects={id[1]} onMenuClick={handleMenuClick} />
           <Content className="site-layout-background">
-            <MainScreen subjects = {id}/>
+            {/*<MainScreen subjects = {id}/>*/}
+
+            { selectedItem === 'Home' ? (
+                <Home Profile = {id[0]}/> )
+                : selectedItem === 'Overview' ? (
+                  selectedCourse ? <CourseDetails /> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
+                )  : selectedItem === 'DM' || selectedItem === 'SE1' || selectedItem === 'ADT'
+                ? (
+    <CourseDetails/>
+  ) : selectedItem === 'Grades' ? (
+    <GradesScreen/>
+  ) : selectedItem === 'Calender' ? (
+    <MyCalendar />
+  ) : (
+    <div>No content selected</div>
+  )}
           </Content>
         </Layout>
       </Layout>
       )
+      
     
   };
 export default Dashboard;

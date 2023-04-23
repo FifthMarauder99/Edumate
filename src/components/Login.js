@@ -96,7 +96,10 @@ export default class Login extends React.Component {
     ) {
 
       alert('credentials matched')
-      if (response_role === 'Student' || response_role === 'Educator') {const sendData = response.user_id;
+      if (response_role === 'Student' || response_role === 'Educator') {
+      const sendData = []
+      sendData.push(response.username)
+      sendData.push(response.user_id);
       this.props.history.push({pathname: '/home/dashboard',state:{detail: sendData}})}
       //if (response_role === 'Admin') this.props.history.push('/home/AdminAdd');
       return true
