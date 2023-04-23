@@ -65,7 +65,13 @@ export default class Login extends React.Component {
       response = await this.attemptOAuthLogin('http://localhost:9000/getCredentials/OAuth');
       console.log(response);
       alert('credentials matched')
-      this.props.history.push('/home/successfulLogin')
+      let response_role = (response === undefined) ? "" : response.user_role;
+      const sendData = []
+      sendData.push(response.username)
+      sendData.push(response.user_id);
+      if (response_role === 'Student') this.props.history.push({pathname: '/home/studentdashboard',state:{detail: sendData}})
+      if(response_role === 'Educator') this.props.history.push({pathname: '/home/professordashboard',state:{detail: sendData}})
+      if (response_role === 'Admin') this.props.history.push('/home/AdminAdd');
       return true
     } catch (e) {
       console.log(e)
@@ -94,22 +100,21 @@ export default class Login extends React.Component {
       (this.state.loginUserName === 'admin' &&
         this.state.loginPassword === 'admin') || this.state.loginUserName === response_user
     ) {
-
       alert('credentials matched')
-      if (response_role === 'Student') {
       const sendData = []
       sendData.push(response.username)
       sendData.push(response.user_id);
+      if (response_role === 'Student') {
       this.props.history.push({pathname: '/home/studentdashboard',state:{detail: sendData}})
       return true
       }
-     else if( response_role === 'Educator'){
-      const sendData = []
-      sendData.push(response.username)
-      sendData.push(response.user_id);
+      else if (response_role === 'Educator') {
       this.props.history.push({pathname: '/home/professordashboard',state:{detail: sendData}})
       return true
-    }
+      } else {
+        // admin login
+        this.props.history.push({ pathname: '/home/adminAdd', state: { detail: sendData } })
+      }
   }
     else {
       alert('invalid credentials')

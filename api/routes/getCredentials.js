@@ -43,7 +43,7 @@ router.post('/OAuth', async (req, res) => {
         });
         const client = await pool.connect();
         console.log(req.body.email);
-        const query = `SELECT email 
+        const query = `SELECT email, user_role, user_id
                     FROM users WHERE email = '${req.body.email}'` ;
         const result = await client.query(query);
         const results = { 'results': (result) ? result.rows : null};

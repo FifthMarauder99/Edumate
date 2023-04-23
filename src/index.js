@@ -18,8 +18,8 @@ import PasswordReset from './components/PasswordReset'
 import StudentDashboard from './components/StudentDashboard'
 import ProfessorDashboard from './components/ProfessorDashboard'
 import CourseDetails from './components/ProfessorCourseDetails'
-
-
+import AdminView from './components/Admin'
+import CanvasLMS from './components/CanvasLMS'
 
 function App() {
   dotenv.config();
@@ -37,8 +37,9 @@ function App() {
             <Route path="/home/logout" component={HomePage} />
             <Route path="/home/usernameCheck" component={UsernameCheck} />
             <Route path="/home/securityCheck" component={SecurityCheck} />
-            <Route path="/home/passwordReset" component={PasswordReset} />
-            <Route path="/home/studentdashboard" component={StudentDashboard}/>
+          <Route path="/home/passwordReset" component={PasswordReset} />
+          <Route path="/home/AdminAdd" component={AdminView} />
+          <Route path="/home/studentdashboard" component={StudentDashboard}/>
             <Route path="/home/professordashboard" component={ProfessorDashboard}/>
             <Route path="/home/courseDetails" component={CourseDetails}/>
           </Switch>
