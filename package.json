@@ -19,6 +19,7 @@
     "react": "16.8.6",
     "react-big-calendar": "^1.6.9",
     "react-bootstrap": "^2.7.4",
+    "react-confetti": "^6.1.0",
     "react-dom": "16.8.6",
     "react-icons": "^4.8.0",
     "react-router-dom": "5.1.2",

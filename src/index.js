@@ -15,8 +15,9 @@ import './styles.css'
 import SuccessfulLogin from './components/SuccessfulLogin'
 import SecurityCheck from './components/SecurityCheck'
 import PasswordReset from './components/PasswordReset'
-import Dashboard from './components/Dashboard'
-import CourseDetails from './components/CourseDetails'
+import StudentDashboard from './components/StudentDashboard'
+import ProfessorDashboard from './components/ProfessorDashboard'
+import CourseDetails from './components/ProfessorCourseDetails'
 
 
 
@@ -37,7 +38,8 @@ function App() {
             <Route path="/home/usernameCheck" component={UsernameCheck} />
             <Route path="/home/securityCheck" component={SecurityCheck} />
             <Route path="/home/passwordReset" component={PasswordReset} />
-            <Route path="/home/dashboard" component={Dashboard}/>
+            <Route path="/home/studentdashboard" component={StudentDashboard}/>
+            <Route path="/home/professordashboard" component={ProfessorDashboard}/>
             <Route path="/home/courseDetails" component={CourseDetails}/>
           </Switch>
         </Router>

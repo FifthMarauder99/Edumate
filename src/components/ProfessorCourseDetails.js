@@ -8,7 +8,7 @@ import A2 from "../pages/overview/A2";
 import M1 from "../pages/Products/M1";
 import Ass1 from '../pages/Assignments/Ass1'
 
-const CourseDetails=() =>{
+const ProfessorCourseDetails=() =>{
   return (
     <Router>
       <Sidebar />
@@ -25,4 +25,4 @@ const CourseDetails=() =>{
   );
 }
 
-export default CourseDetails;
+export default ProfessorCourseDetails;

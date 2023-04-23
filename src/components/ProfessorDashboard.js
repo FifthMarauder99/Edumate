@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import { Layout, Menu, Card, Row, Col, Input } from 'antd';
-import CourseDetails from './CourseDetails';
+import ProfessorCourseDetails from './ProfessorCourseDetails';
 import { Router, Route, Switch } from 'react-router-dom';
 import MyCalendar from './MyCalender';
 import Search from 'antd/es/transfer/search';
@@ -57,13 +57,6 @@ const MainScreen = ( {subjects,onSelectCourse} ) => {
     console.log("Clicked in main screen",subject)
   }
 
-  var courseData = [
-    { course_title: 'English', course_id: 'ENG101',semester_id:"FA22" },
-    { course_title: 'Mathematics', course_id: 'MATH101',semester_id:"FA22" },
-    { course_title: 'History', course_id: 'HIST101',semester_id:"SP23" },
-    { course_title: 'Science', course_id: 'SCI101',semester_id:"SP23" },
-  ];
-  console.log(courseData)
   
   const [searchQuery, setSearchQuery] = useState('');
   var filteredSubjects = courses.filter((subject) =>
@@ -124,20 +117,13 @@ const Sidebar = ({subjects,onMenuClick} )=> {
   if(courses.length >0){
   console.log(courses)
   }
+  /*STATIC DATA*/
   const assignments = [
     { subject: 'English', title: 'Essay', deadline: 'March 15, 2023' },
     { subject: 'Mathematics', title: 'Problem Set 5', deadline: 'March 17, 2023' },
     { subject: 'History', title: 'Research Paper', deadline: 'March 20, 2023' },
     { subject: 'Science', title: 'Lab Report', deadline: 'March 22, 2023' },
   ];
-  const students=[
-    { Name: 'Atharva Pore', Sem: 'Second', Course: 'M1' },
-    { Name: 'Akshada Bhandari', Sem: 'Second', Course: 'M2' },
-    { Name: 'Aadesh Oak', Sem: 'Second', Course: 'M3' },
-    { Name: 'Sophia Zhang', Sem: 'Second', Course: 'S1' },
-    { Name: 'Sydney Searcy', Sem: 'Second', Course: 'M3' },
-
-  ]
  
   return (
     <Sider width={200} className="site-layout-background">
@@ -171,11 +157,6 @@ const Sidebar = ({subjects,onMenuClick} )=> {
         </Menu.SubMenu>
         <Menu.SubMenu key="sub4" title="Calender" >
           <Menu.Item key="5" onClick={() => handleItemClick('Calender')}>Calendar
-            {/* <Router>
-                <Route path='/calendar' Component={CalendarImplementation}>
-                </Route>
-            </Router> */}
-              {/*<CalendarImplementation />*/}
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>
@@ -216,7 +197,7 @@ const Home = ({Profile}) => {
 
 
 
-const Dashboard = () => {
+const ProfessorDashboard = () => {
 
   const location = useLocation();
   const id = location.state.detail;
@@ -224,10 +205,6 @@ const Dashboard = () => {
 
 
   const [selectedItem, setSelectedItem] = useState('Home');
-  
-
-  
-
   const [selectedCourse, setSelectedCourse] = useState('');
 
   const handleMenuClick = (item) => {
@@ -252,13 +229,6 @@ const Dashboard = () => {
   
     console.log("Sidebar Item clicked : ",selectedItem)
     console.log("Selected course in dashboard",selectedCourse)
-    var subjects = [
-      { course_title: 'English', course_id: 'ENG101',semester_id:"FA22" },
-      { course_title: 'Mathematics', course_id: 'MATH101',semester_id:"FA22" },
-      { course_title: 'History', course_id: 'HIST101',semester_id:"SP23" },
-      { course_title: 'Science', course_id: 'SCI101',semester_id:"SP23" },
-    ];
-   
 
     return(
       <Layout>
@@ -280,10 +250,10 @@ const Dashboard = () => {
             { selectedItem === 'Home' ? (
                 <Home Profile = {id[0]}/> )
                 : selectedItem === 'Overview' ? (
-                  selectedCourse ? <CourseDetails /> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
+                  selectedCourse ? <ProfessorCourseDetails /> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
                 )  : selectedItem === 'DM' || selectedItem === 'SE1' || selectedItem === 'ADT'
                 ? (
-    <CourseDetails/>
+    <ProfessorCourseDetails/>
   ) : selectedItem === 'Grades' ? (
     <GradesScreen/>
   ) : selectedItem === 'Calender' ? (
@@ -298,5 +268,5 @@ const Dashboard = () => {
       
     
   };
-export default Dashboard;
+export default ProfessorDashboard;
 
