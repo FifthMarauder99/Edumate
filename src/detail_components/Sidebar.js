@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import { SidebarData } from './SidebarData';
-import SubMenu from './SubMenu';
-import { IconContext } from 'react-icons/lib';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import * as FaIcons from 'react-icons/fa'
+import * as AiIcons from 'react-icons/ai'
+import { SidebarData } from './SidebarData'
+import SubMenu from './SubMenu'
+import { IconContext } from 'react-icons/lib'
 
 const Nav = styled.div`
   background: #15171c;
@@ -13,7 +13,7 @@ const Nav = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-`;
+`
 
 const NavIcon = styled(Link)`
   margin-left: 2rem;
@@ -22,8 +22,7 @@ const NavIcon = styled(Link)`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-`;
-
+`
 
 const SidebarNav = styled.nav`
   background: #15171c;
@@ -36,16 +35,16 @@ const SidebarNav = styled.nav`
   left: ${({ sidebar }) => (sidebar ? '200' : '-100%')};
   transition: left 1.5s ease-in-out;
   z-index: 10;
-`;
+`
 
 const SidebarWrap = styled.div`
   width: 100%;
-`;
+`
 
 const Sidebar = () => {
-  const [sidebar, setSidebar] = useState(false);
+  const [sidebar, setSidebar] = useState(false)
 
-  const showSidebar = () => setSidebar(!sidebar);
+  const showSidebar = () => setSidebar(!sidebar)
 
   return (
     <>
@@ -61,13 +60,13 @@ const Sidebar = () => {
               <AiIcons.AiOutlineClose onClick={showSidebar} />
             </NavIcon>
             {SidebarData.map((item, index) => {
-              return <SubMenu item={item} key={index} />;
+              return <SubMenu item={item} key={index} />
             })}
           </SidebarWrap>
         </SidebarNav>
       </IconContext.Provider>
     </>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

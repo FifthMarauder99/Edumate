@@ -1,66 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import {useLocation} from 'react-router-dom';
-import { Layout, Menu, Card, Row, Col, Input } from 'antd';
-import StudentCourseDetails from './StudentCourseDetails';
-import { Router, Route, Switch } from 'react-router-dom';
-import MyCalendar from './MyCalender';
-import Search from 'antd/es/transfer/search';
-const { Header, Content, Sider } = Layout;
+import React, { useEffect, useState } from 'react'
+import { useHistory, useLocation, Router, Route, Switch } from 'react-router-dom'
+import { Layout, Menu, Card, Row, Col, Input } from 'antd'
+import StudentCourseDetails from './StudentCourseDetails'
+import MyCalendar from './MyCalender'
+import Search from 'antd/es/transfer/search'
+const { Header, Content, Sider } = Layout
 
-
-
-
-
-const attemptFetchCourses = async (url = '',uid) => {
+const attemptFetchCourses = async (url = '', uid) => {
   const response = await fetch(url, {
     method: 'POST',
-    mode: "cors",
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      user_id: uid,
+      user_id: uid
     })
   }
-  );
-  return response.json();
+  )
+  return response.json()
 }
 
-const MainScreen = ( {subjects,onSelectCourse} ) => {
-  const history = useHistory();
-  console.log("subjects",subjects," type:",typeof(subjects))
-  const [courses,setCourses] = useState([]);
+const MainScreen = ({ subjects, onSelectCourse }) => {
+  const history = useHistory()
+  console.log('subjects', subjects, ' type:', typeof (subjects))
+  const [courses, setCourses] = useState([])
 
-  useEffect(()=>{
-    async function fetchCourses(){
-      const response = await attemptFetchCourses('http://localhost:9000/getCourses',subjects);
+  useEffect(() => {
+    async function fetchCourses () {
+      const response = await attemptFetchCourses('http://localhost:9000/getCourses', subjects)
       console.log(response)
-      const resList = [];
-            for (let i = 0; i < response.results.length; i++){
-                resList.push({
-                    course_id: response.results[i].course_id,
-                    course_title: response.results[i].course_title,
-                    semester_id: response.results[i].semester_id
-                });
-            }
-            setCourses(resList);
+      const resList = []
+      for (let i = 0; i < response.results.length; i++) {
+        resList.push({
+          course_id: response.results[i].course_id,
+          course_title: response.results[i].course_title,
+          semester_id: response.results[i].semester_id
+        })
+      }
+      setCourses(resList)
     }
-    fetchCourses();
-  },[]);
+    fetchCourses()
+  }, [])
 
-  if(courses.length >0){
-  console.log(courses)
+  if (courses.length > 0) {
+    console.log(courses)
   }
-  function handleCardClick(subject){
-    onSelectCourse(subject.course_title);
-    console.log("Clicked in main screen",subject)
+  function handleCardClick (subject) {
+    onSelectCourse(subject.course_title)
+    console.log('Clicked in main screen', subject)
   }
-  
-  const [searchQuery, setSearchQuery] = useState('');
-  var filteredSubjects = courses.filter((subject) =>
+
+  const [searchQuery, setSearchQuery] = useState('')
+  const filteredSubjects = courses.filter((subject) =>
     subject.course_title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  )
   return (
     <div>
       <h1>Dashboard</h1>
@@ -82,50 +76,45 @@ const MainScreen = ( {subjects,onSelectCourse} ) => {
         ))}
       </Row>
     </div>
-  );
-};
+  )
+}
 
-  
-  
-
-
-const Sidebar = ({subjects,onMenuClick} )=> {
-  console.log("subjects",subjects," type:",typeof(subjects))
-  const [courses,setCourses] = useState([]);
-  useEffect(()=>{
-    async function fetchCourses(){
-      const response = await attemptFetchCourses('http://localhost:9000/getCourses',subjects);
+const Sidebar = ({ subjects, onMenuClick }) => {
+  console.log('subjects', subjects, ' type:', typeof (subjects))
+  const [courses, setCourses] = useState([])
+  useEffect(() => {
+    async function fetchCourses () {
+      const response = await attemptFetchCourses('http://localhost:9000/getCourses', subjects)
       console.log(response)
-      const resList = [];
-            for (let i = 0; i < response.results.length; i++){
-                resList.push({
-                  course_title: response.results[i].course_title,
-                  course_id: response.results[i].course_id,
-                  semester_id: response.results[i].semester_id
-                });
-            }
-            setCourses(resList);
+      const resList = []
+      for (let i = 0; i < response.results.length; i++) {
+        resList.push({
+          course_title: response.results[i].course_title,
+          course_id: response.results[i].course_id,
+          semester_id: response.results[i].semester_id
+        })
+      }
+      setCourses(resList)
     }
-    fetchCourses();
-  },[]);
+    fetchCourses()
+  }, [])
 
   const handleItemClick = (item) => {
-    onMenuClick(item);
+    onMenuClick(item)
   }
 
-  if(courses.length >0){
-  console.log(courses)
+  if (courses.length > 0) {
+    console.log(courses)
   }
 
-  /*STATIC DATA*/
+  /* STATIC DATA */
   const assignments = [
     { subject: 'English', title: 'Essay', deadline: 'March 15, 2023' },
     { subject: 'Mathematics', title: 'Problem Set 5', deadline: 'March 17, 2023' },
     { subject: 'History', title: 'Research Paper', deadline: 'March 20, 2023' },
-    { subject: 'Science', title: 'Lab Report', deadline: 'March 22, 2023' },
-  ];
+    { subject: 'Science', title: 'Lab Report', deadline: 'March 22, 2023' }
+  ]
 
- 
   return (
     <Sider width={200} className="site-layout-background">
       <Menu
@@ -134,7 +123,7 @@ const Sidebar = ({subjects,onMenuClick} )=> {
         defaultOpenKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
       >
-        
+
         <Menu.SubMenu key="sub1" title="Dashboard">
         <Menu.Item key="0" onClick={() => handleItemClick('Home')}>
         Home
@@ -162,13 +151,13 @@ const Sidebar = ({subjects,onMenuClick} )=> {
                 <Route path='/calendar' Component={CalendarImplementation}>
                 </Route>
             </Router> */}
-              {/*<CalendarImplementation />*/}
+              {/* <CalendarImplementation /> */}
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>
     </Sider>
-  );
-};
+  )
+}
 
 const CoursesScreen = () => {
   return (
@@ -176,8 +165,8 @@ const CoursesScreen = () => {
       <h1>Course Details</h1>
       <p>View your course details.</p>
     </div>
-  );
-};
+  )
+}
 
 const GradesScreen = () => {
   return (
@@ -185,63 +174,51 @@ const GradesScreen = () => {
       <h1>Grades</h1>
       <p>View your grades.</p>
     </div>
-  );
-};
+  )
+}
 
-const Home = ({Profile}) => {
-  console.log("In home",Profile)
+const Home = ({ Profile }) => {
+  console.log('In home', Profile)
   return (
     <div>
       <h1>Home</h1>
       <p>Homepage.</p>
       <p> Welcome {Profile} !</p>
     </div>
-  );
-};
-
-
-
-
+  )
+}
 
 const StudentDashboard = () => {
-
-  const location = useLocation();
-  const id = location.state.detail;
+  const location = useLocation()
+  const id = location.state.detail
   console.log(id[1])
 
+  const [selectedItem, setSelectedItem] = useState('Home')
 
-  const [selectedItem, setSelectedItem] = useState('Home');
-  
-
-  
-
-  const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState('')
 
   const handleMenuClick = (item) => {
-    setSelectedItem(item);
-  }
-  
-  const handleCardClick = (course) => {
-    setSelectedCourse(course);
-    window.history.pushState({selectedCourse: course}, null, null);
+    setSelectedItem(item)
   }
 
+  const handleCardClick = (course) => {
+    setSelectedCourse(course)
+    window.history.pushState({ selectedCourse: course }, null, null)
+  }
 
   useEffect(() => {
     const handlePopState = (event) => {
-      const { selectedCourse} = event.state || {};
-      setSelectedCourse(selectedCourse);
-    };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+      const { selectedCourse } = event.state || {}
+      setSelectedCourse(selectedCourse)
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
-  
-    console.log("Sidebar Item clicked : ",selectedItem)
-    console.log("Selected course in dashboard",selectedCourse)
-   
+  console.log('Sidebar Item clicked : ', selectedItem)
+  console.log('Selected course in dashboard', selectedCourse)
 
-    return(
+  return (
       <Layout>
         <Header className="header">
           <div className="logo-container">
@@ -256,28 +233,33 @@ const StudentDashboard = () => {
         <Layout>
           <Sidebar subjects={id[1]} onMenuClick={handleMenuClick} />
           <Content className="site-layout-background">
-            {/*<MainScreen subjects = {id}/>*/}
+            {/* <MainScreen subjects = {id}/> */}
 
-            { selectedItem === 'Home' ? (
-                <Home Profile = {id[0]}/> )
-                : selectedItem === 'Overview' ? (
-                  selectedCourse ? <StudentCourseDetails /> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
-                )  : selectedItem === 'DM' || selectedItem === 'SE1' || selectedItem === 'ADT'
+            { selectedItem === 'Home'
+              ? (
+                <Home Profile = {id[0]}/>)
+              : selectedItem === 'Overview'
                 ? (
+                    selectedCourse ? <StudentCourseDetails /> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
+                  )
+                : selectedItem === 'DM' || selectedItem === 'SE1' || selectedItem === 'ADT'
+                  ? (
     <StudentCourseDetails/>
-  ) : selectedItem === 'Grades' ? (
+                    )
+                  : selectedItem === 'Grades'
+                    ? (
     <GradesScreen/>
-  ) : selectedItem === 'Calender' ? (
+                      )
+                    : selectedItem === 'Calender'
+                      ? (
     <MyCalendar />
-  ) : (
+                        )
+                      : (
     <div>No content selected</div>
-  )}
+                        )}
           </Content>
         </Layout>
       </Layout>
-      )
-      
-    
-  };
-export default StudentDashboard;
-
+  )
+}
+export default StudentDashboard

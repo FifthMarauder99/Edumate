@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Registration from './components/Registration'
-import * as dotenv from 'dotenv' 
-
 import {
   BrowserRouter as Router,
   Route,
@@ -21,10 +19,8 @@ import CourseDetails from './components/ProfessorCourseDetails'
 import AdminView from './components/Admin'
 import CanvasLMS from './components/CanvasLMS'
 
-function App() {
-  dotenv.config();
-  console.log(process.env.REACT_APP_DATABASE_URL);
-
+function App () {
+  console.log(process.env.REACT_APP_DATABASE_URL)
 
   return (
       <div className="App">

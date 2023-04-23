@@ -9,9 +9,8 @@
     "@types/react": "^18.0.38",
     "antd": "^5.4.0",
     "availity-reactstrap-validation": "2.6.0",
-    "axios": "0.19.0",
+    "axios": "^1.3.6",
     "body-parser": "^1.20.2",
-    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jwt-decode": "^3.1.2",
     "path": "^0.12.7",
@@ -24,7 +23,7 @@
     "react-dom": "16.8.6",
     "react-icons": "^4.8.0",
     "react-router-dom": "5.1.2",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^5.0.1",
     "reactstrap": "8.1.1",
     "styled-components": "^5.3.9"
   },
@@ -42,5 +41,17 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "dotenv-webpack": "^8.0.1",
+    "eslint": "^8.39.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-config-standard-jsx": "^11.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-standard": "^5.0.0",
+    "react-app-rewired": "^2.2.1"
+  }
 }

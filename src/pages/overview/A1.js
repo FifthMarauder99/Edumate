@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './A1.css';
+import React, { useState } from 'react'
+import './A1.css'
 
 const A1 = () => {
   // sample data for 5 students
@@ -8,25 +8,25 @@ const A1 = () => {
     { name: 'Jane', id: '002', marks: 16, maxMarks: 20 },
     { name: 'Bob', id: '003', marks: 14, maxMarks: 20 },
     { name: 'Alice', id: '004', marks: 19, maxMarks: 20 },
-    { name: 'Eve', id: '005', marks: 15, maxMarks: 20 },
-  ]);
+    { name: 'Eve', id: '005', marks: 15, maxMarks: 20 }
+  ])
 
   const handleSaveGrades = () => {
     // save the grades
-    alert('Grades saved successfully!');
-  };
+    alert('Grades saved successfully!')
+  }
 
   const handlePostGrades = () => {
     // post the grades
-    alert('Grades posted successfully!');
-  };
+    alert('Grades posted successfully!')
+  }
 
   const handleMarksChange = (index, newMarks) => {
     // update the marks for a student
-    const newStudents = [...students];
-    newStudents[index].marks = newMarks;
-    setStudents(newStudents);
-  };
+    const newStudents = [...students]
+    newStudents[index].marks = newMarks
+    setStudents(newStudents)
+  }
 
   return (
     <div className="table-container">
@@ -65,7 +65,7 @@ const A1 = () => {
         <button className='post_button' onClick={handlePostGrades}>Post Grades</button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default A1;
+export default A1

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Form,
   Button,
@@ -8,75 +8,75 @@ import {
   CardTitle,
   CardText,
   CardFooter
-} from "reactstrap";
+} from 'reactstrap'
 
-import Step1 from "./Step1";
-import Step2 from "./Step2";
+import Step1 from './Step1'
+import Step2 from './Step2'
 
 // import styled from "styled-components";
 
 class MasterForm extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     // Set the intiial input values
     this.state = {
       currentStep: 1,
-      email: "",
-      username: "",
-      question:""
-    };
+      email: '',
+      username: '',
+      question: ''
+    }
 
     // Bind the submission to handleChange()
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this)
 
     // Bind new functions for next and previous
-    this._next = this._next.bind(this);
-    this._prev = this._prev.bind(this);
+    this._next = this._next.bind(this)
+    this._prev = this._prev.bind(this)
   }
 
   // Use the submitted data to set the state
-  handleChange(event) {
-    const { name, value } = event.target;
+  handleChange (event) {
+    const { name, value } = event.target
     this.setState({
       [name]: value
-    });
+    })
   }
 
   // Trigger an alert on form submission
   handleSubmit = event => {
-    event.preventDefault();
-    const { email, username } = this.state;
+    event.preventDefault()
+    const { email, username } = this.state
     alert(`Your registration detail: \n 
       Email: ${email} \n 
       Username: ${username} \n
-      Question:#{question}`);
-  };
+      Question:#{question}`)
+  }
 
   // Test current step with ternary
   // _next and _previous functions will be called on button click
-  _next() {
-    let currentStep = this.state.currentStep;
+  _next () {
+    let currentStep = this.state.currentStep
 
     // If the current step is 1 or 2, then add one on "next" button click
-    currentStep = currentStep >= 2 ? 3 : currentStep + 1;
+    currentStep = currentStep >= 2 ? 3 : currentStep + 1
     this.setState({
-      currentStep: currentStep
-    });
+      currentStep
+    })
   }
 
-  _prev() {
-    let currentStep = this.state.currentStep;
+  _prev () {
+    let currentStep = this.state.currentStep
     // If the current step is 2 or 3, then subtract one on "previous" button click
-    currentStep = currentStep <= 1 ? 1 : currentStep - 1;
+    currentStep = currentStep <= 1 ? 1 : currentStep - 1
     this.setState({
-      currentStep: currentStep
-    });
+      currentStep
+    })
   }
 
   // The "next" and "previous" button functions
-  get previousButton() {
-    let currentStep = this.state.currentStep;
+  get previousButton () {
+    const currentStep = this.state.currentStep
 
     // If the current step is not 1, then render the "previous" button
     if (currentStep !== 1) {
@@ -84,39 +84,39 @@ class MasterForm extends Component {
         <Button color="secondary float-left" onClick={this._prev}>
           Previous
         </Button>
-      );
+      )
     }
 
     // ...else return nothing
-    return null;
+    return null
   }
 
-  get nextButton() {
-    let currentStep = this.state.currentStep;
+  get nextButton () {
+    const currentStep = this.state.currentStep
     // If the current step is not 3, then render the "next" button
     if (currentStep < 3) {
       return (
         <Button color="primary float-right" onClick={this._next}>
           Next
         </Button>
-      );
+      )
     }
     // ...else render nothing
-    return null;
+    return null
   }
 
-  get submitButton() {
-    let currentStep = this.state.currentStep;
+  get submitButton () {
+    const currentStep = this.state.currentStep
 
     // If the current step is the last step, then render the "submit" button
     if (currentStep > 2) {
-      return <Button color="primary float-right">Submit</Button>;
+      return <Button color="primary float-right">Submit</Button>
     }
     // ...else render nothing
-    return null;
+    return null
   }
 
-  render() {
+  render () {
     return (
       <>
         <Form onSubmit={this.handleSubmit}>
@@ -136,7 +136,7 @@ class MasterForm extends Component {
                 handleChange={this.handleChange}
                 email={this.state.username}
               />
-              
+
             </CardBody>
             <CardFooter>
               {this.previousButton}
@@ -146,8 +146,8 @@ class MasterForm extends Component {
           </Card>
         </Form>
       </>
-    );
+    )
   }
 }
 
-export default MasterForm;
+export default MasterForm

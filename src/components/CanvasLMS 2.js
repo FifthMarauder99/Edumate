@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Layout, Menu, Card, Row, Col } from 'antd';
-import './styles.css';
-import { Router, Route, Switch } from 'react-router-dom';
-import CalendarImplementation from './MyCalendar';
-const { Header, Content, Sider } = Layout;
+import React, { useState } from 'react'
+import { Layout, Menu, Card, Row, Col } from 'antd'
+import './styles.css'
+import { Router, Route, Switch } from 'react-router-dom'
+import CalendarImplementation from './MyCalendar'
+const { Header, Content, Sider } = Layout
 
 const Dashboard = ({ subjects }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('')
 
   const filteredSubjects = subjects.filter((subject) =>
     subject.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  )
 
   return (
     <div>
@@ -31,25 +31,25 @@ const Dashboard = ({ subjects }) => {
         ))}
       </Row>
     </div>
-  );
-};
+  )
+}
 
 const Sidebar = ({ subjects }) => {
   const assignments = [
     { subject: 'English', title: 'Essay', deadline: 'March 15, 2023' },
     { subject: 'Mathematics', title: 'Problem Set 5', deadline: 'March 17, 2023' },
     { subject: 'History', title: 'Research Paper', deadline: 'March 20, 2023' },
-    { subject: 'Science', title: 'Lab Report', deadline: 'March 22, 2023' },
-  ];
-  const students=[
+    { subject: 'Science', title: 'Lab Report', deadline: 'March 22, 2023' }
+  ]
+  const students = [
     { Name: 'Atharva Pore', Sem: 'Second', Course: 'M1' },
     { Name: 'Akshada Bhandari', Sem: 'Second', Course: 'M2' },
     { Name: 'Aadesh Oak', Sem: 'Second', Course: 'M3' },
     { Name: 'Sophia Zhang', Sem: 'Second', Course: 'S1' },
-    { Name: 'Sydney Searcy', Sem: 'Second', Course: 'M3' },
+    { Name: 'Sydney Searcy', Sem: 'Second', Course: 'M3' }
 
   ]
- 
+
   return (
     <Sider width={200} className="site-layout-background">
       <Menu
@@ -87,8 +87,8 @@ const Sidebar = ({ subjects }) => {
         </Menu.SubMenu>
       </Menu>
     </Sider>
-  );
-};
+  )
+}
 
 const Calendar = () => {
   return (
@@ -96,16 +96,16 @@ const Calendar = () => {
       <h1>Calendar</h1>
       <p>View your upcoming events and due dates.</p>
     </div>
-  );
-};
+  )
+}
 
 const CanvasLMS = () => {
   const subjects = [
     { name: 'English', code: 'ENG101' },
     { name: 'Mathematics', code: 'MATH101' },
     { name: 'History', code: 'HIST101' },
-    { name: 'Science', code: 'SCI101' },
-  ];
+    { name: 'Science', code: 'SCI101' }
+  ]
 
   return (
     <Layout>
@@ -126,7 +126,7 @@ const CanvasLMS = () => {
         </Content>
       </Layout>
     </Layout>
-  );
-};
+  )
+}
 
-export default CanvasLMS;
+export default CanvasLMS

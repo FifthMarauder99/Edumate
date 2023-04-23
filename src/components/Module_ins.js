@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import './styles.css';
+import React, { useState } from 'react'
+import './styles.css'
 
-function FileInput({ onChange }) {
-  const [file, setFile] = useState(null);
+function FileInput ({ onChange }) {
+  const [file, setFile] = useState(null)
   const handleChange = (event) => {
-    const newFile = event.target.files[0];
-    setFile(newFile);
-    onChange && onChange(newFile);
-  };
+    const newFile = event.target.files[0]
+    setFile(newFile)
+    onChange && onChange(newFile)
+  }
   return (
     <div>
       <input type="file" onChange={handleChange} />
       {file && (
         <div>
-          
+
           {file.type === 'application/pdf' && (
             <a href={URL.createObjectURL(file)} target="_blank" rel="noopener noreferrer">
               View PDF
@@ -22,49 +22,51 @@ function FileInput({ onChange }) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-function MyForm() {
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
-  const [file, setFile] = useState(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+function MyForm () {
+  const [title, setTitle] = useState('')
+  const [text, setText] = useState('')
+  const [file, setFile] = useState(null)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleFileChange = (newFile) => {
-    setFile(newFile);
-  };
+    setFile(newFile)
+  }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     // Submit form data and file to server
     // ...
-    setIsSubmitted(true);
-    alert('Form submitted successfully!');
-  };
+    setIsSubmitted(true)
+    alert('Form submitted successfully!')
+  }
 
   const handleEdit = () => {
-    setTitle('');
-    setText('');
-    setFile(null);
-    setIsSubmitted(false);
-  };
+    setTitle('')
+    setText('')
+    setFile(null)
+    setIsSubmitted(false)
+  }
 
   return (
-    <form onSubmit={handleSubmit} style={{textAlign: 'center'}}>
-      {isSubmitted ? (
+    <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+      {isSubmitted
+        ? (
         <div>
           <h2>{title}</h2>
           <p>{text}</p>
-          <button style={{textAlign: 'center'}} type="button" onClick={handleEdit}>Edit</button>
+          <button style={{ textAlign: 'center' }} type="button" onClick={handleEdit}>Edit</button>
           {file && file.type === 'application/pdf' && (
             <object data={URL.createObjectURL(file)} type="application/pdf" width="600px" height="600px">
               <embed src={URL.createObjectURL(file)} type="application/pdf" width="600px" height="600px" />
             </object>
-          
+
           )}
         </div>
-      ) : (
+          )
+        : (
         <div>
           <div>
             <label htmlFor="title">Title:</label>
@@ -91,18 +93,18 @@ function MyForm() {
           </div>
           <button type="submit" disabled={isSubmitted}>Submit</button>
         </div>
-      )}
+          )}
     </form>
-  );
+  )
 }
 
-function MyComponent() {
+function MyComponent () {
   return (
-    <div style={{textAlign: 'center'}}>
+    <div style={{ textAlign: 'center' }}>
       <h2>Module 1</h2>
       <MyForm />
     </div>
-  );
+  )
 }
 
-export default MyComponent;
+export default MyComponent

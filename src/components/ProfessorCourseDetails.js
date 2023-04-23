@@ -1,14 +1,14 @@
-import React from "react";
-import Sidebar from "../detail_components/Sidebar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Chats from "../pages/Chats";
-import AssignmentList from "../pages/Assignments";
-import A1 from "../pages/overview/A1";
-import A2 from "../pages/overview/A2";
-import M1 from "../pages/Products/M1";
+import React from 'react'
+import Sidebar from '../detail_components/Sidebar'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Chats from '../pages/Chats'
+import AssignmentList from '../pages/Assignments'
+import A1 from '../pages/overview/A1'
+import A2 from '../pages/overview/A2'
+import M1 from '../pages/Products/M1'
 import Ass1 from '../pages/Assignments/Ass1'
 
-const ProfessorCourseDetails=() =>{
+const ProfessorCourseDetails = () => {
   return (
     <Router>
       <Sidebar />
@@ -22,7 +22,7 @@ const ProfessorCourseDetails=() =>{
 
       </Switch>
       </Router>
-  );
+  )
 }
 
-export default ProfessorCourseDetails;
+export default ProfessorCourseDetails

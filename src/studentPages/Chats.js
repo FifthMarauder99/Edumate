@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import './Chats.css'
-export default function Chats() {
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [chats, setChats] = useState({});
+export default function Chats () {
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [chats, setChats] = useState({})
 
-  function handleUserClick(user) {
-    setSelectedUser(user);
+  function handleUserClick (user) {
+    setSelectedUser(user)
   }
 
-  function handleSearchQueryChange(event) {
-    setSearchQuery(event.target.value);
+  function handleSearchQueryChange (event) {
+    setSearchQuery(event.target.value)
   }
 
-  function handleSendMessage(message) {
+  function handleSendMessage (message) {
     setChats((prevChats) => ({
       ...prevChats,
       [selectedUser.id]: [...(prevChats[selectedUser.id] || []), message]
-    }));
+    }))
   }
 
   const filteredUsers = searchQuery
     ? users.filter((user) =>
-        user.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : users;
+      user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    : users
 
   return (
     <div className="App">
@@ -54,25 +54,25 @@ export default function Chats() {
         />
       )}
     </div>
-  );
+  )
 }
 
-function Chat({ user, messages, onSendMessage, onCloseChat }) {
-  const [messageText, setMessageText] = useState("");
+function Chat ({ user, messages, onSendMessage, onCloseChat }) {
+  const [messageText, setMessageText] = useState('')
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit (event) {
+    event.preventDefault()
     const message = {
       id: Date.now(),
       text: messageText,
       date: new Date()
-    };
-    onSendMessage(message);
-    setMessageText("");
+    }
+    onSendMessage(message)
+    setMessageText('')
   }
 
-  function handleInputChange(event) {
-    setMessageText(event.target.value);
+  function handleInputChange (event) {
+    setMessageText(event.target.value)
   }
 
   return (
@@ -87,10 +87,10 @@ function Chat({ user, messages, onSendMessage, onCloseChat }) {
         onSubmit={handleSubmit}
       />
     </div>
-  );
+  )
 }
 
-function MessageList({ messages }) {
+function MessageList ({ messages }) {
   return (
     <div className="MessageList">
       {messages.map((message) => (
@@ -100,10 +100,10 @@ function MessageList({ messages }) {
         </div>
       ))}
     </div>
-  );
+  )
 }
 
-function MessageForm({ messageText, onInputChange, onSubmit }) {
+function MessageForm ({ messageText, onInputChange, onSubmit }) {
   return (
     <form className="MessageForm" onSubmit={onSubmit}>
       <input
@@ -114,22 +114,22 @@ function MessageForm({ messageText, onInputChange, onSubmit }) {
       />
       <button type="submit">Send</button>
     </form>
-  );
+  )
 }
 
-function formatDate(date) {
+function formatDate (date) {
   const options = {
-    hour: "numeric",
-    minute: "numeric"
-  };
-  return new Intl.DateTimeFormat("en-US", options).format(date);
+    hour: 'numeric',
+    minute: 'numeric'
+  }
+  return new Intl.DateTimeFormat('en-US', options).format(date)
 }
 
 const users = [
-  { id: 1, name: "Atharva" },
-  { id: 2, name: "Akshada" },
-  { id: 3, name: "Adesh" },
-  { id: 4, name: "Sophie" },
-  { id: 5, name: "Sydney" },
-  { id: 6, name: "Group Chat" }
-];
+  { id: 1, name: 'Atharva' },
+  { id: 2, name: 'Akshada' },
+  { id: 3, name: 'Adesh' },
+  { id: 4, name: 'Sophie' },
+  { id: 5, name: 'Sydney' },
+  { id: 6, name: 'Group Chat' }
+]

@@ -1,40 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import Confetti from 'react-confetti';
-import './Ass1.css';
+import React, { useState, useEffect } from 'react'
+import Confetti from 'react-confetti'
+import './Ass1.css'
 
-function Ass1() {
-  const submissionDate = new Date('May 1, 2023');
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [submissionStatus, setSubmissionStatus] = useState(null);
-  const [submissionTime, setSubmissionTime] = useState(null);
+function Ass1 () {
+  const submissionDate = new Date('May 1, 2023')
+  const [file, setFile] = useState(null)
+  const [preview, setPreview] = useState(null)
+  const [submissionStatus, setSubmissionStatus] = useState(null)
+  const [submissionTime, setSubmissionTime] = useState(null)
 
   useEffect(() => {
-    let timer;
+    let timer
     if (submissionStatus === 'success') {
       timer = setTimeout(() => {
-        setSubmissionStatus(null);
-      }, 5000);
+        setSubmissionStatus(null)
+      }, 5000)
     }
-    return () => clearTimeout(timer);
-  }, [submissionStatus]);
+    return () => clearTimeout(timer)
+  }, [submissionStatus])
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
+    setFile(e.target.files[0])
+  }
 
   const handleFormSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     // submit logic here
-    setPreview(URL.createObjectURL(file));
-    const currentTime = new Date();
+    setPreview(URL.createObjectURL(file))
+    const currentTime = new Date()
     if (currentTime <= submissionDate) {
-      setSubmissionStatus('success');
-      setSubmissionTime(currentTime.toLocaleString());
+      setSubmissionStatus('success')
+      setSubmissionTime(currentTime.toLocaleString())
     } else {
-      setSubmissionStatus('late');
+      setSubmissionStatus('late')
     }
-  };
+  }
 
   return (
     <div className="modules-container">
@@ -65,7 +65,7 @@ function Ass1() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default Ass1;
+export default Ass1

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './A1.css';
+import React, { useState } from 'react'
+import './A1.css'
 
 const A1 = () => {
   // sample data for 5 assignments
@@ -8,12 +8,12 @@ const A1 = () => {
     { name: 'Assignment 2', maxMarks: 20, marks: 16 },
     { name: 'Assignment 3', maxMarks: 20, marks: 14 },
     { name: 'Assignment 4', maxMarks: 20, marks: 19 },
-    { name: 'Assignment 5', maxMarks: 20, marks: 15 },
-  ]);
+    { name: 'Assignment 5', maxMarks: 20, marks: 15 }
+  ])
 
-  const totalMarks = assignments.reduce((sum, item) => sum + item.marks, 0);
-  const totalMaxMarks = assignments.reduce((sum, item) => sum + item.maxMarks, 0);
-  const totalGrades = ((totalMarks / totalMaxMarks) * 100).toFixed(2);
+  const totalMarks = assignments.reduce((sum, item) => sum + item.marks, 0)
+  const totalMaxMarks = assignments.reduce((sum, item) => sum + item.maxMarks, 0)
+  const totalGrades = ((totalMarks / totalMaxMarks) * 100).toFixed(2)
 
   return (
     <div className="table-container">
@@ -42,7 +42,7 @@ const A1 = () => {
         <span>{totalGrades}%</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default A1;
+export default A1

@@ -1,7 +1,7 @@
-import React from 'react';
-import './M1.css'; // import CSS file for styling
+import React from 'react'
+import './M1.css' // import CSS file for styling
 
-function M1() {
+function M1 () {
   return (
     <div className="modules-container">
       <h1 className="modules-heading">Modules</h1>
@@ -10,7 +10,7 @@ function M1() {
         {/* Placeholder for PDF to come from backend */}
       </div>
     </div>
-  );
+  )
 }
 
-export default M1;
+export default M1

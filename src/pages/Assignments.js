@@ -1,28 +1,28 @@
-import React from "react";
-import { Card } from "react-bootstrap"; // import the Bootstrap Card component
+import React from 'react'
+import { Card } from 'react-bootstrap' // import the Bootstrap Card component
 
-function AssignmentList(props) {
+function AssignmentList (props) {
   // define a list of assignments
   const assignments = [
-    { title: "Assignment 1", description: "Complete Chapter 1 exercises" },
-    { title: "Assignment 2", description: "Write a research paper on topic X" },
-    { title: "Assignment 3", description: "Create a presentation on topic Y" }
-  ];
+    { title: 'Assignment 1', description: 'Complete Chapter 1 exercises' },
+    { title: 'Assignment 2', description: 'Write a research paper on topic X' },
+    { title: 'Assignment 3', description: 'Create a presentation on topic Y' }
+  ]
 
   // handle click event
   const handleClick = (assignment) => {
     window.open(
       `https://example.com/assignments/${assignment.title}`,
-      "_blank"
-    );
-  };
+      '_blank'
+    )
+  }
 
   return (
     <div>
       {assignments.map((assignment, index) => (
         <Card
           key={index}
-          style={{ marginBottom: "10px" }}
+          style={{ marginBottom: '10px' }}
           onClick={() => handleClick(assignment)}
         >
           <Card.Body>
@@ -32,7 +32,7 @@ function AssignmentList(props) {
         </Card>
       ))}
     </div>
-  );
+  )
 }
 
-export default AssignmentList;
+export default AssignmentList

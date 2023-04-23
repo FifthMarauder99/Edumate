@@ -1,9 +1,9 @@
-import React from "react";
-import { FormGroup, Label, Input } from "reactstrap";
+import React from 'react'
+import { FormGroup, Label, Input } from 'reactstrap'
 
 const Step2 = props => {
   if (props.currentStep !== 2) {
-    return null;
+    return null
   }
 
   return (
@@ -21,7 +21,7 @@ const Step2 = props => {
         />
       </FormGroup>
     </>
-  );
-};
+  )
+}
 
-export default Step2;
+export default Step2

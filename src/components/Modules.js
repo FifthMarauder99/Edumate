@@ -1,53 +1,53 @@
-import React, { useState } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Card, Button } from 'react-bootstrap'
 import './styles.css'
 
-function CardList() {
-  const [cards, setCards] = useState([]);
+function CardList () {
+  const [cards, setCards] = useState([])
 
-  function handleAddCard() {
+  function handleAddCard () {
     const newCard = {
       name: '',
       date: '',
       confirmed: false,
       editable: true,
-      titleSize: 'h5',
-    };
-    setCards([newCard, ...cards]);
-  }
-
-  function handleConfirmClick(index) {
-    const newCards = [...cards];
-    const confirmedCard = newCards[index];
-    confirmedCard.confirmed = true;
-    confirmedCard.editable = false;
-    confirmedCard.titleSize = 'h3';
-    newCards.splice(index, 1);
-    setCards([confirmedCard, ...newCards]);
-  }
-
-  function handleEditClick(index) {
-    const newCards = [...cards];
-    const editableCard = newCards[index];
-    editableCard.editable = true;
-    editableCard.confirmed = false;
-    editableCard.titleSize = 'h5';
-    newCards.splice(index, 1);
-    setCards([editableCard, ...newCards]);
-  }
-
-  function handleInputChange(event, index, key) {
-    const newCards = [...cards];
-    newCards[index][key] = event.target.value;
-    if (key === 'date' && newCards[index].confirmed) {
-      newCards[index].editable = false;
+      titleSize: 'h5'
     }
-    setCards(newCards);
+    setCards([newCard, ...cards])
+  }
+
+  function handleConfirmClick (index) {
+    const newCards = [...cards]
+    const confirmedCard = newCards[index]
+    confirmedCard.confirmed = true
+    confirmedCard.editable = false
+    confirmedCard.titleSize = 'h3'
+    newCards.splice(index, 1)
+    setCards([confirmedCard, ...newCards])
+  }
+
+  function handleEditClick (index) {
+    const newCards = [...cards]
+    const editableCard = newCards[index]
+    editableCard.editable = true
+    editableCard.confirmed = false
+    editableCard.titleSize = 'h5'
+    newCards.splice(index, 1)
+    setCards([editableCard, ...newCards])
+  }
+
+  function handleInputChange (event, index, key) {
+    const newCards = [...cards]
+    newCards[index][key] = event.target.value
+    if (key === 'date' && newCards[index].confirmed) {
+      newCards[index].editable = false
+    }
+    setCards(newCards)
   }
 
   return (
     <div>
-      <Button onClick={handleAddCard} className="add-card-btn" style={{backgroundColor: 'blue', color: 'white', fontWeight: 'bold'}}>Add Module</Button >
+      <Button onClick={handleAddCard} className="add-card-btn" style={{ backgroundColor: 'blue', color: 'white', fontWeight: 'bold' }}>Add Module</Button >
       {cards.map((card, index) => (
         <Card key={index} className="my-3" style={{ width: '100%' }}>
           <Card.Body>
@@ -73,7 +73,7 @@ function CardList() {
                   onChange={(event) => handleInputChange(event, index, 'date')}
                   disabled={!card.editable || card.confirmed}
                 />
-                
+
                 <Button onClick={() => handleConfirmClick(index)}>Confirm</Button>
               </Card.Text>
             )}
@@ -86,7 +86,7 @@ function CardList() {
         </Card>
       ))}
     </div>
-  );
+  )
 }
 
-export default CardList;
+export default CardList
