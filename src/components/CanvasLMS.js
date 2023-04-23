@@ -13,20 +13,21 @@ const Dashboard = ({ subjects }) => {
   );
 
   return (
-    <div>
+    <div className='m-3 p-3'>
       <h1>Dashboard</h1>
-      <input
+      <input className='min-vh-20 rounded mt-3 mb-2'
         type="text"
         value={searchQuery}
         onChange={(event) => setSearchQuery(event.target.value)}
         placeholder="Search for a subject..."
       />
-      <Row gutter={[16, 16]}>
+      <Row gutter={[16, 16]} >
         {filteredSubjects.map((subject) => (
-          <Col span={8} key={subject.code}>
-            <Card title={subject.name}>
+          <Col flex="0 1 300px" key={subject.code}>
+            <Card title={subject.name}
+>
               <p>Subject Code: {subject.code}</p>
-            </Card>
+              </Card>
           </Col>
         ))}
       </Row>
@@ -49,9 +50,18 @@ const Sidebar = ({ subjects }) => {
     { Name: 'Sydney Searcy', Sem: 'Second', Course: 'M3' },
 
   ]
+  let responsive_width= 200;
+
+  const openCal = () => {
+    responsive_width = 500;
+  }
+
+  const closeCal = () => {
+    responsive_width = 200;
+  }
  
   return (
-    <Sider width={200} className="site-layout-background">
+    <Sider width={responsive_width} className="site-layout-background">
       <Menu
         mode="inline"
         defaultSelectedKeys={['1']}
@@ -76,14 +86,14 @@ const Sidebar = ({ subjects }) => {
           </Menu.SubMenu>
           <Menu.Item key="4">Grades</Menu.Item>
         </Menu.SubMenu>
-        <Menu.SubMenu key="sub4" title="Calender">
-          <Menu.Item key="5">
+        <Menu.SubMenu key="sub4" title="Calendar">
             {/* <Router>
                 <Route path='/calendar' Component={CalendarImplementation}>
                 </Route>
             </Router> */}
+            <div className='calendarimp'>
               <CalendarImplementation />
-          </Menu.Item>
+            </div>
         </Menu.SubMenu>
       </Menu>
     </Sider>

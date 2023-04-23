@@ -70,7 +70,7 @@ const MyCalendar = () => {
   };
 
   return (
-    <div className="calendar-container">
+    <div className="calendar-container p-3 m-3 vw-100">
       <Calendar
         localizer={localizer}
         events={events}
@@ -80,6 +80,7 @@ const MyCalendar = () => {
         onSelectSlot={handleSelect}
         onSelectEvent={handleEdit}
         onDoubleClickEvent={handleDelete}
+        className='vw-80'
       />
     </div>
   );
