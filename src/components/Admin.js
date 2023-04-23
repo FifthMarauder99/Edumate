@@ -139,7 +139,7 @@ const CourseList = () => {
     for (let i = 0; i < filteredCourses.length; i++) {
       for (let s = 0; s < filteredCourses[i].students.length; s++) {
         const matches = filteredCourses[i].course_title.match(/\b(\w)/g) // ['J','S','O','N']
-        var acronym = matches.join('')
+        const acronym = matches.join('')
         const request = {
           course_id: filteredCourses[i].course_id,
           user_id: filteredCourses[i].students[s],
@@ -151,6 +151,8 @@ const CourseList = () => {
         if (!resp.ok) throw new Error('issue in new enrollment')
       }
       for (let p = 0; p < filteredCourses[i].professors.length; p++) {
+        const matches = filteredCourses[i].course_title.match(/\b(\w)/g) // ['J','S','O','N']
+        const acronym = matches.join('')
         const request = {
           course_id: filteredCourses[i].course_id,
           user_id: filteredCourses[i].professors[p],
@@ -289,6 +291,7 @@ const Sidebar = () => {
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" title="Courses">
           <Menu.Item key="2">All Courses</Menu.Item>
+          <Menu.Item key="2">Add Courses</Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="sub3" title="Assignments">
           <Menu.Item key="3">Upcoming</Menu.Item>
