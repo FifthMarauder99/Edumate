@@ -7,7 +7,8 @@ import A1 from '../studentPages/overview'
 import M1 from '../studentPages/Products/M1'
 import Ass1 from '../studentPages/Assignments/Ass1'
 import Ass2 from '../studentPages/Assignments/Ass2'
-const StudentCourseDetails = () => {
+const StudentCourseDetails = (props) => {
+  const courseClicked = props.course;
   return (
     <div>
 
@@ -15,7 +16,7 @@ const StudentCourseDetails = () => {
       <Sidebar />
       <div style={{ marginTop: '100px', marginLeft: '400px' }}>
     <h1> Welcome to course</h1><br/>
-    <p>Course Title : Software Engineering 1</p>
+    <p>Course Title : {courseClicked}</p>
     <p>Course Code : CSCI-P 565</p>
     </div>
       <Switch>
