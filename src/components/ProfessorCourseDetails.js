@@ -8,10 +8,16 @@ import A2 from '../pages/overview/A2'
 import M1 from '../pages/Products/M1'
 import Ass1 from '../pages/Assignments/Ass1'
 
-const ProfessorCourseDetails = () => {
+const ProfessorCourseDetails = (props) => {
+  const courseClicked = props.course;
   return (
     <Router>
       <Sidebar />
+      <div style={{ marginTop: '100px', marginLeft: '400px' }}>
+    <h1> Welcome to course</h1><br/>
+    <p>Course Title : {courseClicked}</p>
+    <p>Course Code : CSCI-P 565</p>
+    </div>
       <Switch>
         <Route path="/Chats" exact component={Chats} />
         <Route path="/Assignments" exact component={AssignmentList} />
