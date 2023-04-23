@@ -242,10 +242,6 @@ const StudentDashboard = () => {
                 ? (
                     selectedCourse ? <StudentCourseDetails /> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
                   )
-                : selectedItem === 'DM' || selectedItem === 'SE1' || selectedItem === 'ADT'
-                  ? (
-    <StudentCourseDetails/>
-                    )
                   : selectedItem === 'Grades'
                     ? (
     <GradesScreen/>
@@ -254,6 +250,7 @@ const StudentDashboard = () => {
                       ? (
     <MyCalendar />
                         )
+                        : selectedItem ? ( <StudentCourseDetails/> )
                       : (
     <div>No content selected</div>
                         )}
