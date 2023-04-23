@@ -10,7 +10,6 @@ import HomePage from './components/HomePage'
 import Login from './components/Login'
 import UsernameCheck from './components/UsernameCheck'
 import './styles.css'
-import SuccessfulLogin from './components/SuccessfulLogin'
 import SecurityCheck from './components/SecurityCheck'
 import PasswordReset from './components/PasswordReset'
 import StudentDashboard from './components/StudentDashboard'
@@ -28,7 +27,6 @@ function App () {
             <Route path="/home" exact component={HomePage} />
             <Route path="/home/login" component={Login} />
             <Route path="/home/register" component={Registration} />
-            <Route path="/home/successfulLogin" component={SuccessfulLogin} />
             <Route path="/home/logout" component={HomePage} />
             <Route path="/home/usernameCheck" component={UsernameCheck} />
             <Route path="/home/securityCheck" component={SecurityCheck} />
