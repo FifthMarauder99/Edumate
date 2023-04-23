@@ -9,7 +9,7 @@ export default class HomePage extends React.Component {
             Login/Signup Portal
           </p>
           <Link
-            to="/home/login" 
+            to="/home/login"
             className="btn btn-primary ml-5 mt-5"
           >
             Login

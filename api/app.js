@@ -13,9 +13,9 @@ var getCredentialsRouter = require("./routes/getCredentials");
 var securityQuestionGetRouter = require("./routes/securityQuestionGet");
 var changePasswordRouter = require("./routes/changePassword");
 var validateSecurityAnswerRouter = require("./routes/validateSecurityAnswer");
+var getCoursesRouter = require("./routes/getCourses")
 var getStudentRouter = require("./routes/getStudents");
 var getProfessorRouter = require("./routes/getProfessors");
-var getCoursesRouter = require("./routes/getCourses");
 var updateEnrollmentRouter = require("./routes/updateEnrollment");
 
 const { appendFile } = require('fs');

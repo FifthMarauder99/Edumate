@@ -3,17 +3,13 @@ import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './styles.css'
-
 const localizer = momentLocalizer(moment)
-
 const MyCalendar = () => {
   const [events, setEvents] = useState([])
-
   // fetch events from backend on component mount
   useEffect(() => {
     fetchEvents()
   }, [])
-
   const fetchEvents = async () => {
     // fetch events from backend API
     const response = await fetch('/api/events')
@@ -21,7 +17,6 @@ const MyCalendar = () => {
     // set events in state
     setEvents(data)
   }
-
   const handleSelect = ({ start, end }) => {
     const title = window.prompt('Enter event title:')
     if (title) {
@@ -32,7 +27,6 @@ const MyCalendar = () => {
       saveEvent(newEvent)
     }
   }
-
   const handleEdit = (event) => {
     const title = window.prompt('Edit event title:', event.title)
     if (title) {
@@ -43,7 +37,6 @@ const MyCalendar = () => {
       saveEvent(updatedEvent)
     }
   }
-
   const handleDelete = (event) => {
     if (window.confirm('Are you sure you want to delete this event?')) {
       // remove event from state
@@ -52,7 +45,6 @@ const MyCalendar = () => {
       deleteEvent(event)
     }
   }
-
   const saveEvent = async (event) => {
     // send POST request to backend API to save event
     await fetch('/api/events', {
@@ -61,16 +53,14 @@ const MyCalendar = () => {
       body: JSON.stringify(event)
     })
   }
-
   const deleteEvent = async (event) => {
     // send DELETE request to backend API to delete event
     await fetch(`/api/events/${event.id}`, {
       method: 'DELETE'
     })
   }
-
   return (
-    <div className="calendar-container p-3 m-3 vw-100">
+    <div className="calendar-container">
       <Calendar
         localizer={localizer}
         events={events}
@@ -80,10 +70,8 @@ const MyCalendar = () => {
         onSelectSlot={handleSelect}
         onSelectEvent={handleEdit}
         onDoubleClickEvent={handleDelete}
-        className='vw-80'
       />
     </div>
   )
 }
-
 export default MyCalendar

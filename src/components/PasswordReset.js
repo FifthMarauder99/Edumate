@@ -1,76 +1,76 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-export default class PasswordReset extends Component{
-
+export default class PasswordReset extends Component {
   constructor (props) {
-      super(props)
-      const { state } = this.props.location
-      this.state = {
-        loginUserName: state.username,
-        text: '',
-        confirmText: '',
-      }
-    console.log(this.state.loginUserName);
+    super(props)
+    const { state } = this.props.location
+    this.state = {
+      loginUserName: state.username,
+      text: '',
+      confirmText: ''
+    }
+    console.log(this.state.loginUserName)
   }
 
   handleSubmit = (event) => {
     if (this.state.text === this.state.confirmText) {
-      this.props.history('/home');
-      alert("Password Reset");
+      this.props.history('/home')
+      alert('Password Reset')
     } else {
-      alert("Confirm password doesn't match");
+      alert("Confirm password doesn't match")
     }
   }
-  
+
   handleChange = event => {
-      event.preventDefault();
-      this.setState({
-          [event.target.name]: event.target.value
-      })
-      console.log(this.state)
+    event.preventDefault()
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+    console.log(this.state)
   }
 
   updatePassword = async (url = '') => {
-    console.log(`passwords entered: ${this.state.text} ${this.state.confirmText}`);
+    console.log(`passwords entered: ${this.state.text} ${this.state.confirmText}`)
     if (this.state.confirmText !== this.state.text) {
       alert("bruh not the same can't change it")
-      return false;
+      return false
     }
     const response = await fetch(url, {
-        method: 'POST',
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            username: this.state.loginUserName,
-            password: this.state.text})
-        });
-    return response;
-    }
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: this.state.loginUserName,
+        password: this.state.text
+      })
+    })
+    return response
+  }
 
-    passwordChangeValidation = async () => {
-        let response;
-        try {
-          response = await this.updatePassword('http://localhost:9000/changePassword');
-          console.log(response);
-          alert(`updated password of ${this.state.loginUserName}!!`);
-          this.props.history.push('/home/login');
-          return true;
-        } catch (e) {
-          console.log(e);
-          alert('password failed to change');
-          return false;
-        }
+  passwordChangeValidation = async () => {
+    let response
+    try {
+      response = await this.updatePassword('http://localhost:9000/changePassword')
+      console.log(response)
+      alert(`updated password of ${this.state.loginUserName}!!`)
+      this.props.history.push('/home/login')
+      return true
+    } catch (e) {
+      console.log(e)
+      alert('password failed to change')
+      return false
     }
+  }
 
-    // username + security loading
-    changePassFormSubmit = (event) => {
-        event.preventDefault();
-        this.passwordChangeValidation();
-    }
-  
-  render() {
+  // username + security loading
+  changePassFormSubmit = (event) => {
+    event.preventDefault()
+    this.passwordChangeValidation()
+  }
+
+  render () {
     return (
     <div className="menu p-md-5 p-sm-0 min-vh-100">
       <div className="mx-auto py-5 bg-light loginreg w-25 rounded">
@@ -83,7 +83,7 @@ export default class PasswordReset extends Component{
             maxLength="16"
             type="password"
             className="ml-3"
-            name="text"  
+            name="text"
           />
           <br />
           <br />
@@ -103,13 +103,13 @@ export default class PasswordReset extends Component{
         </form>
       </div>
     </div>
-  );
-  }  
+    )
+  }
 }
 
 // function PasswordReset()  {
-  // const [text, setText] = useState("");
-  // const [confirmText, setConfirmText] = useState("");
+// const [text, setText] = useState("");
+// const [confirmText, setConfirmText] = useState("");
 
 //   function changePassword(event) {
 //     setText(event.target.value);

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import './styles.css'
-
+import './M1.css'
 function FileInput ({ onChange }) {
   const [file, setFile] = useState(null)
   const handleChange = (event) => {
@@ -98,7 +97,7 @@ function MyForm () {
   )
 }
 
-function MyComponent () {
+function M1 () {
   return (
     <div style={{ textAlign: 'center' }}>
       <h2>Module 1</h2>
@@ -107,4 +106,4 @@ function MyComponent () {
   )
 }
 
-export default MyComponent
+export default M1

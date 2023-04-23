@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import './styles.css'
-
+import './Ass1.css'
 function FileInput ({ onChange }) {
   const [file, setFile] = useState(null)
   const handleChange = (event) => {
@@ -30,6 +29,8 @@ function MyForm () {
   const [text, setText] = useState('')
   const [file, setFile] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submissionDate, setSubmissionDate] = useState('')
+  const [totalMarks, setTotalMarks] = useState('')
 
   const handleFileChange = (newFile) => {
     setFile(newFile)
@@ -48,21 +49,24 @@ function MyForm () {
     setText('')
     setFile(null)
     setIsSubmitted(false)
+    setSubmissionDate('')
+    setTotalMarks('')
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+    <form onSubmit={handleSubmit} style={{ textAlign: 'center' }} className="MyForm">
       {isSubmitted
         ? (
         <div>
           <h2>{title}</h2>
           <p>{text}</p>
+          <p>Submission Date: {submissionDate}</p>
+          <p>Total Marks: {totalMarks}</p>
           <button style={{ textAlign: 'center' }} type="button" onClick={handleEdit}>Edit</button>
           {file && file.type === 'application/pdf' && (
             <object data={URL.createObjectURL(file)} type="application/pdf" width="600px" height="600px">
               <embed src={URL.createObjectURL(file)} type="application/pdf" width="600px" height="600px" />
             </object>
-
           )}
         </div>
           )
@@ -88,6 +92,26 @@ function MyForm () {
             />
           </div>
           <div>
+            <label htmlFor="submissionDate">Submission Date:</label>
+            <input
+              type="text"
+              id="submissionDate"
+              value={submissionDate}
+              onChange={(event) => setSubmissionDate(event.target.value)}
+              disabled={isSubmitted}
+            />
+          </div>
+          <div>
+            <label htmlFor="totalMarks">Total Marks:</label>
+            <input
+              type="text"
+              id="totalMarks"
+              value={totalMarks}
+              onChange={(event) => setTotalMarks(event.target.value)}
+              disabled={isSubmitted}
+            />
+          </div>
+          <div>
             <label htmlFor="file">Attach file:</label>
             <FileInput onChange={handleFileChange} disabled={isSubmitted} />
           </div>
@@ -98,13 +122,13 @@ function MyForm () {
   )
 }
 
-function MyComponent () {
+function Ass2 () {
   return (
     <div style={{ textAlign: 'center' }}>
-      <h2>Module 1</h2>
+      <h2>Assignment 2</h2>
       <MyForm />
     </div>
   )
 }
 
-export default MyComponent
+export default Ass2

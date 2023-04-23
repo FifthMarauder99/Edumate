@@ -1,114 +1,114 @@
 import React from 'react'
 
 export default class UsernameCheck extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            loginUserName: '',
-            securityQuestion: '',
-            securityAnswer: '',
-        }
-        console.log(this.state)
+  constructor (props) {
+    super(props)
+    this.state = {
+      loginUserName: '',
+      securityQuestion: '',
+      securityAnswer: ''
     }
+    console.log(this.state)
+  }
 
-    handleChange = event => {
-        event.preventDefault();
+  handleChange = event => {
+    event.preventDefault()
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+    console.log(this.state)
+  }
+
+  retrieveQuestionUser = async (url = '') => {
+    console.log(`here is the login name: ${this.state.loginUserName}`)
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: this.state.loginUserName
+      })
+    })
+    return response.json()
+  }
+
+  retrieveAnswer = async (url = '') => {
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        securityQuestion: this.state.securityQuestion,
+        securityAnswer: this.state.securityAnswer
+      })
+    })
+    return response.json()
+  }
+
+  userQuestionExists = async () => {
+    let response
+    try {
+      response = await this.retrieveQuestionUser('http://localhost:9000/securityQuestionGet')
+      console.log(response)
+      if (response === undefined) {
+        alert('that user does not exist thus no question')
+        return false
+      } else {
         this.setState({
-            [event.target.name]: event.target.value
+          securityQuestion: response.security_question
         })
-        console.log(this.state)
+        alert('user was found! security question loaded')
+        return true
+      }
+    } catch (e) {
+      console.log(e)
+      alert('that user does not exist')
+      return false
     }
+  }
 
-    retrieveQuestionUser = async (url = '') => {
-        console.log(`here is the login name: ${this.state.loginUserName}`)
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: this.state.loginUserName,
-            })
-        });
-        return response.json();
+  validateAnswer = async () => {
+    let response
+    try {
+      response = await this.retrieveAnswer('http://localhost:9000/validateSecurityAnswer')
+      console.log(response.exists)
+      if (response.exists === false) {
+        alert('that was an incorrect answer')
+        return false
+      } else {
+        alert('validation succeeded. may now change password')
+        this.props.history.push({
+          pathname: '/home/passwordReset',
+          state: {
+            username: this.state.loginUserName
+          }
+        })
+        return true
+      }
+    } catch (e) {
+      console.log(e)
+      alert('not the right answer')
+      return false
     }
+  }
 
-    retrieveAnswer= async (url = '') => {
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                securityQuestion: this.state.securityQuestion,
-                securityAnswer: this.state.securityAnswer,
-            })
-        });
-        return response.json();
-    }
+  // username + security loading
+  userNameFormSubmit = (event) => {
+    event.preventDefault()
+    this.userQuestionExists()
+  }
 
-    userQuestionExists = async () => {
-        let response;
-        try {
-            response = await this.retrieveQuestionUser('http://localhost:9000/securityQuestionGet');
-            console.log(response);
-            if (response === undefined) {
-                alert('that user does not exist thus no question');
-                return false;
-            } else {
-                this.setState({
-                    securityQuestion: response.security_question
-                });
-                alert('user was found! security question loaded')
-                return true
-            }
-        } catch (e) {
-            console.log(e)
-            alert('that user does not exist');
-            return false
-        }
-    }
+  answerFormSubmit = (event) => {
+    event.preventDefault()
+    this.validateAnswer()
+  }
 
-    validateAnswer = async () => {
-        let response;
-        try {
-            response = await this.retrieveAnswer('http://localhost:9000/validateSecurityAnswer');
-            console.log(response.exists);
-            if (response.exists === false) {
-                alert('that was an incorrect answer');
-                return false;
-            } else {
-                alert('validation succeeded. may now change password');
-                this.props.history.push({
-                    pathname: '/home/passwordReset',
-                    state: {
-                        username: this.state.loginUserName
-                    },
-                });
-                return true;
-            }
-        } catch (e) {
-            console.log(e)
-            alert('not the right answer');
-            return false
-        }
-    }
-
-    // username + security loading
-    userNameFormSubmit = (event) => {
-        event.preventDefault();
-        this.userQuestionExists();
-    }
-
-    answerFormSubmit = (event) => {
-        event.preventDefault()
-        this.validateAnswer();
-    }
-
-    render() {
-        return (
+  render () {
+    return (
             <div className="menu p-md-5 p-sm-0 min-vh-100">
                 <div className="mx-auto py-5 bg-light loginreg w-25 rounded">
                     <form onSubmit={this.userNameFormSubmit} className="p-4">
@@ -148,6 +148,6 @@ export default class UsernameCheck extends React.Component {
                     </form>
                 </div>
             </div>
-        );   
-    }
+    )
+  }
 }

@@ -21,12 +21,12 @@ export default class Registration extends React.Component {
   }
 
   newAccount = async (url = '', data = {}) => {
-    console.log(this.state.username);
+    console.log(this.state.username)
     const response = await fetch(url, {
       method: 'POST',
-      mode: "cors",
+      mode: 'cors',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         email: this.state.emailId,
@@ -35,11 +35,11 @@ export default class Registration extends React.Component {
         role: this.state.role,
         mobile: this.state.mobile,
         securityQuestion: this.state.securityQuestion,
-        securityAnswer: this.state.securityAnswer,
+        securityAnswer: this.state.securityAnswer
       })
-      }
-    );
-    return response.json();
+    }
+    )
+    return response.json()
   }
 
   handleChange = event => {
@@ -62,13 +62,13 @@ export default class Registration extends React.Component {
           this.state.password,
           this.state.role,
           this.state.securityQuestion,
-          this.state.securityAnswer,
+          this.state.securityAnswer
         ],
         showDetails: true
-      });
+      })
       // inserting into the database the info
       try {
-        let response = this.newAccount('http://localhost:9000/registerAccount');
+        const response = this.newAccount('http://localhost:9000/registerAccount')
       } catch (e) {
         console.log(e)
       }
@@ -105,9 +105,9 @@ export default class Registration extends React.Component {
   //   }
   // }
 
-  render() {
-    const { userName, emailId, mobile, password, confirmPassword, securityQuestion, securityAnswer, role } = this.state;
-    const isSecurityAnsEnabled = securityQuestion !== "";
+  render () {
+    const { userName, emailId, mobile, password, confirmPassword, securityQuestion, securityAnswer, role } = this.state
+    const isSecurityAnsEnabled = securityQuestion !== ''
     return (
       <div className="menu p-md-5 p-sm-0 min-vh-100">
         <div className="mx-auto py-5 bg-light loginreg rounded">
@@ -129,20 +129,20 @@ export default class Registration extends React.Component {
                     validate={{
                       required: {
                         value: { userName },
-                        errorMessage: "Please enter your user name"
+                        errorMessage: 'Please enter your user name'
                       },
                       pattern: {
-                        value: "^[A-Za-z0-9]+$",
+                        value: '^[A-Za-z0-9]+$',
                         errorMessage:
-                          "First Name must be composed only with letter and numbers"
+                          'First Name must be composed only with letter and numbers'
                       },
                       minLength: {
                         value: 4,
-                        errorMessage: "User name must be b/w 4 to 16 characters"
+                        errorMessage: 'User name must be b/w 4 to 16 characters'
                       },
                       maxLength: {
                         value: 16,
-                        errorMessage: "User name must be b/w 6 to 16 characters"
+                        errorMessage: 'User name must be b/w 6 to 16 characters'
                       }
                     }}
                   />
@@ -158,17 +158,17 @@ export default class Registration extends React.Component {
                     validate={{
                       required: {
                         value: { mobile },
-                        errorMessage: "Please enter your mobile number"
+                        errorMessage: 'Please enter your mobile number'
                       },
                       pattern: {
-                        value: "^[0-9]+$",
+                        value: '^[0-9]+$',
                         errorMessage:
-                          "Mobile Number must be composed only with numbers"
+                          'Mobile Number must be composed only with numbers'
                       },
                       minLength: {
                         value: 10,
                         errorMessage:
-                          "Your mobile number must be composed of 10 digits"
+                          'Your mobile number must be composed of 10 digits'
                       },
                       maxLength: { value: 10 }
                     }}
@@ -186,7 +186,7 @@ export default class Registration extends React.Component {
                     validate={{
                       required: {
                         value: { emailId },
-                        errorMessage: "Please enter your email address"
+                        errorMessage: 'Please enter your email address'
                       }
                     }}
                   />
@@ -202,22 +202,22 @@ export default class Registration extends React.Component {
                     validate={{
                       required: {
                         value: { password },
-                        errorMessage: "Please enter your password"
+                        errorMessage: 'Please enter your password'
                       },
                       pattern: {
-                        value: "^[A-Za-z0-9]+$",
+                        value: '^[A-Za-z0-9]+$',
                         errorMessage:
-                          "Password must be composed only with letter and numbers"
+                          'Password must be composed only with letter and numbers'
                       },
                       minLength: {
                         value: 5,
                         errorMessage:
-                          "Password name must be b/w 5 to 16 characters"
+                          'Password name must be b/w 5 to 16 characters'
                       },
                       maxLength: {
                         value: 16,
                         errorMessage:
-                          "Password name must be b/w 5 to 16 characters"
+                          'Password name must be b/w 5 to 16 characters'
                       }
                     }}
                   />
@@ -233,22 +233,22 @@ export default class Registration extends React.Component {
                     validate={{
                       required: {
                         value: { confirmPassword },
-                        errorMessage: "Please enter your confirm password"
+                        errorMessage: 'Please enter your confirm password'
                       },
                       pattern: {
-                        value: "^[A-Za-z0-9]+$",
+                        value: '^[A-Za-z0-9]+$',
                         errorMessage:
-                          "Confirm Password must be composed only with letter and numbers"
+                          'Confirm Password must be composed only with letter and numbers'
                       },
                       minLength: {
                         value: 5,
                         errorMessage:
-                          "Password name must be b/w 5 to 16 characters"
+                          'Password name must be b/w 5 to 16 characters'
                       },
                       maxLength: {
                         value: 16,
                         errorMessage:
-                          "Password name must be b/w 5 to 16 characters"
+                          'Password name must be b/w 5 to 16 characters'
                       }
                     }}
                   />
@@ -264,7 +264,7 @@ export default class Registration extends React.Component {
                     validate={{
                       required: {
                         value: { role },
-                        errorMessage: "Please select a role"
+                        errorMessage: 'Please select a role'
                       }
                     }}>
                     <option>Student</option>
@@ -283,12 +283,12 @@ export default class Registration extends React.Component {
                     validate={{
                       required: {
                         value: { securityQuestion },
-                        errorMessage: "Please pick a security question"
+                        errorMessage: 'Please pick a security question'
                       }
                     }}>
                     <option></option>
                     <option>What is the name of your favorite pet?</option>
-                    <option>What is your mother's maiden name?</option>
+                    <option>What is your mother`&rsquo;`s maiden name?</option>
                     <option>What was your favorite food as a child?</option>
                   </AvField>
                 </Col>
@@ -303,7 +303,7 @@ export default class Registration extends React.Component {
                     validate={{
                       required: {
                         value: { securityAnswer },
-                        errorMessage: "Please type an answer"
+                        errorMessage: 'Please type an answer'
                       }
                     }}
                     disabled={!isSecurityAnsEnabled}>
@@ -328,40 +328,40 @@ export default class Registration extends React.Component {
                     Submitted form values
                   </p>
                 </>
-                <ul style={{ listStyleType: "none" }}>
+                <ul style={{ listStyleType: 'none' }}>
                   <li>
                     <span
                       style={{
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                        color: "grey"
+                        fontWeight: 'bold',
+                        fontStyle: 'italic',
+                        color: 'grey'
                       }}
                     >
-                      User Name:{" "}
+                      User Name:{' '}
                     </span>
                     {this.state.userName}
                   </li>
                   <li>
                     <span
                       style={{
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                        color: "grey"
+                        fontWeight: 'bold',
+                        fontStyle: 'italic',
+                        color: 'grey'
                       }}
                     >
-                      Mobile No:{" "}
+                      Mobile No:{' '}
                     </span>
                     {this.state.mobile}
                   </li>
                   <li>
                     <span
                       style={{
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                        color: "grey"
+                        fontWeight: 'bold',
+                        fontStyle: 'italic',
+                        color: 'grey'
                       }}
                     >
-                      Mail Address:{" "}
+                      Mail Address:{' '}
                     </span>
                     {this.state.emailId}
                   </li>
@@ -371,6 +371,6 @@ export default class Registration extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
