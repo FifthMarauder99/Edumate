@@ -17,7 +17,6 @@ import StudentDashboard from './components/StudentDashboard'
 import ProfessorDashboard from './components/ProfessorDashboard'
 import CourseDetails from './components/ProfessorCourseDetails'
 import AdminView from './components/Admin'
-import CanvasLMS from './components/CanvasLMS'
 
 function App () {
   console.log(process.env.REACT_APP_DATABASE_URL)
