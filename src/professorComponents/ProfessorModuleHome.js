@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 const getCourseIdForCourse = async (course_title) => {
   const response = await fetch('http://localhost:9000/getCourses/courseTitle', {
@@ -35,7 +35,9 @@ const getModules = async (course_title) => {
 }
 
 const ProfessorModuleHome = () => {
-  const [courseTitle, setCourseTitle] = useState(window.history.state.selectedCourse)
+  const history = useHistory()
+  const { state } = useLocation()
+  const [courseTitle, setCourseTitle] = useState(window.history.state.selectedCourse || state.selectedCourse)
   const [courseId, setCourseId] = useState('')
   const [modules, setModules] = useState([])
 
@@ -69,26 +71,14 @@ const ProfessorModuleHome = () => {
     fetchModules()
   }, [])
 
-  // sample data for 5 assignments
-  //   const [assignments, setAssignments] = useState([
-  //     { name: 'Assignment 1', maxMarks: 20, marks: 18 },
-  //     { name: 'Assignment 2', maxMarks: 20, marks: 16 },
-  //     { name: 'Assignment 3', maxMarks: 20, marks: 14 },
-  //     { name: 'Assignment 4', maxMarks: 20, marks: 19 },
-  //     { name: 'Assignment 5', maxMarks: 20, marks: 15 }
-  //   ])
+  const handleModuleSelection = (event) => {
+    console.log('thing that was selected on button is  ' + event.target.id)
+    history.push('/Products/ModuleContent', { courseId, moduleTitle: event.target.id })
+  }
 
-  //   const totalMarks = assignments.reduce((sum, item) => sum + item.marks, 0)
-  //   const totalMaxMarks = assignments.reduce((sum, item) => sum + item.maxMarks, 0)
-  //   const totalGrades = ((totalMarks / totalMaxMarks) * 100).toFixed(2)
-
-  // const [modules, setModules] = useState([])
-
-  // useEffect(() => {
-  //     async function fetchModules() {
-  //        const response = await getModules()
-  //    }
-  // })
+  const handleAddModule = (event) => {
+    history.push('/Products/M1', { courseId, courseTitle })
+  }
 
   return (
     <div className="table-container">
@@ -103,12 +93,12 @@ const ProfessorModuleHome = () => {
           {modules.map((item, index) => (
             <tr key={index}>
               <td>{item.module_title}</td>
-              <td><button>View the module</button></td>
+                  <td><button id={item.module_title} onClick={handleModuleSelection}>View the module</button></td>
             </tr>
           ))}
         </tbody>
           </table>
-          <button>Add module</button>
+          <button onClick = {handleAddModule}>Add module</button>
     </div>
   )
 }

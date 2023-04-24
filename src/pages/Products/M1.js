@@ -1,5 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation, useHistory } from 'react-router-dom'
 import './M1.css'
+import { DateLocalizer } from 'react-big-calendar'
+
+// this file will be used for creating modules
+
 function FileInput ({ onChange }) {
   const [file, setFile] = useState(null)
   const handleChange = (event) => {
@@ -12,7 +17,7 @@ function FileInput ({ onChange }) {
       <input type="file" onChange={handleChange} />
       {file && (
         <div>
-
+ß
           {file.type === 'application/pdf' && (
             <a href={URL.createObjectURL(file)} target="_blank" rel="noopener noreferrer">
               View PDF
@@ -24,9 +29,35 @@ function FileInput ({ onChange }) {
   )
 }
 
+// api call to send stuff to the module professor page
+const uploadProfModule = async (data = {}) => {
+  const response = await fetch('http://localhost:9000/addModule', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      courseId: data.courseId,
+      moduleTitle: data.moduleTitle,
+      moduleText: data.moduleText
+    })
+  }
+  )
+  if (!response.ok) throw new Error(response.statusText)
+  return response
+}
+
 function MyForm () {
+  const { state } = useLocation()
+  const history = useHistory()
+  console.log('in add module ' + state.courseId)
+
+  const [courseId, setCourseId] = useState(state.courseId)
+  const [courseTitle, setCourseTitle] = useState(state.courseTitle)
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
+  // todo: file upload
   const [file, setFile] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
@@ -36,10 +67,14 @@ function MyForm () {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // Submit form data and file to server
-    // ...
-    setIsSubmitted(true)
-    alert('Form submitted successfully!')
+    try {
+      uploadProfModule({ courseId, moduleTitle: title, moduleText: text })
+      setIsSubmitted(true)
+      alert('Form submitted successfully!')
+      history.push('/Modules', { selectedCourse: courseTitle })
+    } catch (e) {
+      alert('Form submitted incorrectly')
+    }
   }
 
   const handleEdit = () => {
