@@ -38,7 +38,7 @@ function Ass1 () {
 
   return (
     <div className="modules-container">
-      <h1 className="modules-heading">Assignment 1</h1>
+      <h1 className="modules-heading">Lecture Summary 1</h1>
       <p className="modules-total-marks">Total Marks: 30</p>
       <p className="modules-submission-date">Submission Date: 1 May 2023</p>
       <form onSubmit={handleFormSubmit}>

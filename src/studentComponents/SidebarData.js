@@ -2,8 +2,16 @@ import React from 'react'
 
 export const SidebarData = [
   {
+    title:'Home',
+    path:'/Home',
+
+    subNav : []
+  },
+  {
     title: 'Grades',
-    path: '/A1'
+    path: '/A1',
+
+    subNav : []
 
   },
   {
@@ -27,11 +35,11 @@ export const SidebarData = [
 
     subNav: [
       {
-        title: 'Assignment 1',
+        title: 'Lecture Summary 1',
         path: '/Assignments/Ass1'
       },
       {
-        title: 'Assignment 2',
+        title: 'Lecture Summary 2',
         path: '/Assignments/Ass2'
       }
     ]
@@ -39,6 +47,7 @@ export const SidebarData = [
 
   {
     title: 'Chat',
-    path: '/Chats'
+    path: '/Chats',
+    subNav : []
   }
 ]

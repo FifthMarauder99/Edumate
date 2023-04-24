@@ -4,9 +4,9 @@ import { Card } from 'react-bootstrap' // import the Bootstrap Card component
 function AssignmentList (props) {
   // define a list of assignments
   const assignments = [
-    { title: 'Assignment 1', description: 'Complete Chapter 1 exercises' },
-    { title: 'Assignment 2', description: 'Write a research paper on topic X' },
-    { title: 'Assignment 3', description: 'Create a presentation on topic Y' }
+    { title: 'Introduction', description: 'Introduction' },
+    { title: 'Lecture Summary 1', description: 'Week 1 Lecture Summary' },
+    { title: 'Lecture Summary 2', description: 'Week 2 Lecture Summary' }
   ]
 
   // handle click event

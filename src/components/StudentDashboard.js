@@ -47,7 +47,7 @@ const MainScreen = ({ subjects, onSelectCourse }) => {
     console.log(courses)
   }
   function handleCardClick (subject) {
-    onSelectCourse(subject.course_title)
+    onSelectCourse(subject/*.course_title*/)
     console.log('Clicked in main screen', subject)
   }
 
@@ -132,7 +132,7 @@ const Sidebar = ({ subjects, onMenuClick }) => {
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" title="Courses">
           {courses.map((subject) => (
-            <Menu.Item key={subject.course_id} onClick={() => handleItemClick(subject.course_title)}>{subject.course_title}</Menu.Item>
+            <Menu.Item key={subject.course_id} onClick={() => handleItemClick(subject/*.course_title*/)}>{subject.course_title}</Menu.Item>
           ))}
         </Menu.SubMenu>
         <Menu.SubMenu key="sub3" title="Assignments">
@@ -215,7 +215,7 @@ const StudentDashboard = () => {
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  console.log('Sidebar Item clicked : ', selectedItem)
+  console.log('Sidebar Item clicked : ', selectedItem,selectedItem.course_id)
   console.log('Selected course in dashboard', selectedCourse)
 
   return (
@@ -240,7 +240,7 @@ const StudentDashboard = () => {
                 <Home Profile = {id[0]}/>)
               : selectedItem === 'Overview'
                 ? (
-                    selectedCourse ? <StudentCourseDetails  course = {selectedCourse} /> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
+                    selectedCourse ? <StudentCourseDetails  courseTitle = {selectedCourse.course_title} courseID = {selectedCourse.course_id}/> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
                   )
                   : selectedItem === 'Grades'
                     ? (
@@ -250,7 +250,7 @@ const StudentDashboard = () => {
                       ? (
     <MyCalendar />
                         )
-                        : selectedItem ? ( <StudentCourseDetails course = {selectedItem} /> )
+                        : selectedItem ? ( <StudentCourseDetails courseTitle = {selectedItem.course_title} courseID = {selectedItem.course_id}/> )
                       : (
     <div>No content selected</div>
                         )}
