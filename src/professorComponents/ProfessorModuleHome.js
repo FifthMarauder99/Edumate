@@ -103,11 +103,12 @@ const ProfessorModuleHome = () => {
           {modules.map((item, index) => (
             <tr key={index}>
               <td>{item.module_title}</td>
-              <td><button>View the assignment</button></td>
+              <td><button>View the module</button></td>
             </tr>
           ))}
         </tbody>
-      </table>
+          </table>
+          <button>Add module</button>
     </div>
   )
 }
