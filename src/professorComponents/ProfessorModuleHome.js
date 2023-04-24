@@ -44,6 +44,24 @@ const ProfessorModuleHome = () => {
   console.log('modules home ' + courseTitle)
   console.log('modules home ' + courseId)
 
+  const removeModuleDB = async (moduleTitle) => {
+    const url = 'http://localhost:9000/removeModule'
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        courseId,
+        moduleTitle
+      })
+    }
+    )
+    if (!response.ok) throw new Error(response.statusText)
+    return response
+  }
+
   useEffect(() => {
     async function fetchCourseId () {
       const response = await getCourseIdForCourse(courseTitle)
@@ -73,11 +91,22 @@ const ProfessorModuleHome = () => {
 
   const handleModuleSelection = (event) => {
     console.log('thing that was selected on button is  ' + event.target.id)
-    history.push('/Products/ModuleContent', { courseId, moduleTitle: event.target.id })
+    history.push('/Products/ModuleContent', { courseId, courseTitle, moduleTitle: event.target.id })
   }
 
   const handleAddModule = (event) => {
     history.push('/Products/M1', { courseId, courseTitle })
+  }
+
+  const handleRemoveModule = (event) => {
+    const removeModule = prompt("Please enter the module's title that you'd like to remove:")
+    async function removeModuleAsync () {
+      const response = await removeModuleDB(removeModule)
+      console.log(response)
+    }
+    removeModuleAsync()
+    alert('That module (if it exists) has been removed')
+    history.push('/Modules', { courseId })
   }
 
   return (
@@ -98,7 +127,8 @@ const ProfessorModuleHome = () => {
           ))}
         </tbody>
           </table>
-          <button onClick = {handleAddModule}>Add module</button>
+      <button onClick={handleAddModule} style={{ marginRight: '30px' }}>Add module</button>
+      <button onClick={handleRemoveModule}>Remove module</button>
     </div>
   )
 }

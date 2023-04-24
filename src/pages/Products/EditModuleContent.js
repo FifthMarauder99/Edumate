@@ -3,7 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom'
 import './M1.css'
 import { DateLocalizer } from 'react-big-calendar'
 
-// this file will be used for creating modules
+// this file will be used for editing modules
 
 function FileInput ({ onChange }) {
   const [file, setFile] = useState(null)
@@ -29,37 +29,67 @@ function FileInput ({ onChange }) {
   )
 }
 
-// api call to send stuff to the module professor page
-const uploadProfModule = async (data = {}) => {
-  const response = await fetch('http://localhost:9000/addModule', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      courseId: data.courseId,
-      moduleTitle: data.moduleTitle,
-      moduleText: data.moduleText
-    })
-  }
-  )
-  if (!response.ok) throw new Error(response.statusText)
-  return response
-}
-
 function MyForm () {
   const { state } = useLocation()
   const history = useHistory()
-  console.log('in add module ' + state.courseId)
+  console.log('in edit module ' + state.courseId)
 
   const [courseId, setCourseId] = useState(state.courseId)
   const [courseTitle, setCourseTitle] = useState(state.courseTitle)
+  const [moduleTitleOld, setModuleTitleOld] = useState(state.moduleTitleOld)
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
   // todo: file upload
   const [file, setFile] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const getModule = async (course_id, module_title) => {
+    const url = 'http://localhost:9000/getModules/specificModule'
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        course_id,
+        module_title
+      })
+    }
+    )
+    if (!response.ok) throw new Error(response.statusText)
+    return response.json()
+  }
+
+  useEffect(() => {
+    async function fetchModule () {
+      const response = await getModule(state.courseId, state.moduleTitleOld)
+      setTitle(response.results[0].module_title)
+      setText(response.results[0].module_text)
+      // todo: file stuff
+      return response
+    }
+    fetchModule()
+  }, [])
+
+  const editModule = async (data = {}) => {
+    const response = await fetch('http://localhost:9000/addModule', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        courseId: data.courseId,
+        moduleTitleOld: data.moduleTitleOld,
+        moduleTitleNew: data.moduleTitleNew,
+        moduleText: data.moduleText
+      })
+    }
+    )
+    if (!response.ok) throw new Error(response.statusText)
+    return response
+  }
 
   const handleFileChange = (newFile) => {
     setFile(newFile)
@@ -68,7 +98,7 @@ function MyForm () {
   const handleSubmit = (event) => {
     event.preventDefault()
     try {
-      uploadProfModule({ courseId, moduleTitle: title, moduleText: text })
+      editModule({ courseId, moduleTitleOld, moduleTitleNew: title, moduleText: text })
       setIsSubmitted(true)
       alert('Form submitted successfully!')
       history.push('/Modules', { selectedCourse: courseTitle })
@@ -132,13 +162,13 @@ function MyForm () {
   )
 }
 
-function M1 () {
+function EditModuleContent () {
   return (
     <div style={{ textAlign: 'center' }}>
-      <h2>Add Module</h2>
+      <h2>Edit Module</h2>
       <MyForm />
     </div>
   )
 }
 
-export default M1
+export default EditModuleContent

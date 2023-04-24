@@ -8,6 +8,7 @@ import M1 from '../pages/Products/M1'
 import ModuleContent from '../pages/Products/ModuleContent'
 import Ass1 from '../pages/Assignments/Ass1'
 import ProfessorModuleHome from './ProfessorModuleHome'
+import EditModuleContent from '../pages/Products/EditModuleContent'
 
 const ProfessorCourseDetails = () => {
   return (
@@ -15,7 +16,8 @@ const ProfessorCourseDetails = () => {
       <ProfessorSidebar />
       <Switch>
         {/* <Route path="/specificModule" exact component={ModuleTemplate}/> */}
-        <Route path="/Modules" exact component={ProfessorModuleHome}/>
+        <Route path="/Modules" exact component={ProfessorModuleHome} />
+        <Route path="/editModule" exact component = {EditModuleContent} />
         <Route path="/Assignments" exact component={AssignmentList} />
         <Route path="/overview/A1" exact component={A1} />
         <Route path="/overview/A2" exact component={A2} />

@@ -19,6 +19,8 @@ var getProfessorRouter = require("./routes/getProfessors");
 var updateEnrollmentRouter = require("./routes/updateEnrollment");
 var getModulesRouter = require("./routes/professor/getModules");
 var addModuleRouter = require("./routes/professor/addModule");
+var removeModuleRouter = require("./routes/professor/removeModule");
+var editModuleRouter = require("./routes/professor/editModule");
 
 const { appendFile } = require('fs');
 var app = express();
@@ -49,6 +51,8 @@ app.use('/getCourses', getCoursesRouter);
 app.use('/updateEnrollment', updateEnrollmentRouter);
 app.use('/getModules', getModulesRouter);
 app.use('/addModule', addModuleRouter);
+app.use('/removeModule', removeModuleRouter);
+app.use('/editModule', editModuleRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
