@@ -17,6 +17,7 @@ var getCoursesRouter = require("./routes/getCourses")
 var getStudentRouter = require("./routes/getStudents");
 var getProfessorRouter = require("./routes/getProfessors");
 var updateEnrollmentRouter = require("./routes/updateEnrollment");
+var getModulesRouter = require("./routes/professor/getModules");
 
 const { appendFile } = require('fs');
 var app = express();
@@ -45,6 +46,7 @@ app.use('/getStudents', getStudentRouter);
 app.use('/getProfessors', getProfessorRouter);
 app.use('/getCourses', getCoursesRouter);
 app.use('/updateEnrollment', updateEnrollmentRouter);
+app.use('/getModules', getModulesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

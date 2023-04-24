@@ -13,8 +13,8 @@ import './styles.css'
 import SecurityCheck from './components/SecurityCheck'
 import PasswordReset from './components/PasswordReset'
 import StudentDashboard from './components/StudentDashboard'
-import ProfessorDashboard from './components/ProfessorDashboard'
-import CourseDetails from './components/ProfessorCourseDetails'
+import ProfessorDashboard from './professorComponents/ProfessorDashboard'
+import CourseDetails from './professorComponents/ProfessorCourseDetails'
 import AdminView from './components/Admin'
 
 function App () {

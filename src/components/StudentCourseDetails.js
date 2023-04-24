@@ -8,7 +8,7 @@ import M1 from '../studentPages/Products/M1'
 import Ass1 from '../studentPages/Assignments/Ass1'
 import Ass2 from '../studentPages/Assignments/Ass2'
 const StudentCourseDetails = (props) => {
-  const courseClicked = props.course;
+  const courseClicked = props.course
   return (
     <div>
 

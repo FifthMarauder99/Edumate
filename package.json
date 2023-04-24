@@ -30,7 +30,8 @@
   "scripts": {
     "start": "react-scripts start",
     "install-all-packages": "npm install && cd api && npm install && cd ..",
-    "api-start": "npm run get-db-url && npm run build && cd api && npm start",
+    "lint": "npx eslint --fix src/",
+    "api-start": "npm run lint && npm run get-db-url && npm run build && cd api && npm start",
     "get-db-url": "rm -f .env && touch .env && printf 'REACT_APP_DATABASE_URL=' >> .env && heroku config:get DATABASE_URL -a edumate >> .env",
     "build": "rm -rf build && cd api && rm -rf public && mkdir public && cd ../ && react-scripts build && cp -r build/ api/public",
     "test": "react-scripts test --env=jsdom",

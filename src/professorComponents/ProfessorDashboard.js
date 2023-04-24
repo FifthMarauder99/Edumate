@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation, Router, Route, Switch } from 'react-router-dom'
 import { Layout, Menu, Card, Row, Col, Input } from 'antd'
 import ProfessorCourseDetails from './ProfessorCourseDetails'
-import MyCalendar from './MyCalender'
+import MyCalendar from '../components/MyCalender'
 import Search from 'antd/es/transfer/search'
 const { Header, Content, Sider } = Layout
 
@@ -122,7 +122,6 @@ const Sidebar = ({ subjects, onMenuClick }) => {
         defaultOpenKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
       >
-
         <Menu.SubMenu key="sub1" title="Dashboard">
         <Menu.Item key="0" onClick={() => handleItemClick('Home')}>
         Home
@@ -133,16 +132,6 @@ const Sidebar = ({ subjects, onMenuClick }) => {
           {courses.map((subject) => (
             <Menu.Item key={subject.course_id} onClick={() => handleItemClick(subject.course_title)}>{subject.course_title}</Menu.Item>
           ))}
-        </Menu.SubMenu>
-        <Menu.SubMenu key="sub3" title="Assignments">
-        <Menu.SubMenu key="sub3-1" title="Upcoming">
-          {assignments.map((assignment, index) => (
-            <Menu.Item key={index}>
-              {assignment.subject}: {assignment.title} (Due: {assignment.deadline})
-            </Menu.Item>
-          ))}
-          </Menu.SubMenu>
-          <Menu.Item key="4" onClick={() => handleItemClick('Grades')}>Grades</Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="sub4" title="Calender" >
           <Menu.Item key="5" onClick={() => handleItemClick('Calender')}>Calendar
@@ -177,7 +166,7 @@ const Home = ({ Profile }) => {
     <div>
       <h1>Home</h1>
       <p>Homepage.</p>
-      <p> Welcome {Profile} !</p>
+      <p> Welcome {Profile}! </p>
     </div>
   )
 }
@@ -185,6 +174,7 @@ const Home = ({ Profile }) => {
 const ProfessorDashboard = () => {
   const location = useLocation()
   const id = location.state.detail
+  console.log('location state ' + location.state.detail)
   console.log(id[1])
 
   const [selectedItem, setSelectedItem] = useState('Home')
@@ -192,10 +182,17 @@ const ProfessorDashboard = () => {
 
   const handleMenuClick = (item) => {
     setSelectedItem(item)
+    if (item === 'Overview') setSelectedCourse('')
+    if (item !== 'Overview' && item !== 'Home' && item !== 'Calender') {
+      console.log('sfhasdkfjhasjkdfh ' + item)
+      setSelectedCourse(item)
+      window.history.pushState({ selectedCourse: item }, null, null)
+    }
   }
 
   const handleCardClick = (course) => {
     setSelectedCourse(course)
+    // location.state.detail.push(course)
     window.history.pushState({ selectedCourse: course }, null, null)
   }
 
@@ -235,16 +232,16 @@ const ProfessorDashboard = () => {
                 ? (
                     selectedCourse ? <ProfessorCourseDetails course = {selectedCourse}/> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
                   )
-                
-                  : selectedItem === 'Grades'
-                    ? (
+                : selectedItem === 'Grades'
+                  ? (
     <GradesScreen/>
-                      )
-                    : selectedItem === 'Calender'
-                      ? (
+                    )
+                  : selectedItem === 'Calender'
+                    ? (
     <MyCalendar />
-                        )
-                        : selectedItem ? ( <ProfessorCourseDetails course={selectedItem}/>)
+                      )
+                    : selectedItem
+                      ? (<ProfessorCourseDetails course={selectedItem}/>)
                       : (
     <div>No content selected</div>
                         )}
