@@ -240,7 +240,7 @@ const StudentDashboard = () => {
                 <Home Profile = {id[0]}/>)
               : selectedItem === 'Overview'
                 ? (
-                    selectedCourse ? <StudentCourseDetails  courseTitle = {selectedCourse.course_title} courseID = {selectedCourse.course_id}/> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
+                    selectedCourse ? <StudentCourseDetails  courseTitle = {selectedCourse.course_title} courseID = {selectedCourse.course_id} userID= {id[1]}/> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
                   )
                   : selectedItem === 'Grades'
                     ? (
@@ -250,7 +250,7 @@ const StudentDashboard = () => {
                       ? (
     <MyCalendar />
                         )
-                        : selectedItem ? ( <StudentCourseDetails courseTitle = {selectedItem.course_title} courseID = {selectedItem.course_id}/> )
+                        : selectedItem ? ( <StudentCourseDetails courseTitle = {selectedItem.course_title} courseID = {selectedItem.course_id} userID= {id[1]}/> )
                       : (
     <div>No content selected</div>
                         )}

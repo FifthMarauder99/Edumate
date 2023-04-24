@@ -13,6 +13,7 @@ import Ass2 from '../studentPages/Assignments/Ass2'
 const StudentCourseDetails = (props) => {
   const courseClicked = props.courseTitle;
   const courseID = props.courseID;
+  const userID = props.userID;
 
   return (
     <div>
@@ -23,7 +24,7 @@ const StudentCourseDetails = (props) => {
       <Route path="/Home" exact render={() => <Home course={courseClicked} courseID = {courseID} />} />
         <Route path="/Chats" exact component={Chats} />
         <Route path="/Assignments" exact component={AssignmentList} />
-        <Route path="/A1" exact component={A1} />
+        <Route path="/A1" exact render={() => <A1 courseID = {courseID} userID = {userID}/>}/>
         <Route path="/Products/M1" exact component={M1} />
         <Route path="/Assignments/Ass1" exact component={Ass1} />
         <Route path="/Assignments/Ass2" exact component={Ass2} />
