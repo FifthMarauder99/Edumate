@@ -12,15 +12,14 @@ router.post('/', async (req, res) => {
         });
         const client = await pool.connect();
         const query = `SELECT *
-                    FROM modules WHERE course_id = '${req.body.course_id}'` ;
+                    FROM modules WHERE course_id = (SELECT DISTINCT course_id FROM enrollments WHERE course_title = '${req.body.course_title}')` ;
         const result = await client.query(query);
         const results = { 'results': (result) ? result.rows : null };
-        console.log("result from query: " + JSON.stringify(results));
         const results_json_str = JSON.stringify(results);
         const results_json = JSON.parse(results_json_str);
-        console.log(results_json.results[0]); //  JSON.parse(results_json) == {"results":[{"course_id":"xxxx","course_title":"asdfghjk"}]}
-        res.send(results_json.results); 
-        client.release();
+        console.log(JSON.parse(results_json_str).results[0]);
+        console.log("IN BACKEND",typeof(results_json.results))
+        res.send(results); 
     } catch (err) {
         console.error(err);
         res.send(404);
