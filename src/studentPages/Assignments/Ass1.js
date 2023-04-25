@@ -16,33 +16,35 @@ const Ass1 = ({location}) =>{
   console.log("IN THAT ASSIGNMENT PAGE:",assignData)
 
   
-  const submitted=true;
+  let submitted=false;
+  if(assignData.subdate){
+    submitted = true;
+  }
   
     return (
       <div className="Ass1">
         {submitted ? (
-          <SubmittedAss1 />
+          <SubmittedAss1 assignmentData = {assignData}/>
         ) : (
-          <NotSubmitted />
+          <NotSubmitted assignmentData = {assignData}/>
         )}
       </div>
     );
   };
   
-  const SubmittedAss1 = () => {
-    const assignmentData = {
-      title: "Lecture Summary 1",
-      grade: 25,
-      submissionDate: new Date("May 1, 2023"),
-      file: myPdf
-    };
-  
+  const SubmittedAss1 = ({assignmentData}) => {
+    const subDate = new Date(assignmentData.subdate)
+    const formattedDate = subDate.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
     return (
       <div className="modules-container">
         <h1 className="modules-heading">{assignmentData.title}</h1>
-        <p className="modules-total-marks">Total Marks: 30</p>
+        <p className="modules-total-marks">Total Marks: {assignmentData.total}</p>
         <p className="modules-submission-date">
-          Submission Date: {assignmentData.submissionDate.toLocaleDateString()}
+          Submission Date: {formattedDate}
         </p>
         <p className="success-text">Grade: {assignmentData.grade}</p>
         <div className="modules-pdf">
@@ -53,7 +55,7 @@ const Ass1 = ({location}) =>{
     );
   };
   
-  const NotSubmitted = () =>{
+  const NotSubmitted = ({assignmentData}) =>{
   const submissionDate = new Date('May 1, 2023')
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState(null)
@@ -90,9 +92,9 @@ const Ass1 = ({location}) =>{
 
   return (
  <><div className="modules-container">
-      <h1 className="modules-heading">Lecture Summary 1</h1>
-      <p className="modules-total-marks">Total Marks: 30</p>
-      <p className="modules-submission-date">Submission Date: 1 May 2023</p>
+      <h1 className="modules-heading">{assignmentData.title}</h1>
+      <p className="modules-total-marks">Total Marks: {assignmentData.total}</p>
+      <p className="modules-submission-date">Submission Date: May 1, 2023</p>
       <form onSubmit={handleFormSubmit}>
         <div className="modules-file-input">
           <label htmlFor="file-input">Upload File</label>

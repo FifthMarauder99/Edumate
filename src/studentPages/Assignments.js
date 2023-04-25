@@ -59,9 +59,12 @@ function AssignmentList (props) {
     fetchAssignments()
   }, [])
 
+  
+
   console.log("Static obj",assignments)
   console.log("Backen obj",assigns)
 
+  const history = useHistory();
   // handle click event
   const handleClick = (assignment) => {
 
@@ -76,26 +79,6 @@ function AssignmentList (props) {
 
   }
 
-
-  const history = useHistory()
-
-  // ...
-
-  useEffect(() => {
-    // ...
-
-    // add a popstate listener to go back to previous page
-    window.addEventListener('popstate', () => {
-      history.goBack()
-    })
-
-    return () => {
-      // remove the popstate listener on unmount
-      window.removeEventListener('popstate', () => {
-        history.goBack()
-      })
-    }
-  }, [])
 
   return (
     <div>
