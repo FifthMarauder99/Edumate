@@ -1,8 +1,59 @@
 import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti'
 import './Ass1.css'
+import myPdf from './AdeshOak_lecture11Summary.pdf'
 
-const Ass1 = () =>{
+const Ass1 = ({location}) =>{
+
+  
+  const assignData = {
+    title:location.state.object.title,
+    total:location.state.object.totalMarks,
+    grade:location.state.object.grade,
+    subdate:location.state.object.subDate,
+  }
+
+  console.log("IN THAT ASSIGNMENT PAGE:",assignData)
+
+  
+  const submitted=true;
+  
+    return (
+      <div className="Ass1">
+        {submitted ? (
+          <SubmittedAss1 />
+        ) : (
+          <NotSubmitted />
+        )}
+      </div>
+    );
+  };
+  
+  const SubmittedAss1 = () => {
+    const assignmentData = {
+      title: "Lecture Summary 1",
+      grade: 25,
+      submissionDate: new Date("May 1, 2023"),
+      file: myPdf
+    };
+  
+    return (
+      <div className="modules-container">
+        <h1 className="modules-heading">{assignmentData.title}</h1>
+        <p className="modules-total-marks">Total Marks: 30</p>
+        <p className="modules-submission-date">
+          Submission Date: {assignmentData.submissionDate.toLocaleDateString()}
+        </p>
+        <p className="success-text">Grade: {assignmentData.grade}</p>
+        <div className="modules-pdf">
+          <embed src={assignmentData.file} type="application/pdf" width="100%" height="600px" />
+        </div>
+        
+      </div>
+    );
+  };
+  
+  const NotSubmitted = () =>{
   const submissionDate = new Date('May 1, 2023')
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState(null)
@@ -38,7 +89,7 @@ const Ass1 = () =>{
   const myList = ['Item 1', 'Item 2', 'Item 3'];
 
   return (
- <>{/*<div className="modules-container">
+ <><div className="modules-container">
       <h1 className="modules-heading">Lecture Summary 1</h1>
       <p className="modules-total-marks">Total Marks: 30</p>
       <p className="modules-submission-date">Submission Date: 1 May 2023</p>
@@ -65,9 +116,6 @@ const Ass1 = () =>{
           <embed src={preview} type="application/pdf" width="100%" height="600px" />
         )}
       </div>
-        </div>*/}
-        <div>
-          Hello
         </div>
     </> 
       

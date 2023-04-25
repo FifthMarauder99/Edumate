@@ -24,10 +24,11 @@ const StudentCourseDetails = (props) => {
       <Switch>
       <Route path="/Home" exact render={() => <Home course={courseClicked} courseID = {courseID} />} />
         <Route path="/Chats" exact component={Chats} />
+        <Route path="/Assignments/Ass1" exact render={({ location }) => <Ass1 location={location} />} />
         <Route path="/Assignments" exact render={() => <AssignmentList courseID = {courseID} userID = {userID}/>}/>
         <Route path="/A1" exact render={() => <A1 courseID = {courseID} userID = {userID}/>}/>
         <Route path="/Products/M1" exact component={M1} />
-        <Route path="/Assignments/Ass1" exact component={Ass1} />
+        {/*<Route path="/Assignments/Ass1" exact component={Ass1} />*/}
         <Route path="/Assignments/Ass2" exact component={Ass2} />
         </Switch>
     </Router>

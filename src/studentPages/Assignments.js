@@ -48,7 +48,10 @@ function AssignmentList (props) {
       for (let i = 0; i < response.results.length; i++) {
         resList.push({
           title: response.results[i].title,
-          description: response.results[i].description
+          description: response.results[i].description,
+          totalMarks: response.results[i].total,
+          grade: response.results[i].grade,
+          subdate: response.results[i].subdate
         })
       }
       setAssignments(resList)
@@ -63,7 +66,14 @@ function AssignmentList (props) {
   const handleClick = (assignment) => {
 
     console.log(assignment)
-    history.push('/Asignments/Ass1')
+    history.push({ pathname: '/Assignments/Ass1', state: { 
+      object:{
+        title: assignment.title, 
+        totalMarks: assignment.totalMarks,
+        grade:assignment.grade,
+        subDate: assignment.subdate }
+   } });
+
   }
 
 

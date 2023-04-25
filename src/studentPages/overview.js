@@ -57,9 +57,10 @@ const A1 = (props) => {
   console.log("Static obj",assignments)
   console.log("Backen obj",grades)
 
-  const totalMarks = grades.reduce((sum, item) => sum + item.marks, 0)
+  const totalMarks = grades.reduce((sum, item) => sum + (item.marks ? item.marks : 0), 0)
   const totalMaxMarks = grades.reduce((sum, item) => sum + item.maxMarks, 0)
   const totalGrades = ((totalMarks / totalMaxMarks) * 100).toFixed(2)
+  
 
   return (
     <div className="table-container">

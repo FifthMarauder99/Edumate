@@ -22,9 +22,10 @@ router.post('/', async (req, res) => {
 
 
         const client = await pool.connect();
-        const query = `SELECT p.professor_title as title , p.professor_text as description
-               FROM professor_assignments p
-               WHERE p.course_id = $1`;
+        const query = `SELECT DISTINCT p.professor_title as title, p.professor_text as description, p.professor_total as total, s.grade as grade, s.student_submission_date as subdate
+        FROM professor_assignments p
+        JOIN student_assignments s ON p.professor_assignment_id = CAST(s.professor_assignment_id AS INTEGER)
+        WHERE p.course_id = $1` ;
         const values = [req.body.course_id];
         const result = await client.query(query, values);
         const results = { 'results': (result) ? result.rows : null};
