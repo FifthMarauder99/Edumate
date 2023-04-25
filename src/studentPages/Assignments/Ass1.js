@@ -48,7 +48,7 @@ const Ass1 = ({location}) =>{
         </p>
         <p className="success-text">Grade: {assignmentData.grade}</p>
         <div className="modules-pdf">
-          <embed src={assignmentData.file} type="application/pdf" width="100%" height="600px" />
+          <embed src={myPdf} type="application/pdf" width="100%" height="600px" />
         </div>
         
       </div>

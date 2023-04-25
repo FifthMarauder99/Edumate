@@ -3,8 +3,10 @@ import { useHistory, useLocation, Router, Route, Switch } from 'react-router-dom
 import { Layout, Menu, Card, Row, Col, Input } from 'antd'
 import StudentCourseDetails from './StudentCourseDetails'
 import MyCalendar from './MyCalender'
+import logo from './edumatelogo.png'
 import Search from 'antd/es/transfer/search'
 const { Header, Content, Sider } = Layout
+
 
 const attemptFetchCourses = async (url = '', uid) => {
   const response = await fetch(url, {
@@ -181,9 +183,10 @@ const Home = ({ Profile }) => {
   console.log('In home', Profile)
   return (
     <div>
+      <div style={{ marginTop: '100px', marginLeft: '200px' }}>
       <h1>Home</h1>
-      <p>Homepage.</p>
       <p> Welcome {Profile} !</p>
+      </div>
     </div>
   )
 }
@@ -223,11 +226,10 @@ const StudentDashboard = () => {
         <Header className="header">
           <div className="logo-container">
             <img
-              src="https://dummyimage.com/50x50/f0f0f0/000000.png&text=LMS+Logo"
-              alt="LMS Logo"
+              src={logo}
               className="logo"
             />
-            <span className="title">Edumate Dashboard</span>
+            {/*<span className="title">Edumate Dashboard</span>*/}
           </div>
         </Header>
         <Layout>
