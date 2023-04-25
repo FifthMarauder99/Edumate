@@ -57,9 +57,34 @@ const A1 = (props) => {
   console.log("Static obj",assignments)
   console.log("Backen obj",grades)
 
-  const totalMarks = grades.reduce((sum, item) => sum + (item.marks ? item.marks : 0), 0)
+  /*const totalMarks = grades.reduce((sum, item) => sum + (item.marks ? item.marks : 0), 0)
   const totalMaxMarks = grades.reduce((sum, item) => sum + item.maxMarks, 0)
-  const totalGrades = ((totalMarks / totalMaxMarks) * 100).toFixed(2)
+  const totalGrades = ((totalMarks / totalMaxMarks) * 100).toFixed(2)*/
+
+  const totalMarks = grades.reduce((sum, item) => {
+    const marks = parseFloat(item.marks);
+    if (!isNaN(marks) && item.maxMarks !== 0) {
+      return sum + marks;
+    } else {
+      return sum;
+    }
+  }, 0);
+  
+
+  console.log(totalMarks)
+  
+  const totalMaxMarks = grades.reduce((sum, item) => {
+    const marks = parseFloat(item.marks);
+    if (item.maxMarks !== 0 && !isNaN(marks)) {
+      return sum + item.maxMarks;
+    } else {
+      return sum;
+    }
+  }, 0);
+  console.log(totalMaxMarks)
+  const totalGrades = ((totalMarks / totalMaxMarks) * 100).toFixed(2);
+  
+  
   
 
   return (
@@ -78,7 +103,7 @@ const A1 = (props) => {
             <tr key={index}>
               <td>{item.name}</td>
               <td>{item.maxMarks}</td>
-              <td>{item.marks}</td>
+              <td>{isNaN(item.marks) ? "" : item.marks}</td>
               <td><button>View the assignment</button></td>
             </tr>
           ))}

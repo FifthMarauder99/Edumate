@@ -7,6 +7,7 @@ import Chats from '../studentPages/Chats'
 import AssignmentList from '../studentPages/Assignments'
 import A1 from '../studentPages/overview'
 import M1 from '../studentPages/Products/M1'
+import M2 from '../studentPages/Products/M2'
 import Ass1 from '../studentPages/Assignments/Ass1'
 import Ass2 from '../studentPages/Assignments/Ass2'
 
@@ -28,6 +29,7 @@ const StudentCourseDetails = (props) => {
         <Route path="/Assignments" exact render={() => <AssignmentList courseID = {courseID} userID = {userID}/>}/>
         <Route path="/A1" exact render={() => <A1 courseID = {courseID} userID = {userID}/>}/>
         <Route path="/Products/M1" exact component={M1} />
+        <Route path="/Products/M2" exact component={M2} />
         {/*<Route path="/Assignments/Ass1" exact component={Ass1} />*/}
         <Route path="/Assignments/Ass2" exact component={Ass2} />
         </Switch>

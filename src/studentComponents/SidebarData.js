@@ -20,11 +20,11 @@ export const SidebarData = [
 
     subNav: [
       {
-        title: 'M1',
+        title: 'Week 1 Modules',
         path: '/Products/M1'
       },
       {
-        title: 'M2',
+        title: 'Week 2 Modules',
         path: '/Products/M2'
       }
     ]
