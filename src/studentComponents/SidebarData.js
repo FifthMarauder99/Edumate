@@ -33,7 +33,7 @@ export const SidebarData = [
     title: 'Assignments',
     path: '/Assignments',
 
-    subNav: [
+    /*subNav: [
       {
         title: 'Lecture Summary 1',
         path: '/Assignments/Ass1'
@@ -42,7 +42,7 @@ export const SidebarData = [
         title: 'Lecture Summary 2',
         path: '/Assignments/Ass2'
       }
-    ]
+    ]*/
   },
 
   {

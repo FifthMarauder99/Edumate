@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti'
 import './Ass1.css'
 
-function Ass1 () {
+const Ass1 = () =>{
   const submissionDate = new Date('May 1, 2023')
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState(null)
@@ -35,9 +35,10 @@ function Ass1 () {
       setSubmissionStatus('late')
     }
   }
+  const myList = ['Item 1', 'Item 2', 'Item 3'];
 
   return (
-    <div className="modules-container">
+ <>{/*<div className="modules-container">
       <h1 className="modules-heading">Lecture Summary 1</h1>
       <p className="modules-total-marks">Total Marks: 30</p>
       <p className="modules-submission-date">Submission Date: 1 May 2023</p>
@@ -64,8 +65,13 @@ function Ass1 () {
           <embed src={preview} type="application/pdf" width="100%" height="600px" />
         )}
       </div>
-    </div>
+        </div>*/}
+        <div>
+          Hello
+        </div>
+    </> 
+      
   )
 }
 
-export default Ass1
+export default Ass1;

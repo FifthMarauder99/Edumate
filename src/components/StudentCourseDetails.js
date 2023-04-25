@@ -10,6 +10,8 @@ import M1 from '../studentPages/Products/M1'
 import Ass1 from '../studentPages/Assignments/Ass1'
 import Ass2 from '../studentPages/Assignments/Ass2'
 
+
+
 const StudentCourseDetails = (props) => {
   const courseClicked = props.courseTitle;
   const courseID = props.courseID;
@@ -17,13 +19,12 @@ const StudentCourseDetails = (props) => {
 
   return (
     <div>
-
     <Router>
       <Sidebar />
       <Switch>
       <Route path="/Home" exact render={() => <Home course={courseClicked} courseID = {courseID} />} />
         <Route path="/Chats" exact component={Chats} />
-        <Route path="/Assignments" exact component={AssignmentList} />
+        <Route path="/Assignments" exact render={() => <AssignmentList courseID = {courseID} userID = {userID}/>}/>
         <Route path="/A1" exact render={() => <A1 courseID = {courseID} userID = {userID}/>}/>
         <Route path="/Products/M1" exact component={M1} />
         <Route path="/Assignments/Ass1" exact component={Ass1} />
