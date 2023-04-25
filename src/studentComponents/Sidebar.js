@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import * as FaIcons from 'react-icons/fa'
@@ -31,7 +31,7 @@ const SidebarNav = styled.nav`
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 0;
+  top: 80px;
   left: ${({ sidebar }) => (sidebar ? '200' : '-100%')};
   transition: left 1.5s ease-in-out;
   z-index: 10;
@@ -42,10 +42,14 @@ const SidebarWrap = styled.div`
 `
 
 const Sidebar = () => {
+
   const [sidebar, setSidebar] = useState(false)
 
-  const showSidebar = () => setSidebar(!sidebar)
+  const [selectedItem, setSelectedItem] = useState(SidebarData[0]);
 
+
+  const showSidebar = () => setSidebar(!sidebar)
+  if(selectedItem.title) console.log(selectedItem.title)
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -60,7 +64,7 @@ const Sidebar = () => {
               <AiIcons.AiOutlineClose onClick={showSidebar} />
             </NavIcon>
             {SidebarData.map((item, index) => {
-              return <SubMenu item={item} key={index} />
+              return <SubMenu item={item} key={index} setSelectedItem={setSelectedItem} />
             })}
           </SidebarWrap>
         </SidebarNav>

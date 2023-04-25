@@ -3,8 +3,10 @@ import { useHistory, useLocation, Router, Route, Switch } from 'react-router-dom
 import { Layout, Menu, Card, Row, Col, Input } from 'antd'
 import StudentCourseDetails from './StudentCourseDetails'
 import MyCalendar from './MyCalender'
+import logo from './edumatelogo.png'
 import Search from 'antd/es/transfer/search'
 const { Header, Content, Sider } = Layout
+
 
 const attemptFetchCourses = async (url = '', uid) => {
   const response = await fetch(url, {
@@ -47,7 +49,7 @@ const MainScreen = ({ subjects, onSelectCourse }) => {
     console.log(courses)
   }
   function handleCardClick (subject) {
-    onSelectCourse(subject.course_title)
+    onSelectCourse(subject/*.course_title*/)
     console.log('Clicked in main screen', subject)
   }
 
@@ -132,7 +134,7 @@ const Sidebar = ({ subjects, onMenuClick }) => {
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" title="Courses">
           {courses.map((subject) => (
-            <Menu.Item key={subject.course_id} onClick={() => handleItemClick(subject.course_title)}>{subject.course_title}</Menu.Item>
+            <Menu.Item key={subject.course_id} onClick={() => handleItemClick(subject/*.course_title*/)}>{subject.course_title}</Menu.Item>
           ))}
         </Menu.SubMenu>
         <Menu.SubMenu key="sub3" title="Assignments">
@@ -181,9 +183,10 @@ const Home = ({ Profile }) => {
   console.log('In home', Profile)
   return (
     <div>
+      <div style={{ marginTop: '100px', marginLeft: '200px' }}>
       <h1>Home</h1>
-      <p>Homepage.</p>
       <p> Welcome {Profile} !</p>
+      </div>
     </div>
   )
 }
@@ -215,7 +218,7 @@ const StudentDashboard = () => {
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  console.log('Sidebar Item clicked : ', selectedItem)
+  console.log('Sidebar Item clicked : ', selectedItem,selectedItem.course_id)
   console.log('Selected course in dashboard', selectedCourse)
 
   return (
@@ -223,11 +226,10 @@ const StudentDashboard = () => {
         <Header className="header">
           <div className="logo-container">
             <img
-              src="https://dummyimage.com/50x50/f0f0f0/000000.png&text=LMS+Logo"
-              alt="LMS Logo"
+              src={logo}
               className="logo"
             />
-            <span className="title">Edumate Dashboard</span>
+            {/*<span className="title">Edumate Dashboard</span>*/}
           </div>
         </Header>
         <Layout>
@@ -240,18 +242,17 @@ const StudentDashboard = () => {
                 <Home Profile = {id[0]}/>)
               : selectedItem === 'Overview'
                 ? (
-                    selectedCourse ? <StudentCourseDetails course = {selectedCourse} /> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
+                    selectedCourse ? <StudentCourseDetails  courseTitle = {selectedCourse.course_title} courseID = {selectedCourse.course_id} userID= {id[1]}/> : <MainScreen subjects={id[1]} onSelectCourse={handleCardClick} />
                   )
-                : selectedItem === 'Grades'
-                  ? (
-    <GradesScreen/>
-                    )
-                  : selectedItem === 'Calender'
+                  : selectedItem === 'Grades'
                     ? (
-    <MyCalendar />
+    <GradesScreen/>
                       )
-                    : selectedItem
-                      ? (<StudentCourseDetails course = {selectedItem} />)
+                    : selectedItem === 'Calender'
+                      ? (
+    <MyCalendar />
+                        )
+                        : selectedItem ? ( <StudentCourseDetails courseTitle = {selectedItem.course_title} courseID = {selectedItem.course_id} userID= {id[1]}/> )
                       : (
     <div>No content selected</div>
                         )}

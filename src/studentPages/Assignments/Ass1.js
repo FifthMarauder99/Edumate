@@ -1,8 +1,71 @@
 import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti'
 import './Ass1.css'
+import mypdf1 from './AdeshOak_lectureSummary.pdf'
+import mypdf2 from './AdeshOak_lecture2Summary.pdf'
 
-function Ass1 () {
+const Ass1 = ({location}) =>{
+
+  
+  const assignData = {
+    title:location.state.object.title,
+    total:location.state.object.totalMarks,
+    grade:location.state.object.grade,
+    subdate:location.state.object.subDate,
+  }
+
+  console.log("IN THAT ASSIGNMENT PAGE:",assignData)
+
+  
+  let submitted=false;
+  if(assignData.subdate){
+    submitted = true;
+  }
+
+  
+  
+    return (
+      <div className="Ass1">
+        {submitted ? (
+          <SubmittedAss1 assignmentData = {assignData}/>
+        ) : (
+          <NotSubmitted assignmentData = {assignData}/>
+        )}
+      </div>
+    );
+  };
+  
+  const SubmittedAss1 = ({assignmentData}) => {
+
+    const mypdfs = {
+      'Lecture Summary 1': mypdf1,
+      'Lecture Summary 2': mypdf2,
+    };
+  
+    const pdfSrc = mypdfs[assignmentData.title];
+    const subDate = new Date(assignmentData.subdate)
+    const formattedDate = subDate.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    return (
+      <div className="modules-container">
+        <h1 className="modules-heading">{assignmentData.title}</h1>
+        <p className="modules-total-marks">Total Marks: {assignmentData.total}</p>
+        <p className="modules-submission-date">
+          Submission Date: {formattedDate}
+        </p>
+        <p className="success-text">Grade: {assignmentData.grade}</p>
+        <div className="modules-pdf">
+          <embed src={pdfSrc} type="application/pdf" width="100%" height="600px" />
+        </div>
+        
+      </div>
+    );
+  };
+  
+  const NotSubmitted = ({assignmentData}) =>{
   const submissionDate = new Date('May 1, 2023')
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState(null)
@@ -35,12 +98,13 @@ function Ass1 () {
       setSubmissionStatus('late')
     }
   }
+  const myList = ['Item 1', 'Item 2', 'Item 3'];
 
   return (
-    <div className="modules-container">
-      <h1 className="modules-heading">Assignment 1</h1>
-      <p className="modules-total-marks">Total Marks: 30</p>
-      <p className="modules-submission-date">Submission Date: 1 May 2023</p>
+ <><div className="modules-container">
+      <h1 className="modules-heading">{assignmentData.title}</h1>
+      <p className="modules-total-marks">Total Marks: {assignmentData.total}</p>
+      <p className="modules-submission-date">Submission Date: May 1, 2023</p>
       <form onSubmit={handleFormSubmit}>
         <div className="modules-file-input">
           <label htmlFor="file-input">Upload File</label>
@@ -64,8 +128,10 @@ function Ass1 () {
           <embed src={preview} type="application/pdf" width="100%" height="600px" />
         )}
       </div>
-    </div>
+        </div>
+    </> 
+      
   )
 }
 
-export default Ass1
+export default Ass1;
