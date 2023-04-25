@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti'
 import './Ass1.css'
-import myPdf from './AdeshOak_lecture11Summary.pdf'
+import mypdf1 from './AdeshOak_lectureSummary.pdf'
+import mypdf2 from './AdeshOak_lecture2Summary.pdf'
 
 const Ass1 = ({location}) =>{
 
@@ -20,6 +21,8 @@ const Ass1 = ({location}) =>{
   if(assignData.subdate){
     submitted = true;
   }
+
+  
   
     return (
       <div className="Ass1">
@@ -33,6 +36,13 @@ const Ass1 = ({location}) =>{
   };
   
   const SubmittedAss1 = ({assignmentData}) => {
+
+    const mypdfs = {
+      'Lecture Summary 1': mypdf1,
+      'Lecture Summary 2': mypdf2,
+    };
+  
+    const pdfSrc = mypdfs[assignmentData.title];
     const subDate = new Date(assignmentData.subdate)
     const formattedDate = subDate.toLocaleDateString('en-US', {
       month: 'long',
@@ -48,7 +58,7 @@ const Ass1 = ({location}) =>{
         </p>
         <p className="success-text">Grade: {assignmentData.grade}</p>
         <div className="modules-pdf">
-          <embed src={myPdf} type="application/pdf" width="100%" height="600px" />
+          <embed src={pdfSrc} type="application/pdf" width="100%" height="600px" />
         </div>
         
       </div>
