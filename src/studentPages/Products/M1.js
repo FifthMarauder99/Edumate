@@ -6,7 +6,7 @@ function M1 () {
   return (
     <div className="modules-container">
       <h1 className="modules-heading">Week 1 Learning Modules</h1>
-      <p className="modules-text">In this week, we will be learning about The Product And The Process in Software Engineering
+      <p className="modules-text">Welcome to week 1!<br></br>In this week, we will be learning about The Product And The Process in Software Engineering
       <br></br>
       More reference files will be uploaded soon.<br></br>
       Till then refer the slides below.</p>

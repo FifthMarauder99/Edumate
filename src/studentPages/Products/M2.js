@@ -5,8 +5,8 @@ import myPdf from './Week2_LM.pdf'
 function M2 () {
   return (
     <div className="modules-container">
-      <h1 className="modules-heading">Week 1 Learning Modules</h1>
-      <p className="modules-text">In this week, we will be learning in depth about the <b>Software Process</b>
+      <h1 className="modules-heading">Week 2 Learning Modules</h1>
+      <p className="modules-text">Welcome to week 2!<br></br>In this week, we will be learning in depth about the <b>Software Process</b>
       <br></br>
       More reference files will be uploaded soon.<br></br>
       Till then refer the slides below.</p>
