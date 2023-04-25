@@ -17,6 +17,10 @@ var getCoursesRouter = require("./routes/getCourses")
 var getStudentRouter = require("./routes/getStudents");
 var getProfessorRouter = require("./routes/getProfessors");
 var updateEnrollmentRouter = require("./routes/updateEnrollment");
+var getModulesRouter = require("./routes/professor/getModules");
+var addModuleRouter = require("./routes/professor/addModule");
+var removeModuleRouter = require("./routes/professor/removeModule");
+var editModuleRouter = require("./routes/professor/editModule");
 var getCourseGradeRouter = require("./routes/getCourseGrades");
 var getCourseAssignmentRouter = require("./routes/getCourseAssignments");
 
@@ -47,6 +51,10 @@ app.use('/getStudents', getStudentRouter);
 app.use('/getProfessors', getProfessorRouter);
 app.use('/getCourses', getCoursesRouter);
 app.use('/updateEnrollment', updateEnrollmentRouter);
+app.use('/getModules', getModulesRouter);
+app.use('/addModule', addModuleRouter);
+app.use('/removeModule', removeModuleRouter);
+app.use('/editModule', editModuleRouter);
 app.use('/getCourseGrades',getCourseGradeRouter)
 app.use('/getCourseAssignments',getCourseAssignmentRouter)
 
